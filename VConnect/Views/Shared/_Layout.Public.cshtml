@@ -1,0 +1,62 @@
+﻿@using VConnect.Models
+@{
+    Layout = null; // this is a full layout file
+    var nav = new NavViewModel
+    {
+        LogoUrl = Url.Content("~/images/j.png"),
+        ApplyNowUrl = null,
+        Items = new List<NavItem>
+        {
+            new NavItem { Text = "Home",            Url = Url.Action("Index","Home") },
+            new NavItem { Text = "Donate",          Url = Url.Action("Donate","Support") },
+            new NavItem { Text = "Case Studies",    Url = Url.Action("Index","Cases") },
+            new NavItem { Text = "Meet Our Heroes", Url = Url.Action("Heroes","Home") },
+            new NavItem { Text = "About Us",        Url = Url.Action("About","Home") },
+            new NavItem { Text = "Login",           Url = Url.Action("Login","Account") },
+        }
+    };
+
+    // Mark active item
+    var currentPath = Context.Request.Path.Value?.ToLowerInvariant() ?? "";
+    foreach (var item in nav.Items)
+    {
+        if (!string.IsNullOrWhiteSpace(item.Url) &&
+            currentPath.StartsWith(item.Url.ToLowerInvariant()))
+        {
+            item.IsActive = true;
+        }
+    }
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>@ViewData["Title"] - VConnect</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+
+    <!-- Site CSS (after Bootstrap) -->
+    <link rel="stylesheet" href="~/css/site.css" />
+
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <!-- Navbar -->
+    @Html.Partial("_HeaderPublic", nav)
+
+    <!-- Main content -->
+    <main role="main">
+        @RenderBody()
+    </main>
+
+    <!-- Bootstrap JS bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Site JS -->
+    <script src="~/js/site.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

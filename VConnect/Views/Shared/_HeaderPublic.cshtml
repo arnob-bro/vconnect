@@ -1,0 +1,52 @@
+﻿@model VConnect.Models.NavViewModel
+
+<header>
+    <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-transparent" id="mainNav">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="@Url.Content("~/")">
+                <img src="@Model.LogoUrl" alt="Logo" style="height:50px;">
+            </a>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
+                    aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+                    @foreach (var item in Model.Items)
+                    {
+                        if (item.Children.Count > 0)
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle @(item.IsActive ? "active" : "")"
+                                   href="@item.Url" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
+                                   aria-expanded="false" aria-haspopup="menu">
+                                    @item.Text
+                                </a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    @foreach (var child in item.Children)
+                                    {
+                                        <li><a class="dropdown-item" href="@child.Url">@child.Text</a></li>
+                                    }
+                                </ul>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link @(item.IsActive ? "active" : "")" href="@item.Url">@item.Text</a>
+                            </li>
+                        }
+                    }
+                </ul>
+
+                @* Optional CTA—hidden when ApplyNowUrl is null/empty *@
+                @if (!string.IsNullOrWhiteSpace(Model.ApplyNowUrl))
+                {
+                    <a href="@Model.ApplyNowUrl" class="btn btn-warning rounded-pill ms-lg-3">Apply Now</a>
+                }
+            </div>
+        </div>
+    </nav>
+</header>

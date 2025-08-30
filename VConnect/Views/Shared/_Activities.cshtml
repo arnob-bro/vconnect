@@ -1,0 +1,69 @@
+﻿@model VConnect.Models.ActivitiesSectionViewModel
+
+<section class="activities-wrap container-fluid px-4 py-5">
+    <div class="row g-4 align-items-start">
+        <!-- Cards carousel: wider -->
+        <div class="col-12 col-lg-9 order-2 order-lg-1">
+            @{
+                // Show 4 cards per slide on desktop (fallback to Model value if set)
+                int n = Model.CardsPerSlide > 0 ? Model.CardsPerSlide : 4;
+                var slides = Model.Cards
+                .Select((card, idx) => new { card, idx })
+                .GroupBy(x => x.idx / n)
+                .Select(g => g.Select(x => x.card).ToList())
+                .ToList();
+                string carId = "activitiesCarousel";
+            }
+
+            <div id="@carId" class="carousel slide" data-bs-ride="carousel" data-bs-interval="@Model.IntervalMs">
+                <div class="carousel-inner">
+                    @for (int s = 0; s < slides.Count; s++)
+                    {
+                        <div class="carousel-item @(s == 0 ? "active" : "")">
+                            <div class="row g-4">
+                                @foreach (var c in slides[s])
+                                {
+                                    <div class="col-12 col-md-6 col-lg-3">
+                                        <a class="activity-card d-block text-decoration-none" href="@(string.IsNullOrWhiteSpace(c.LinkUrl) ? "#" : c.LinkUrl)">
+                                            <div class="activity-img-wrap">
+                                                <img src="@Url.Content(c.ImageUrl)" class="img-fluid w-100" alt="@c.Title" />
+                                            </div>
+                                            <div class="activity-body">
+                                                <h3 class="activity-title">@c.Title</h3>
+                                                <div class="activity-pills">
+                                                    <span class="pill">@c.City</span>
+                                                    <span class="pill">@c.DateText</span>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    }
+                </div>
+
+                <!-- controls -->
+                <button class="carousel-control-prev" type="button" data-bs-target="#@carId" data-bs-slide="prev" aria-label="Previous">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#@carId" data-bs-slide="next" aria-label="Next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Aside: narrower -->
+        <div class="col-12 col-lg-3 order-1 order-lg-2">
+            <div class="activities-aside">
+                <div class="eyebrow">○○ @Model.Eyebrow</div>
+                <h2 class="activities-heading">
+                    @Model.HeadingLine1<br />
+                    @Model.HeadingLine2<br />
+                    @Model.HeadingLine3
+                </h2>
+                <a class="btn btn-warning rounded-pill fw-bold px-4 py-2" href="@Model.ViewAllUrl">View All Activities</a>
+            </div>
+        </div>
+    </div>
+</section>

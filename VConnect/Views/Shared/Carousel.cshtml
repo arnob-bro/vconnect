@@ -1,0 +1,40 @@
+﻿@* Public carousel: 5 auto-rotating images, no text overlay *@
+<section class="public-carousel">
+    <div id="publicCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="~/images/pic1.png" class="d-block w-100 public-carousel-img" alt="Slide 1">
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/pic2.png" class="d-block w-100 public-carousel-img" alt="Slide 2">
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/pic3.png" class="d-block w-100 public-carousel-img" alt="Slide 3">
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/pic4.png" class="d-block w-100 public-carousel-img" alt="Slide 4">
+            </div>
+            <div class="carousel-item">
+                <img src="~/images/pic5.png" class="d-block w-100 public-carousel-img" alt="Slide 5">
+            </div>
+        </div>
+
+        <!-- Dots -->
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#publicCarousel" data-bs-slide-to="0" class="active" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#publicCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#publicCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+            <button type="button" data-bs-target="#publicCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            <button type="button" data-bs-target="#publicCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+        </div>
+
+        <!-- Prev/Next arrows -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#publicCarousel" data-bs-slide="prev" aria-label="Previous slide">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#publicCarousel" data-bs-slide="next" aria-label="Next slide">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+    </div>
+</section>
+

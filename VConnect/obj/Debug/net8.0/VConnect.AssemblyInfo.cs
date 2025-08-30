@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("VConnect")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+237a317d4881ee3d94aa39815f73675b452cc3e0")]
 [assembly: System.Reflection.AssemblyProductAttribute("VConnect")]
 [assembly: System.Reflection.AssemblyTitleAttribute("VConnect")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

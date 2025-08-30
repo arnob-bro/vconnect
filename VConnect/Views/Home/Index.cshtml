@@ -1,8 +1,24 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
+    var activities = new ActivitiesSectionViewModel
+    {
+        ViewAllUrl = Url.Action("Index", "Activities"),
+        Cards = new List<ActivityCard>
+        {
+            new() { Title = "দায়িত্বর দীক্ষিতে পরিচ্ছন্নতার যাত্রা – পর্ব ৪", City = "Dhaka", DateText = "Aug 17th, 2025", ImageUrl = "~/images/act1.png", LinkUrl = "#" },
+            new() { Title = "জনসম্পৃক্ততায় পরিচ্ছন্নতার অভিয়াত্রা – পর্ব ২", City = "Dhaka", DateText = "Aug 10th, 2025", ImageUrl = "~/images/act2.png", LinkUrl = "#" },
+            new() { Title = "Wellbeing Week: Spreading Smiles", City = "Dhaka", DateText = "Aug 28th, 2025", ImageUrl = "~/images/act3.png", LinkUrl = "#" },
+            new() { Title = "Community Clean-Up", City = "Chattogram", DateText = "Sep 2nd, 2025", ImageUrl = "~/images/act.png", LinkUrl = "#" },
+            new() { Title = "Youth Leaders Meetup", City = "Rajshahi", DateText = "Sep 9th, 2025", ImageUrl = "~/images/act4.png", LinkUrl = "#" },
+            new() { Title = "Tree Plantation Drive", City = "Sylhet", DateText = "Sep 12th, 2025", ImageUrl = "~/images/act5.jpg", LinkUrl = "#" },
+        },
+        CardsPerSlide = 3,      // 3 per slide on desktop
+        IntervalMs = 4500       // rotates every 4.5s
+    };
 }
-
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+@Html.Partial("Carousel")
+@Html.Partial("_Activities", activities)
+@Html.Partial("_About")
+@Html.Partial("_Programs")
+@Html.Partial("_JoinUs")
+@Html.Partial("_Footer")

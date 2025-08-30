@@ -1,12 +1,241 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\User\\source\\repos\\VConnect\\",
-  "Documents": [],
+  "WorkspaceRootPath": "D:\\SD3.2\\vconnect\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\views\\shared\\_layout.public.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\shared\\_layout.public.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\views\\shared\\_programs.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\shared\\_programs.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\views\\shared\\_footer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\shared\\_footer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\views\\shared\\_joinus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\shared\\_joinus.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\views\\shared\\_about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\shared\\_about.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\views\\shared\\_activities.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\shared\\_activities.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\views\\shared\\carousel.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\shared\\carousel.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\models\\activityviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\models\\activityviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\models\\navviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\models\\navviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|d:\\sd3.2\\vconnect\\vconnect\\views\\shared\\_headerpublic.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\shared\\_headerpublic.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_Programs.cshtml",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_Programs.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\_Programs.cshtml",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_Programs.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Shared\\_Programs.cshtml",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAAAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-30T07:17:59.916Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "site.css",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "VConnect\\wwwroot\\css\\site.css",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "VConnect\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-08-29T21:57:36.38Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "_Layout.Public.cshtml",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_Layout.Public.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\_Layout.Public.cshtml",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_Layout.Public.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Shared\\_Layout.Public.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-29T21:46:33.513Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_Footer.cshtml",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_Footer.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\_Footer.cshtml",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_Footer.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Shared\\_Footer.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-30T09:11:26.572Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Home\\Index.cshtml",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-29T22:19:09.729Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "_JoinUs.cshtml",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_JoinUs.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\_JoinUs.cshtml",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_JoinUs.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Shared\\_JoinUs.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-30T08:55:47.563Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "_About.cshtml",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_About.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\_About.cshtml",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_About.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Shared\\_About.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-30T07:15:35.854Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ActivityViewModel.cs",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\Models\\ActivityViewModel.cs",
+              "RelativeDocumentMoniker": "VConnect\\Models\\ActivityViewModel.cs",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\Models\\ActivityViewModel.cs",
+              "RelativeToolTip": "VConnect\\Models\\ActivityViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-30T04:56:16.422Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "_Activities.cshtml",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_Activities.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\_Activities.cshtml",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_Activities.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Shared\\_Activities.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAABVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-30T05:21:48.217Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "NavViewModel.cs",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\Models\\NavViewModel.cs",
+              "RelativeDocumentMoniker": "VConnect\\Models\\NavViewModel.cs",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\Models\\NavViewModel.cs",
+              "RelativeToolTip": "VConnect\\Models\\NavViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-08-29T21:10:47.28Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "Carousel.cshtml",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\Carousel.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\Carousel.cshtml",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\Carousel.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Shared\\Carousel.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-30T00:50:40.031Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "_ViewStart.cshtml",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\Views\\_ViewStart.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\_ViewStart.cshtml",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\Views\\_ViewStart.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\_ViewStart.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAyAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-29T22:08:42.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "_HeaderPublic.cshtml",
+              "DocumentMoniker": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_HeaderPublic.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\_HeaderPublic.cshtml",
+              "ToolTip": "D:\\SD3.2\\vconnect\\VConnect\\Views\\Shared\\_HeaderPublic.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Shared\\_HeaderPublic.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-08-29T21:29:38.345Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }
