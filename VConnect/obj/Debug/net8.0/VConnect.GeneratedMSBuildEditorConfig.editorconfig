@@ -9,73 +9,89 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = VConnect
 build_property.RootNamespace = VConnect
-build_property.ProjectDir = D:\SD3.2\vconnect\VConnect\
+build_property.ProjectDir = c:\Users\Mahdi\Desktop\vconnect\VConnect\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\SD3.2\vconnect\VConnect
+build_property.MSBuildProjectDirectory = c:\Users\Mahdi\Desktop\vconnect\VConnect
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Home/Index.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Account1/Login.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudDFcTG9naW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Account1/Register.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudDFcUmVnaXN0ZXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Donation/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uYXRpb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Donation/Success.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRG9uYXRpb25cU3VjY2Vzcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Home/Privacy.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Shared/Carousel.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Shared/Carousel.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXENhcm91c2VsLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Shared/Error.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Shared/_About.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Shared/_About.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BYm91dC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Shared/_Activities.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Shared/_Activities.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9BY3Rpdml0aWVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Shared/_Footer.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Shared/_Footer.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Gb290ZXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Shared/_HeaderPublic.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Shared/_HeaderPublic.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9IZWFkZXJQdWJsaWMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Shared/_JoinUs.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Shared/_JoinUs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Kb2luVXMuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Shared/_Layout.Public.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Shared/_Layout.Public.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuUHVibGljLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Shared/_Programs.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Shared/_Programs.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9Qcm9ncmFtcy5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Shared/_ValidationScriptsPartial.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/_ViewImports.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/_ViewStart.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/SD3.2/vconnect/VConnect/Views/Shared/_Layout.cshtml]
+[c:/Users/Mahdi/Desktop/vconnect/VConnect/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-o6jsrp9f2v

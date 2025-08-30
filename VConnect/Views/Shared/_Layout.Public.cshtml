@@ -8,7 +8,7 @@
         Items = new List<NavItem>
         {
             new NavItem { Text = "Home",            Url = Url.Action("Index","Home") },
-            new NavItem { Text = "Donate",          Url = Url.Action("Donate","Support") },
+            new NavItem { Text = "Donate",          Url = Url.Action("Index","Donation") },
             new NavItem { Text = "Case Studies",    Url = Url.Action("Index","Cases") },
             new NavItem { Text = "Meet Our Heroes", Url = Url.Action("Heroes","Home") },
             new NavItem { Text = "About Us",        Url = Url.Action("About","Home") },
@@ -40,6 +40,9 @@
     <!-- Site CSS (after Bootstrap) -->
     <link rel="stylesheet" href="~/css/site.css" />
 
+    <!-- Font Awesome Icons -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
     @RenderSection("Styles", required: false)
 </head>
 <body>
@@ -56,6 +59,8 @@
 
     <!-- Site JS -->
     <script src="~/js/site.js"></script>
+
+
 
     @RenderSection("Scripts", required: false)
 </body>
