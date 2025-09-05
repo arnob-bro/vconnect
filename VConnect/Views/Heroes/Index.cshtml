@@ -1,0 +1,248 @@
+﻿@model VConnect.Models.HeroesViewModel
+@{
+    ViewData["Title"] = "Meet Our Heroes - VConnect";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Hero Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%); margin-top: 0;">
+    <div class="container py-5 text-center text-white">
+        <h1 class="display-4 fw-bold mb-3">Meet Our Heroes</h1>
+        <p class="lead mb-0">Celebrating the extraordinary volunteers who make VConnect possible</p>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <h2 class="display-4 fw-bold text-vol">@Model.TotalHeroes</h2>
+                    <p class="text-muted">Active Volunteers</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <h2 class="display-4 fw-bold text-vol">@Model.TotalHours</h2>
+                    <p class="text-muted">Hours Volunteered</p>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="stat-card">
+                    <h2 class="display-4 fw-bold text-vol">@Model.TotalProjects</h2>
+                    <p class="text-muted">Projects Completed</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Heroes -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-vol">Featured Heroes</h2>
+            <p class="lead">Our most dedicated volunteers making significant impacts</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var hero in Model.FeaturedHeroes)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="hero-card card border-0 shadow-lg h-100">
+                        <div class="hero-image-container">
+                            <img src="@hero.ProfileImage" class="hero-image" alt="@hero.FullName">
+                            <div class="hero-overlay">
+                                <a href="@Url.Action("Details", "Heroes", new { id = hero.Id })" class="btn btn-warning btn-sm">View Profile</a>
+                            </div>
+                        </div>
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">@hero.FullName</h5>
+                            <p class="text-muted mb-2">@hero.Role</p>
+                            <p class="text-vol mb-3"><i class="fas fa-map-marker-alt me-2"></i>@hero.Location</p>
+
+                            <div class="hero-stats d-flex justify-content-around mb-3">
+                                <div>
+                                    <h6 class="fw-bold mb-0">@hero.HoursVolunteered</h6>
+                                    <small class="text-muted">Hours</small>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-0">@hero.ProjectsCompleted</h6>
+                                    <small class="text-muted">Projects</small>
+                                </div>
+                                <div>
+                                    <h6 class="fw-bold mb-0">@hero.JoinedDate.ToString("yyyy")</h6>
+                                    <small class="text-muted">Since</small>
+                                </div>
+                            </div>
+
+                            <p class="card-text">@hero.ShortBio</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- All Heroes Grid -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-vol">Our Volunteer Community</h2>
+            <p class="lead">Join thousands of volunteers making a difference across Bangladesh</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var hero in Model.AllHeroes)
+            {
+                <div class="col-xl-3 col-lg-4 col-md-6">
+                    <div class="hero-card-sm card border-0 shadow-sm h-100">
+                        <div class="hero-image-sm-container">
+                            <img src="@hero.ProfileImage" class="hero-image-sm" alt="@hero.FullName">
+                        </div>
+                        <div class="card-body text-center">
+                            <h6 class="card-title fw-bold mb-1">@hero.FullName</h6>
+                            <p class="text-muted small mb-2">@hero.Role</p>
+                            <div class="hero-stats-sm d-flex justify-content-center gap-3 mb-2">
+                                <div>
+                                    <span class="fw-bold">@hero.HoursVolunteered</span>
+                                    <small class="text-muted d-block">Hours</small>
+                                </div>
+                                <div>
+                                    <span class="fw-bold">@hero.ProjectsCompleted</span>
+                                    <small class="text-muted d-block">Projects</small>
+                                </div>
+                            </div>
+                            <a href="@Url.Action("Details", "Heroes", new { id = hero.Id })" class="btn btn-outline-vol btn-sm">View Profile</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%);">
+    <div class="container text-center text-white">
+        <h2 class="fw-bold mb-3">Become a Hero Today</h2>
+        <p class="lead mb-4">Join our community of volunteers and make a difference in your community</p>
+        <a href="@Url.Action("Register", "Account")" class="btn btn-warning btn-lg px-5 py-3">
+            <i class="fas fa-user-plus me-2"></i>Join Now
+        </a>
+    </div>
+</section>
+
+@section Styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .stat-card {
+            padding: 2rem 1rem;
+        }
+
+        .hero-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+            .hero-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+            }
+
+        .hero-image-container {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+        }
+
+        .hero-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-card:hover .hero-image {
+            transform: scale(1.05);
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(11, 61, 46, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-card:hover .hero-overlay {
+            opacity: 1;
+        }
+
+        .hero-stats {
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 1rem 0;
+        }
+
+        /* Small hero cards */
+        .hero-card-sm {
+            transition: transform 0.3s ease;
+            border-radius: 10px;
+        }
+
+            .hero-card-sm:hover {
+                transform: translateY(-3px);
+            }
+
+        .hero-image-sm-container {
+            height: 120px;
+            overflow: hidden;
+        }
+
+        .hero-image-sm {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-stats-sm {
+            font-size: 0.9rem;
+        }
+
+        .btn-outline-vol {
+            color: #0b3d2e;
+            border-color: #0b3d2e;
+        }
+
+            .btn-outline-vol:hover {
+                background-color: #0b3d2e;
+                color: white;
+            }
+
+        /* Responsive adjustments */
+        @@media (max-width: 768px) {
+            .hero-image-container {
+                height: 200px;
+            }
+
+            .stat-card {
+                padding: 1.5rem 0.5rem;
+            }
+
+            .display-4 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+}

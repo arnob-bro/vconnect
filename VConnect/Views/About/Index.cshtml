@@ -1,0 +1,316 @@
+﻿@model VConnect.Models.AboutPage
+@{
+    ViewData["Title"] = "About Us - VConnect";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Hero Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%); margin-top: 0;">
+    <div class="container py-5 text-center text-white">
+        <h1 class="display-4 fw-bold mb-3">About VConnect</h1>
+        <p class="lead mb-0">Empowering youth to create sustainable change across Bangladesh</p>
+    </div>
+</section>
+
+<!-- Mission Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <h2 class="fw-bold text-vol mb-4">Our Mission</h2>
+                <p class="lead">@Model.MissionStatement</p>
+                <p>@Model.History</p>
+            </div>
+            <div class="col-lg-6">
+                <div class="about-gallery d-flex flex-wrap gap-2">
+                    <img src="~/images/about/1.jpg" class="about-img" alt="VConnect volunteers" />
+                    <img src="~/images/about/2.jpg" class="about-img" alt="Community project" />
+                    <img src="~/images/about/3.jpg" class="about-img" alt="Youth empowerment" />
+                    <img src="~/images/about/4.jpg" class="about-img" alt="Sustainable development" />
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card">
+                    <h2 class="display-4 fw-bold text-vol">@Model.Stats.Volunteers.ToString("N0")</h2>
+                    <p class="text-muted">Volunteers</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card">
+                    <h2 class="display-4 fw-bold text-vol">@Model.Stats.ProjectsCompleted.ToString("N0")</h2>
+                    <p class="text-muted">Projects Completed</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card">
+                    <h2 class="display-4 fw-bold text-vol">@Model.Stats.CommunitiesServed.ToString("N0")</h2>
+                    <p class="text-muted">Communities Served</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card">
+                    <h2 class="display-4 fw-bold text-vol">@Model.Stats.HoursVolunteered.ToString("N0")</h2>
+                    <p class="text-muted">Hours Volunteered</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Values Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-vol">Our Values</h2>
+            <p class="lead">The principles that guide everything we do</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var value in Model.Values)
+            {
+                <div class="col-lg-3 col-md-6">
+                    <div class="value-card card border-0 shadow-sm h-100 text-center">
+                        <div class="card-body">
+                            <div class="value-icon mb-3">
+                                <i class="@value.Icon fa-3x text-vol"></i>
+                            </div>
+                            <h5 class="card-title fw-bold">@value.Title</h5>
+                            <p class="card-text">@value.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Timeline Section -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-vol">Our Journey</h2>
+            <p class="lead">Milestones in our growth and impact</p>
+        </div>
+
+        <div class="timeline">
+            @foreach (var eventItem in Model.TimelineEvents)
+            {
+                <div class="timeline-item">
+                    <div class="timeline-year">
+                        <span class="year-badge">@eventItem.Year</span>
+                    </div>
+                    <div class="timeline-content">
+                        <h5 class="fw-bold">@eventItem.Title</h5>
+                        <p>@eventItem.Description</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Team Section -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold text-vol">Leadership Team</h2>
+            <p class="lead">The passionate individuals driving our mission forward</p>
+        </div>
+
+        <div class="row g-4">
+            @foreach (var member in Model.TeamMembers)
+            {
+                <div class="col-lg-4 col-md-6">
+                    <div class="team-card card border-0 shadow-lg">
+                        <img src="@member.ImageUrl" class="card-img-top team-image" alt="@member.Name">
+                        <div class="card-body text-center">
+                            <h5 class="card-title fw-bold">@member.Name</h5>
+                            <p class="text-vol mb-3">@member.Position</p>
+                            <p class="card-text">@member.Bio</p>
+
+                            @if (!string.IsNullOrEmpty(member.SocialLinks))
+                            {
+                                <div class="social-links mt-3">
+                                    @foreach (var link in member.SocialLinks.Split(','))
+                                    {
+                                        var parts = link.Split('|');
+                                        if (parts.Length == 2)
+                                        {
+                                            <a href="@parts[1]" class="text-vol me-2" target="_blank">
+                                                <i class="fab fa-@parts[0] fa-lg"></i>
+                                            </a>
+                                        }
+                                    }
+                                </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%);">
+    <div class="container text-center text-white">
+        <h2 class="fw-bold mb-3">Join Our Movement</h2>
+        <p class="lead mb-4">Become part of the change and help us build a better Bangladesh</p>
+        <div class="d-flex gap-3 justify-content-center">
+            <a href="@Url.Action("Register", "Account")" class="btn btn-warning btn-lg px-4">
+                <i class="fas fa-user-plus me-2"></i>Join as Volunteer
+            </a>
+            <a href="@Url.Action("Index", "Donation")" class="btn btn-outline-light btn-lg px-4">
+                <i class="fas fa-donate me-2"></i>Support Our Work
+            </a>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .stat-card {
+            padding: 2rem 1rem;
+        }
+
+        .about-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .about-img {
+            width: 48%;
+            border-radius: 8px;
+            object-fit: cover;
+            height: 150px;
+        }
+
+        .value-card {
+            transition: transform 0.3s ease;
+            border-radius: 15px;
+            padding: 2rem 1rem;
+        }
+
+            .value-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #e8f5e8;
+            border-radius: 50%;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .timeline-item {
+            display: flex;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .timeline-year {
+            flex: 0 0 100px;
+            text-align: right;
+            padding-right: 2rem;
+        }
+
+        .year-badge {
+            background: #0b3d2e;
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: white;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-left: 4px solid #0b3d2e;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 100px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #0b3d2e;
+        }
+
+        /* Team */
+        .team-card {
+            transition: transform 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+            .team-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .team-image {
+            height: 250px;
+            object-fit: cover;
+        }
+
+        .social-links a {
+            transition: color 0.3s ease;
+        }
+
+            .social-links a:hover {
+                color: #ffd700 !important;
+            }
+
+        /* Responsive */
+        @@media (max-width: 768px) {
+            .timeline-item {
+                flex-direction: column;
+            }
+
+            .timeline-year {
+                text-align: left;
+                padding-right: 0;
+                margin-bottom: 1rem;
+            }
+
+            .timeline::before {
+                left: 15px;
+            }
+
+            .about-img {
+                width: 100%;
+                margin-bottom: 0.5rem;
+            }
+
+            .stat-card {
+                padding: 1.5rem 0.5rem;
+            }
+        }
+    </style>
+}

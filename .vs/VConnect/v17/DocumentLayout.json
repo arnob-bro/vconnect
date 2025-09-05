@@ -3,40 +3,100 @@
   "WorkspaceRootPath": "C:\\Users\\Mahdi\\Desktop\\vconnect\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\case\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\case\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\case\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\case\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\shared\\_layout.public.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\shared\\_layout.public.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\donation\\success.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\donation\\success.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\models\\casestudypage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\models\\casestudypage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\controllers\\casecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\controllers\\casecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\about\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\about\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\models\\aboutpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\models\\aboutpage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\controllers\\aboutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\controllers\\aboutcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\models\\navviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\models\\navviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\shared\\_footer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\shared\\_footer.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\heroes\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\heroes\\details.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\heroes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\heroes\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\controllers\\heroescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\controllers\\heroescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\models\\heromodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\models\\heromodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\donation\\stats.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\donation\\stats.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\donation\\thankyou.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\donation\\thankyou.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\donation\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\donation\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\models\\donationmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\models\\donationmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\controllers\\donationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\controllers\\donationcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\models\\donationmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\models\\donationmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\account1\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\account1\\login.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\account1\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\views\\account1\\register.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\models\\navviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|solutionrelative:vconnect\\models\\navviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{9E5FC189-055F-47D6-AA44-815BE2384B20}|VConnect\\VConnect.csproj|c:\\users\\mahdi\\desktop\\vconnect\\vconnect\\views\\shared\\_headerpublic.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -50,128 +110,323 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Success.cshtml",
-              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Donation\\Success.cshtml",
-              "RelativeDocumentMoniker": "VConnect\\Views\\Donation\\Success.cshtml",
-              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Donation\\Success.cshtml",
-              "RelativeToolTip": "VConnect\\Views\\Donation\\Success.cshtml",
-              "ViewState": "AgIAABMAAAAAAAAAAAAAACcAAAAGAAAAAAAAAA==",
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Case\\Details.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Case\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Case\\Details.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Case\\Details.cshtml",
+              "ViewState": "AgIAANQAAAAAAAAAAADwv+YAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-30T20:53:44.966Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "DonationModels.cs",
-              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\DonationModels.cs",
-              "RelativeDocumentMoniker": "VConnect\\Models\\DonationModels.cs",
-              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\DonationModels.cs",
-              "RelativeToolTip": "VConnect\\Models\\DonationModels.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAwwC0AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T20:51:41.08Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "DonationController.cs",
-              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\DonationController.cs",
-              "RelativeDocumentMoniker": "VConnect\\Controllers\\DonationController.cs",
-              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\DonationController.cs",
-              "RelativeToolTip": "VConnect\\Controllers\\DonationController.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAwwCwAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T20:50:55.562Z",
+              "WhenOpened": "2025-09-05T21:37:04.77Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "_Layout.Public.cshtml",
-              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Shared\\_Layout.Public.cshtml",
-              "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\_Layout.Public.cshtml",
-              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Shared\\_Layout.Public.cshtml",
-              "RelativeToolTip": "VConnect\\Views\\Shared\\_Layout.Public.cshtml",
-              "ViewState": "AgIAAEMAAAAAAAAAAAAAAAoAAABbAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-30T20:40:25.084Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Donation\\Index.cshtml",
-              "RelativeDocumentMoniker": "VConnect\\Views\\Donation\\Index.cshtml",
-              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Donation\\Index.cshtml",
-              "RelativeToolTip": "VConnect\\Views\\Donation\\Index.cshtml",
-              "ViewState": "AgIAAA8BAAAAAAAAAAAwwCkBAAABAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Case\\Index.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Case\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Case\\Index.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Case\\Index.cshtml",
+              "ViewState": "AgIAAEQBAAAAAAAAAAAAwFYBAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-30T20:52:59.389Z",
+              "WhenOpened": "2025-09-05T21:36:15.139Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "NavViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\NavViewModel.cs",
-              "RelativeDocumentMoniker": "VConnect\\Models\\NavViewModel.cs",
-              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\NavViewModel.cs",
-              "RelativeToolTip": "VConnect\\Models\\NavViewModel.cs",
-              "ViewState": "AgIAAAEAAAAAAAAAAAAIwBEAAAABAAAAAAAAAA==",
+              "DocumentIndex": 4,
+              "Title": "CaseStudyPage.cs",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\CaseStudyPage.cs",
+              "RelativeDocumentMoniker": "VConnect\\Models\\CaseStudyPage.cs",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\CaseStudyPage.cs",
+              "RelativeToolTip": "VConnect\\Models\\CaseStudyPage.cs",
+              "ViewState": "AgIAACEAAAAAAAAAAAAIwDgAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-08-30T20:23:01.228Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "Register.cshtml",
-              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Account1\\Register.cshtml",
-              "RelativeDocumentMoniker": "VConnect\\Views\\Account1\\Register.cshtml",
-              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Account1\\Register.cshtml",
-              "RelativeToolTip": "VConnect\\Views\\Account1\\Register.cshtml",
-              "ViewState": "AgIAAKUAAAAAAAAAAAAwwL8AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-30T20:21:49.94Z",
+              "WhenOpened": "2025-09-05T21:35:40.538Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "CaseController.cs",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\CaseController.cs",
+              "RelativeDocumentMoniker": "VConnect\\Controllers\\CaseController.cs",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\CaseController.cs",
+              "RelativeToolTip": "VConnect\\Controllers\\CaseController.cs",
+              "ViewState": "AgIAAIgAAAAAAAAAAAAIwJ8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-05T21:35:06.164Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-05T21:17:00.878Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_Layout.Public.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Shared\\_Layout.Public.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\_Layout.Public.cshtml",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Shared\\_Layout.Public.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Shared\\_Layout.Public.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAABXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-05T21:17:11.696Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\About\\Index.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\About\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\About\\Index.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\About\\Index.cshtml",
+              "ViewState": "AgIAACQBAAAAAAAAAAAIwDsBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-05T21:30:21.757Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AboutPage.cs",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\AboutPage.cs",
+              "RelativeDocumentMoniker": "VConnect\\Models\\AboutPage.cs",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\AboutPage.cs",
+              "RelativeToolTip": "VConnect\\Models\\AboutPage.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAIwCAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-05T21:29:24.485Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AboutController.cs",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\AboutController.cs",
+              "RelativeDocumentMoniker": "VConnect\\Controllers\\AboutController.cs",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\AboutController.cs",
+              "RelativeToolTip": "VConnect\\Controllers\\AboutController.cs",
+              "ViewState": "AgIAAHAAAAAAAAAAAAAIwIcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-05T21:28:45.702Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "site.css",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\wwwroot\\css\\site.css",
+              "RelativeDocumentMoniker": "VConnect\\wwwroot\\css\\site.css",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\wwwroot\\css\\site.css",
+              "RelativeToolTip": "VConnect\\wwwroot\\css\\site.css",
+              "ViewState": "AgIAAGYAAAAAAAAAAAAuwH8AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-09-05T21:24:48.356Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "_Footer.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Shared\\_Footer.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\_Footer.cshtml",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Shared\\_Footer.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Shared\\_Footer.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-05T21:16:53.224Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "NavViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\NavViewModel.cs",
+              "RelativeDocumentMoniker": "VConnect\\Models\\NavViewModel.cs",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\NavViewModel.cs",
+              "RelativeToolTip": "VConnect\\Models\\NavViewModel.cs",
+              "ViewState": "AgIAAAUAAAAAAAAAAAAAwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-05T21:16:42.588Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Details.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Heroes\\Details.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Heroes\\Details.cshtml",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Heroes\\Details.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Heroes\\Details.cshtml",
+              "ViewState": "AgIAAPMAAAAAAAAAAAAuwA0BAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-05T21:12:25.143Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Heroes\\Index.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Heroes\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Heroes\\Index.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Heroes\\Index.cshtml",
+              "ViewState": "AgIAAN0AAAAAAAAAAAAqwPcAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-05T21:11:51.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "HeroesController.cs",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\HeroesController.cs",
+              "RelativeDocumentMoniker": "VConnect\\Controllers\\HeroesController.cs",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\HeroesController.cs",
+              "RelativeToolTip": "VConnect\\Controllers\\HeroesController.cs",
+              "ViewState": "AgIAAHUAAAAAAAAAAAAqwI8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-05T21:09:57.595Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "HeroModels.cs",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\HeroModels.cs",
+              "RelativeDocumentMoniker": "VConnect\\Models\\HeroModels.cs",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\HeroModels.cs",
+              "RelativeToolTip": "VConnect\\Models\\HeroModels.cs",
+              "ViewState": "AgIAACYAAAAAAAAAAAAqwEAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-05T21:09:06.715Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "Stats.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Donation\\Stats.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Donation\\Stats.cshtml",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Donation\\Stats.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Donation\\Stats.cshtml",
+              "ViewState": "AgIAACwAAAAAAAAAAAAAAEoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-05T21:04:30.839Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ThankYou.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Donation\\ThankYou.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Donation\\ThankYou.cshtml",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Donation\\ThankYou.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Donation\\ThankYou.cshtml",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAAAEoAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-05T21:03:29.099Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Donation\\Index.cshtml",
+              "RelativeDocumentMoniker": "VConnect\\Views\\Donation\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Donation\\Index.cshtml",
+              "RelativeToolTip": "VConnect\\Views\\Donation\\Index.cshtml",
+              "ViewState": "AgIAALABAAAAAAAAAAAqwLgBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-09-05T20:59:29.637Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "DonationController.cs",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\DonationController.cs",
+              "RelativeDocumentMoniker": "VConnect\\Controllers\\DonationController.cs",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\DonationController.cs",
+              "RelativeToolTip": "VConnect\\Controllers\\DonationController.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAAqwGQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-05T20:59:13.479Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "DonationModels.cs",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\DonationModels.cs",
+              "RelativeDocumentMoniker": "VConnect\\Models\\DonationModels.cs",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Models\\DonationModels.cs",
+              "RelativeToolTip": "VConnect\\Models\\DonationModels.cs",
+              "ViewState": "AgIAAOgAAAAAAAAAAAAqwAIBAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-05T19:59:32.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "VConnect\\Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "VConnect\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAkwCAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-09-05T19:50:55.344Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
               "Title": "Login.cshtml",
               "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Account1\\Login.cshtml",
               "RelativeDocumentMoniker": "VConnect\\Views\\Account1\\Login.cshtml",
               "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Account1\\Login.cshtml",
               "RelativeToolTip": "VConnect\\Views\\Account1\\Login.cshtml",
-              "ViewState": "AgIAAHgAAAAAAAAAAAAwwJIAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAHoAAAAAAAAAAAAwwJIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-08-30T20:21:11.679Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 23,
               "Title": "AccountController.cs",
               "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "VConnect\\Controllers\\AccountController.cs",
               "ToolTip": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Controllers\\AccountController.cs",
               "RelativeToolTip": "VConnect\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAABcAAAAAAAAAAAAswC4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-08-30T20:24:57.69Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 24,
               "Title": "_HeaderPublic.cshtml",
               "DocumentMoniker": "C:\\Users\\Mahdi\\Desktop\\vconnect\\VConnect\\Views\\Shared\\_HeaderPublic.cshtml",
               "RelativeDocumentMoniker": "VConnect\\Views\\Shared\\_HeaderPublic.cshtml",
@@ -179,8 +434,7 @@
               "RelativeToolTip": "VConnect\\Views\\Shared\\_HeaderPublic.cshtml",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAABgAAAAuAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-08-30T20:22:30.104Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-08-30T20:22:30.104Z"
             }
           ]
         }

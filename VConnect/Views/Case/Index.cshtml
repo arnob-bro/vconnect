@@ -1,0 +1,343 @@
+﻿@model VConnect.Models.CaseStudyPage
+@{
+    ViewData["Title"] = "Case Studies - VConnect";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Hero Section -->
+<section class="py-5" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%); margin-top: 0;">
+    <div class="container py-5 text-center text-white">
+        <h1 class="display-4 fw-bold mb-3">Case Studies</h1>
+        <p class="lead mb-0">Exploring our impact through real stories of change and transformation</p>
+    </div>
+</section>
+
+<!-- Impact Stats -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card">
+                    <h2 class="display-4 fw-bold" style="color: #0b3d2e;">@Model.ImpactStats.TotalCases</h2>
+                    <p class="text-muted">Successful Projects</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card">
+                    <h2 class="display-4 fw-bold" style="color: #0b3d2e;">@Model.ImpactStats.CommunitiesImpacted</h2>
+                    <p class="text-muted">Communities Impacted</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card">
+                    <h2 class="display-4 fw-bold" style="color: #0b3d2e;">@Model.ImpactStats.VolunteersInvolved</h2>
+                    <p class="text-muted">Volunteers Involved</p>
+                </div>
+            </div>
+            <div class="col-md-3 col-6 mb-4">
+                <div class="stat-card">
+                    <h2 class="display-4 fw-bold" style="color: #0b3d2e;">@Model.ImpactStats.SuccessRate%</h2>
+                    <p class="text-muted">Success Rate</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Featured Case Study -->
+<section class="py-5">
+    <div class="container">
+        <div class="text-center mb-5">
+            <span class="badge bg-warning text-dark mb-3">Featured Case Study</span>
+            <h2 class="fw-bold" style="color: #0b3d2e;">@Model.FeaturedCase.Title</h2>
+            <p class="lead">@Model.FeaturedCase.Subtitle</p>
+        </div>
+
+        <div class="row align-items-center">
+            <div class="col-lg-6">
+                <img src="@Model.FeaturedCase.ImageUrl" alt="@Model.FeaturedCase.Title" class="img-fluid rounded-3 shadow">
+            </div>
+            <div class="col-lg-6">
+                <div class="case-meta mb-4">
+                    <span class="badge text-white me-2" style="background-color: #0b3d2e;">@Model.FeaturedCase.Category</span>
+                    <span class="badge bg-secondary me-2">@Model.FeaturedCase.Location</span>
+                    <span class="badge bg-success">@Model.FeaturedCase.Status</span>
+                </div>
+
+                <p class="lead mb-4">@Model.FeaturedCase.ShortDescription</p>
+
+                <div class="case-stats row text-center mb-4">
+                    <div class="col-4">
+                        <h4 class="fw-bold mb-1" style="color: #0b3d2e;">@Model.FeaturedCase.Volunteers</h4>
+                        <small>Volunteers</small>
+                    </div>
+                    <div class="col-4">
+                        <h4 class="fw-bold mb-1" style="color: #0b3d2e;">@Model.FeaturedCase.Beneficiaries.ToString("N0")</h4>
+                        <small>Beneficiaries</small>
+                    </div>
+                    <div class="col-4">
+                        <h4 class="fw-bold mb-1" style="color: #0b3d2e;">@Model.FeaturedCase.Duration</h4>
+                        <small>Duration</small>
+                    </div>
+                </div>
+
+                <a href="@Url.Action("Details", "Case", new { id = Model.FeaturedCase.Id })" class="btn btn-warning btn-lg">
+                    <i class="fas fa-book-open me-2"></i>Read Full Case Study
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Categories Filter -->
+<section class="py-5 bg-light">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold" style="color: #0b3d2e;">Explore Our Work</h2>
+            <p class="lead">Browse case studies by category</p>
+        </div>
+
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-8">
+                <div class="categories-filter d-flex flex-wrap justify-content-center gap-2">
+                    <button class="btn btn-primary rounded-pill px-4 filter-btn active" data-filter="all">
+                        All <span class="badge bg-light text-dark ms-2">@Model.AllCases.Count</span>
+                    </button>
+                    @foreach (var category in Model.Categories.Where(c => c.Name != "All"))
+                    {
+                        <button class="btn btn-outline-primary rounded-pill px-4 filter-btn" data-filter="@category.Name.ToLower()">
+                            @if (!string.IsNullOrEmpty(category.Icon))
+                            {
+                                <i class="@category.Icon me-2"></i>
+                            }
+                            @category.Name <span class="badge bg-light text-dark ms-2">@category.Count</span>
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <!-- All Case Studies Grid -->
+        <div class="row g-4" id="caseStudiesGrid">
+            @foreach (var caseStudy in Model.AllCases)
+            {
+                <div class="col-lg-4 col-md-6 case-item" data-category="@caseStudy.Category.ToLower()">
+                    <div class="case-card card border-0 shadow-sm h-100">
+                        <div class="case-image-container">
+                            <img src="@caseStudy.ImageUrl" class="case-image" alt="@caseStudy.Title">
+                            <div class="case-overlay">
+                                <span class="badge text-white" style="background-color: #0b3d2e;">@caseStudy.Category</span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <div class="case-meta mb-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-map-marker-alt me-1"></i>@caseStudy.Location
+                                </small>
+                                <span class="badge @(caseStudy.Status == "Completed" ? "bg-success" : "bg-warning") float-end">
+                                    @caseStudy.Status
+                                </span>
+                            </div>
+
+                            <h5 class="card-title fw-bold" style="color: #0b3d2e;">@caseStudy.Title</h5>
+                            <p class="card-text">@caseStudy.ShortDescription</p>
+
+                            <div class="case-stats d-flex justify-content-between mb-3">
+                                <small>
+                                    <i class="fas fa-users me-1"></i>@caseStudy.Volunteers volunteers
+                                </small>
+                                <small>
+                                    <i class="fas fa-user-check me-1"></i>@caseStudy.Beneficiaries.ToString("N0") reached
+                                </small>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="@Url.Action("Details", "Case", new { id = caseStudy.Id })" class="btn btn-sm w-100" style="color: #0b3d2e; border-color: #0b3d2e;">
+                                Read Case Study
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+
+        <!-- No Results Message (Hidden by default) -->
+        <div id="noResults" class="text-center mt-5" style="display: none;">
+            <div class="py-5">
+                <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                <h4 class="text-muted">No case studies found</h4>
+                <p class="text-muted">Try selecting a different category</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%);">
+    <div class="container text-center text-white">
+        <h2 class="fw-bold mb-3">Inspired by Our Work?</h2>
+        <p class="lead mb-4">Join us in creating more success stories across Bangladesh</p>
+        <div class="d-flex gap-3 justify-content-center">
+            <a href="@Url.Action("Register", "Account")" class="btn btn-warning btn-lg px-4">
+                <i class="fas fa-user-plus me-2"></i>Join as Volunteer
+            </a>
+            <a href="@Url.Action("Index", "Donation")" class="btn btn-outline-light btn-lg px-4">
+                <i class="fas fa-donate me-2"></i>Support Our Projects
+            </a>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .stat-card {
+            padding: 2rem 1rem;
+        }
+
+        .case-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+            .case-card:hover {
+                transform: translateY(-5px);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+            }
+
+        .case-image-container {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .case-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .case-card:hover .case-image {
+            transform: scale(1.05);
+        }
+
+        .case-overlay {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+
+        .case-meta {
+            font-size: 0.9rem;
+        }
+
+        .case-stats {
+            font-size: 0.85rem;
+        }
+
+        .categories-filter .btn {
+            transition: all 0.3s ease;
+        }
+
+            .categories-filter .btn:hover {
+                background-color: #0b3d2e !important;
+                color: white !important;
+            }
+
+            /* Active filter button style */
+            .categories-filter .btn.active {
+                background-color: #0b3d2e !important;
+                color: white !important;
+                border-color: #0b3d2e !important;
+            }
+
+        /* Case study item animation */
+        .case-item {
+            transition: all 0.3s ease;
+        }
+
+            .case-item.hidden {
+                display: none;
+            }
+
+        /* Responsive adjustments */
+        @@media (max-width: 768px) {
+            .stat-card {
+                padding: 1.5rem 0.5rem;
+            }
+
+            .categories-filter {
+                flex-direction: column;
+                gap: 0.5rem !important;
+            }
+
+                .categories-filter .btn {
+                    width: 100%;
+                }
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get all filter buttons and case items
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            const caseItems = document.querySelectorAll('.case-item');
+            const noResults = document.getElementById('noResults');
+            const caseGrid = document.getElementById('caseStudiesGrid');
+
+            // Filter function
+            function filterCases(category) {
+                let visibleItems = 0;
+
+                caseItems.forEach(item => {
+                    const itemCategory = item.getAttribute('data-category');
+
+                    if (category === 'all' || itemCategory === category) {
+                        item.classList.remove('hidden');
+                        visibleItems++;
+                    } else {
+                        item.classList.add('hidden');
+                    }
+                });
+
+                // Show/hide no results message
+                if (visibleItems === 0) {
+                    noResults.style.display = 'block';
+                    caseGrid.style.display = 'none';
+                } else {
+                    noResults.style.display = 'none';
+                    caseGrid.style.display = 'flex';
+                }
+            }
+
+            // Add click event listeners to filter buttons
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Remove active class from all buttons
+                    filterButtons.forEach(btn => btn.classList.remove('active'));
+
+                    // Add active class to clicked button
+                    this.classList.add('active');
+
+                    // Change button style based on active state
+                    if (this.classList.contains('btn-outline-primary')) {
+                        this.classList.remove('btn-outline-primary');
+                        this.classList.add('btn-primary');
+                    }
+
+                    // Filter cases
+                    const filterValue = this.getAttribute('data-filter');
+                    filterCases(filterValue);
+                });
+            });
+
+            // Initialize with 'all' filter
+            filterCases('all');
+        });
+    </script>
+}

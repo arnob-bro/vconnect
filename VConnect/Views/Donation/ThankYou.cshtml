@@ -1,0 +1,75 @@
+﻿@model VConnect.Models.DonationThankYouModel
+
+@{
+    ViewData["Title"] = "Thank You - VConnect";
+}
+
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6 text-center">
+            <div class="card border-0 shadow-lg" style="background: rgba(27, 40, 50, 0.95);
+                                                      backdrop-filter: blur(10px);
+                                                      border-radius: 20px;">
+                <div class="card-header border-0 py-4"
+                     style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%);
+                            border-radius: 20px 20px 0 0 !important;">
+                    <div class="checkmark-circle">
+                        <div class="checkmark draw" style="color: #ffd700; font-size: 4rem;">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                    </div>
+                    <h1 class="text-vol mb-0" style="font-weight: 800;">Thank You!</h1>
+                </div>
+
+                <div class="card-body px-5 py-4">
+                    <h3 class="text-light mb-4">Your donation of <span class="text-warning">@Model.Amount.ToString("C")</span> has been received</h3>
+                    <p class="text-light lead">
+                        Your generous contribution will help us continue our mission to create positive change in communities across Bangladesh.
+                    </p>
+
+                    <div class="my-4 p-3 rounded" style="background: rgba(255,255,255,0.1);">
+                        <p class="text-light mb-1"><strong>Transaction ID:</strong> @Model.TransactionId</p>
+                        <p class="text-light mb-1"><strong>Date:</strong> @Model.DonationDate.ToString("f")</p>
+                        <p class="text-light mb-0"><strong>Payment Method:</strong> @Model.PaymentMethod</p>
+                    </div>
+
+                    <p class="text-light">
+                        A confirmation email has been sent to your inbox. Your donation is tax-deductible. Keep the receipt for your records.
+                    </p>
+
+                    <div class="d-flex gap-3 justify-content-center mt-4">
+                        <a href="@Url.Action("Index", "Home")" class="btn btn-warning py-2 px-4 rounded-pill">
+                            <i class="fas fa-home me-2"></i>Return Home
+                        </a>
+                        <a href="@Url.Action("Index", "Donation")" class="btn btn-outline-warning py-2 px-4 rounded-pill">
+                            <i class="fas fa-donate me-2"></i>Donate Again
+                        </a>
+                    </div>
+                </div>
+
+                <div class="card-footer border-0 text-center py-3"
+                     style="background: rgba(0,0,0,0.3);
+                            border-radius: 0 0 20px 20px !important;">
+                    <p class="text-light small mb-0" style="opacity: 0.8;">
+                        Questions about your donation? <a href="#" class="text-warning">Contact us</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .checkmark-circle {
+            margin: 0 auto 1.5rem;
+            width: 100px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+}

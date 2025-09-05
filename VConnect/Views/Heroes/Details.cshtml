@@ -1,0 +1,270 @@
+﻿@model VConnect.Models.Hero
+@{
+    ViewData["Title"] = Model.FullName + " - VConnect Hero";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- Hero Section -->
+<section class="py-4" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%); margin-top: 0;">
+    <div class="container py-4">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")" class="text-white">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Heroes")" class="text-white">Our Heroes</a></li>
+                <li class="breadcrumb-item active text-warning" aria-current="page">@Model.FullName</li>
+            </ol>
+        </nav>
+    </div>
+</section>
+
+<!-- Hero Details -->
+<section class="py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-4">
+                <div class="hero-profile-card card border-0 shadow-lg">
+                    <img src="@Model.ProfileImage" class="card-img-top" alt="@Model.FullName">
+                    <div class="card-body text-center">
+                        <h2 class="card-title fw-bold">@Model.FullName</h2>
+                        <p class="text-vol mb-2">@Model.Role</p>
+                        <p class="text-muted"><i class="fas fa-map-marker-alt me-2"></i>@Model.Location</p>
+
+                        <div class="hero-stats-details mb-4">
+                            <div class="row text-center">
+                                <div class="col-4">
+                                    <div class="stat-item">
+                                        <h4 class="fw-bold text-vol mb-0">@Model.HoursVolunteered</h4>
+                                        <small>Hours</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-item">
+                                        <h4 class="fw-bold text-vol mb-0">@Model.ProjectsCompleted</h4>
+                                        <small>Projects</small>
+                                    </div>
+                                </div>
+                                <div class="col-4">
+                                    <div class="stat-item">
+                                        <h4 class="fw-bold text-vol mb-0">@Model.JoinedDate.ToString("MMM yyyy")</h4>
+                                        <small>Joined</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        @if (!string.IsNullOrEmpty(Model.SocialMediaLinks))
+                        {
+                            <div class="social-links mb-4">
+                                <h6 class="fw-bold mb-3">Connect</h6>
+                                <div class="d-flex justify-content-center gap-3">
+                                    <a href="#" class="text-vol fs-5"><i class="fab fa-facebook"></i></a>
+                                    <a href="#" class="text-vol fs-5"><i class="fab fa-twitter"></i></a>
+                                    <a href="#" class="text-vol fs-5"><i class="fab fa-linkedin"></i></a>
+                                    <a href="#" class="text-vol fs-5"><i class="fab fa-instagram"></i></a>
+                                </div>
+                            </div>
+                        }
+
+                        <a href="@Url.Action("Index", "Heroes")" class="btn btn-outline-vol">
+                            <i class="fas fa-arrow-left me-2"></i>Back to Heroes
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-8">
+                <div class="hero-details-content">
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header bg-vol text-white">
+                            <h5 class="mb-0"><i class="fas fa-user me-2"></i>About</h5>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">@Model.ShortBio</p>
+                        </div>
+                    </div>
+
+                    @if (!string.IsNullOrEmpty(Model.Skills))
+                    {
+                        <div class="card border-0 shadow-sm mb-4">
+                            <div class="card-header bg-vol text-white">
+                                <h5 class="mb-0"><i class="fas fa-tools me-2"></i>Skills & Expertise</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="skills-container">
+                                    @foreach (var skill in Model.Skills.Split(','))
+                                    {
+                                        <span class="skill-badge">@skill.Trim()</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    }
+
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-header bg-vol text-white">
+                            <h5 class="mb-0"><i class="fas fa-trophy me-2"></i>Volunteer Journey</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="timeline">
+                                <div class="timeline-item">
+                                    <div class="timeline-content">
+                                        <h6 class="fw-bold">Joined VConnect</h6>
+                                        <p class="text-muted mb-0">@Model.JoinedDate.ToString("MMMM yyyy")</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-content">
+                                        <h6 class="fw-bold">First Project Completed</h6>
+                                        <p class="text-muted mb-0">@Model.JoinedDate.AddMonths(1).ToString("MMMM yyyy")</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-content">
+                                        <h6 class="fw-bold">Became Senior Volunteer</h6>
+                                        <p class="text-muted mb-0">@Model.JoinedDate.AddMonths(6).ToString("MMMM yyyy")</p>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-content">
+                                        <h6 class="fw-bold">Current Status</h6>
+                                        <p class="text-muted mb-0">Active @(Model.IsActive ? "✓" : "✗")</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action -->
+<section class="py-5 bg-light">
+    <div class="container text-center">
+        <h2 class="fw-bold mb-3">Inspired by @Model.FullName's Journey?</h2>
+        <p class="lead mb-4">Join our community and start making a difference today</p>
+        <div class="d-flex gap-3 justify-content-center">
+            <a href="@Url.Action("Register", "Account")" class="btn btn-warning btn-lg px-4">
+                <i class="fas fa-user-plus me-2"></i>Become a Volunteer
+            </a>
+            <a href="@Url.Action("Index", "Volunteer")" class="btn btn-outline-vol btn-lg px-4">
+                <i class="fas fa-hands-helping me-2"></i>Find Opportunities
+            </a>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .hero-profile-card {
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+            .hero-profile-card .card-img-top {
+                height: 300px;
+                object-fit: cover;
+            }
+
+        .hero-stats-details {
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+            padding: 1.5rem 0;
+        }
+
+        .stat-item {
+            padding: 0.5rem;
+        }
+
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        .skill-badge {
+            background-color: #e8f5e8;
+            color: #0b3d2e;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 2rem;
+        }
+
+            .timeline-item:last-child {
+                padding-bottom: 0;
+            }
+
+            .timeline-item::before {
+                content: '';
+                position: absolute;
+                left: -2rem;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background-color: #0b3d2e;
+            }
+
+            .timeline-item::after {
+                content: '';
+                position: absolute;
+                left: -2.25rem;
+                top: 0.5rem;
+                width: 12px;
+                height: 12px;
+                border-radius: 50%;
+                background-color: #0b3d2e;
+                border: 3px solid white;
+                box-shadow: 0 0 0 2px #0b3d2e;
+            }
+
+        .timeline-content {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            border-left: 3px solid #0b3d2e;
+        }
+
+        .bg-vol {
+            background-color: #0b3d2e !important;
+        }
+
+        /* Responsive adjustments */
+        @@media (max-width: 992px) {
+            .hero-profile-card {
+                margin-bottom: 2rem;
+            }
+
+                .hero-profile-card .card-img-top {
+                    height: 250px;
+                }
+        }
+
+        @@media (max-width: 576px) {
+            .timeline {
+                padding-left: 1.5rem;
+            }
+
+            .timeline-item::before {
+                left: -1.5rem;
+            }
+
+            .timeline-item::after {
+                left: -1.65rem;
+            }
+        }
+    </style>
+}
