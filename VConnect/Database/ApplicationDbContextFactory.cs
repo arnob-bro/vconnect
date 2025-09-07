@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System;
+using System.IO;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
 
 namespace VConnect.Database
 {
@@ -7,10 +10,25 @@ namespace VConnect.Database
     {
         public ApplicationDbContext CreateDbContext(string[] args)
         {
-            var optionsBuilder = new DbContextOptionsBuilder<ApplicationDbContext>();
-            optionsBuilder.UseSqlServer("Server=LAPTOP-0F8GBUDC\\SQLEXPRESS;Database=vconnect;Trusted_Connection=True;TrustServerCertificate=True;");
+            // Load connection string from appsettings (Development overrides base)
+            var env = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") ?? "Development";
 
-            return new ApplicationDbContext(optionsBuilder.Options);
+            var config = new ConfigurationBuilder()
+                .SetBasePath(Directory.GetCurrentDirectory())
+                .AddJsonFile("appsettings.json", optional: false)
+                .AddJsonFile($"appsettings.{env}.json", optional: true)
+                .AddEnvironmentVariables()
+                .Build();
+
+            var cs = config.GetConnectionString("DefaultConnection")
+                     // fallback to your working endpoint if not found
+                     ?? "Server=localhost,14330;Database=vconnect;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=False";
+
+            var options = new DbContextOptionsBuilder<ApplicationDbContext>()
+                .UseSqlServer(cs)
+                .Options;
+
+            return new ApplicationDbContext(options);
         }
     }
 }

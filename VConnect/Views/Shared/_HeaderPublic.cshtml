@@ -1,50 +1,83 @@
 ﻿@model VConnect.Models.NavViewModel
+
 @{
-    // Fallbacks so the header renders even if nothing is passed in
     var nav = Model ?? new VConnect.Models.NavViewModel();
 
-    // You can set ViewBag.ProfileImageUrl in your controller; this will use a default if not set
+    // Resolve avatar (falls back to default)
     var avatarUrl = (ViewBag.ProfileImageUrl as string);
     if (string.IsNullOrWhiteSpace(avatarUrl))
     {
-        // put a default avatar file under wwwroot/images/
-        avatarUrl = Url.Content("~/images/avatar-default.png");
+        avatarUrl = Url.Content("~/images/avatar.png");
     }
+
+    // Precompute login URL & active state so we don't declare code blocks inside other blocks
+    var loginUrl = Url.Action("Login", "Account");
+    bool loginActivePre = false; // initialize; will set after helper is defined
+}
+
+@functions {
+    // Normalize a URL into just the app-relative path we can compare
+    string NormalizeToAppPath(string? url, IUrlHelper urlHelper, HttpContext http)
+    {
+        if (string.IsNullOrWhiteSpace(url)) return "/";
+
+        if (Uri.TryCreate(url, UriKind.Absolute, out var abs))
+            return (abs.AbsolutePath ?? "/").TrimEnd('/').ToLowerInvariant();
+
+        var resolved = urlHelper.Content(url) ?? "/";
+        var pathBase = (http.Request.PathBase.HasValue ? http.Request.PathBase.Value : "") ?? "";
+        if (!string.IsNullOrEmpty(pathBase) && resolved.StartsWith(pathBase, StringComparison.OrdinalIgnoreCase))
+            resolved = resolved.Substring(pathBase.Length);
+
+        return (string.IsNullOrEmpty(resolved) ? "/" : resolved).TrimEnd('/').ToLowerInvariant();
+    }
+
+    bool IsActiveUrl(string? url, bool startsWith = false)
+    {
+        var http = Context;
+        var urlHelper = Url;
+        var current = (http?.Request?.Path.Value ?? "/").TrimEnd('/').ToLowerInvariant();
+        var target = NormalizeToAppPath(url, urlHelper, http);
+
+        if (startsWith && target != "/")
+            return current == target || current.StartsWith(target);
+
+        return current == target;
+    }
+}
+
+@{
+    // Now that IsActiveUrl is available, compute the login active state
+    loginActivePre = IsActiveUrl(loginUrl);
 }
 
 <header>
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-transparent" id="mainNav">
         <div class="container-fluid">
+            <!-- Brand -->
             <a class="navbar-brand d-flex align-items-center" href="@Url.Content("~/")">
                 <img src="@nav.LogoUrl" alt="Logo" style="height:50px;">
             </a>
 
-            <!-- Profile image (only if logged in) -->
-            @if (User?.Identity?.IsAuthenticated ?? false)
-            {
-                <a href="@Url.Action("Profile", "Account")"
-                   class="ms-3 d-flex align-items-center"
-                   title="My Profile">
-                    <img src="@avatarUrl"
-                         alt="Profile"
-                         style="width:40px;height:40px;border-radius:50%;
-                                    object-fit:cover;border:2px solid #ffd700;" />
-                </a>
-            }
-
+            <!-- Mobile toggler -->
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
+            <!-- Collapsible content -->
             <div class="collapse navbar-collapse" id="navbarResponsive">
+                <!-- Left: nav items -->
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     @foreach (var item in nav.Items)
                     {
+                        var childActive = item.Children.Any(c => IsActiveUrl(c.Url, startsWith: true));
+                        var itemActive = IsActiveUrl(item.Url) || childActive;
+
                         if (item.Children.Count > 0)
                         {
                             <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle @(item.IsActive ? "active" : "")"
+                                <a class="nav-link dropdown-toggle @(itemActive ? "active" : "")"
                                    href="@item.Url" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
                                    aria-expanded="false" aria-haspopup="menu">
                                     @item.Text
@@ -52,7 +85,12 @@
                                 <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                     @foreach (var child in item.Children)
                                     {
-                                        <li><a class="dropdown-item" href="@child.Url">@child.Text</a></li>
+                                        var childIsActive = IsActiveUrl(child.Url) || IsActiveUrl(child.Url, startsWith: true);
+                                        <li>
+                                            <a class="dropdown-item @(childIsActive ? "active" : "")" href="@child.Url">
+                                                @child.Text
+                                            </a>
+                                        </li>
                                     }
                                 </ul>
                             </li>
@@ -60,28 +98,73 @@
                         else
                         {
                             <li class="nav-item">
-                                <a class="nav-link @(item.IsActive ? "active" : "")" href="@item.Url">@item.Text</a>
+                                <a class="nav-link @(itemActive ? "active" : "")" href="@item.Url">
+                                    @item.Text
+                                </a>
                             </li>
                         }
                     }
 
-                    <!-- Show Login/Logout -->
+                    <!-- Right: Auth block -->
                     @if (User?.Identity?.IsAuthenticated ?? false)
                     {
-                        <li class="nav-item">
-                            <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
-                                <button type="submit" class="nav-link btn btn-link text-light">Logout</button>
-                            </form>
+                        var avatar = User.Claims.FirstOrDefault(c => c.Type == "avatar_url")?.Value
+                        ?? Url.Content("~/images/avatar.png");
+
+                        <li class="nav-item dropdown ms-lg-3">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userMenu"
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="menu">
+                                <img src="@avatar" alt="Profile"
+                                     style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid #ffd700;">
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                                <li><a class="dropdown-item" asp-controller="Account" asp-action="Profile">Profile</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li>
+                                    <form asp-controller="Account" asp-action="Logout" method="post" class="px-3 py-1">
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-sm btn-outline-danger w-100">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </li>
                     }
                     else
                     {
-                        <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("Login", "Account")">Login</a>
+                        <li class="nav-item ms-lg-3">
+                            <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
                         </li>
                     }
+
+
                 </ul>
             </div>
         </div>
     </nav>
 </header>
+
+<style>
+    /* Active link styling */
+    .navbar .nav-link {
+        text-decoration: none;
+    }
+
+        .navbar .nav-link.active {
+            color: #ffd700 !important;
+            border-bottom: 2px solid #ffd700;
+        }
+
+    /* Dropdown active styling */
+    .dropdown-menu .dropdown-item.active,
+    .dropdown-menu .dropdown-item:active {
+        background-color: #ffd700;
+        color: #000;
+    }
+
+    /* Optional: tighten avatar dropdown menu on larger screens */
+    @@media (min-width: 992px) {
+        #userMenu + .dropdown-menu {
+            min-width: 200px;
+        }
+    }
+</style>
