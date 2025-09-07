@@ -1,11 +1,36 @@
 ﻿@model VConnect.Models.NavViewModel
+@{
+    // Fallbacks so the header renders even if nothing is passed in
+    var nav = Model ?? new VConnect.Models.NavViewModel();
+
+    // You can set ViewBag.ProfileImageUrl in your controller; this will use a default if not set
+    var avatarUrl = (ViewBag.ProfileImageUrl as string);
+    if (string.IsNullOrWhiteSpace(avatarUrl))
+    {
+        // put a default avatar file under wwwroot/images/
+        avatarUrl = Url.Content("~/images/avatar-default.png");
+    }
+}
 
 <header>
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark bg-transparent" id="mainNav">
         <div class="container-fluid">
-            <a class="navbar-brand" href="@Url.Content("~/")">
-                <img src="@Model.LogoUrl" alt="Logo" style="height:50px;">
+            <a class="navbar-brand d-flex align-items-center" href="@Url.Content("~/")">
+                <img src="@nav.LogoUrl" alt="Logo" style="height:50px;">
             </a>
+
+            <!-- Profile image (only if logged in) -->
+            @if (User?.Identity?.IsAuthenticated ?? false)
+            {
+                <a href="@Url.Action("Profile", "Account")"
+                   class="ms-3 d-flex align-items-center"
+                   title="My Profile">
+                    <img src="@avatarUrl"
+                         alt="Profile"
+                         style="width:40px;height:40px;border-radius:50%;
+                                    object-fit:cover;border:2px solid #ffd700;" />
+                </a>
+            }
 
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
                     aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -14,7 +39,7 @@
 
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-                    @foreach (var item in Model.Items)
+                    @foreach (var item in nav.Items)
                     {
                         if (item.Children.Count > 0)
                         {
@@ -39,17 +64,23 @@
                             </li>
                         }
                     }
-                    <!-- Add Login link -->
-                    <li class="nav-item">
-                        <a class="nav-link" href="@Url.Action("Login", "Account")">Login</a>
-                    </li>
-                </ul>
 
-                @* Optional CTA—hidden when ApplyNowUrl is null/empty *@
-                @if (!string.IsNullOrWhiteSpace(Model.ApplyNowUrl))
-                {
-                    <a href="@Model.ApplyNowUrl" class="btn btn-warning rounded-pill ms-lg-3">Apply Now</a>
-                }
+                    <!-- Show Login/Logout -->
+                    @if (User?.Identity?.IsAuthenticated ?? false)
+                    {
+                        <li class="nav-item">
+                            <form asp-controller="Account" asp-action="Logout" method="post" class="d-inline">
+                                <button type="submit" class="nav-link btn btn-link text-light">Logout</button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("Login", "Account")">Login</a>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     </nav>

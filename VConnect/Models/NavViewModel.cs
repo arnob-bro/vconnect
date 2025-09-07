@@ -14,5 +14,6 @@ namespace VConnect.Models
         public List<NavItem> Items { get; set; } = new List<NavItem>();
         public string LogoUrl { get; set; } = "/images/j.png";
         public string ApplyNowUrl { get; set; }// null
+        public string ProfileImageUrl { get; set; }
     }
 }

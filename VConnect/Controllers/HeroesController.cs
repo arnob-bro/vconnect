@@ -43,7 +43,7 @@ namespace VConnect.Controllers
                 new Hero {
                     Id = 1,
                     FullName = "Abdur Rahman",
-                    ProfileImage = "/images/heroes/1.jpg",
+                    ProfileImage = "/images/heroes/h1.jpg",
                     Role = "Environmental Volunteer",
                     Location = "Dhaka",
                     JoinedDate = new DateTime(2020, 3, 15),
@@ -56,7 +56,7 @@ namespace VConnect.Controllers
                 new Hero {
                     Id = 2,
                     FullName = "Fatima Ahmed",
-                    ProfileImage = "/images/heroes/2.jpg",
+                    ProfileImage = "/images/heroes/h2.jpg",
                     Role = "Education Volunteer",
                     Location = "Chittagong",
                     JoinedDate = new DateTime(2019, 8, 22),
@@ -69,7 +69,7 @@ namespace VConnect.Controllers
                 new Hero {
                     Id = 3,
                     FullName = "Mohammed Rahim",
-                    ProfileImage = "/images/heroes/3.jpg",
+                    ProfileImage = "/images/heroes/h3.jpg",
                     Role = "Disaster Relief Volunteer",
                     Location = "Cox's Bazar",
                     JoinedDate = new DateTime(2021, 1, 10),
@@ -89,7 +89,7 @@ namespace VConnect.Controllers
                 new Hero {
                     Id = 4,
                     FullName = "Sadia Islam",
-                    ProfileImage = "/images/heroes/4.jpg",
+                    ProfileImage = "/images/heroes/h4.jpg",
                     Role = "Health Volunteer",
                     Location = "Rajshahi",
                     JoinedDate = new DateTime(2022, 5, 18),
@@ -101,7 +101,7 @@ namespace VConnect.Controllers
                 new Hero {
                     Id = 5,
                     FullName = "Tahmid Hassan",
-                    ProfileImage = "/images/heroes/5.jpg",
+                    ProfileImage = "/images/heroes/h5.jpg",
                     Role = "Digital Literacy Volunteer",
                     Location = "Sylhet",
                     JoinedDate = new DateTime(2021, 9, 3),
@@ -113,7 +113,7 @@ namespace VConnect.Controllers
                 new Hero {
                     Id = 6,
                     FullName = "Nusrat Jahan",
-                    ProfileImage = "/images/heroes/6.jpg",
+                    ProfileImage = "/images/heroes/h6.jpg",
                     Role = "Women Empowerment Volunteer",
                     Location = "Khulna",
                     JoinedDate = new DateTime(2020, 11, 30),
