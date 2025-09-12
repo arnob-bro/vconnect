@@ -108,7 +108,7 @@
                     <!-- Right: Auth block -->
                     @if (User?.Identity?.IsAuthenticated ?? false)
                     {
-                        var avatar = User.Claims.FirstOrDefault(c => c.Type == "avatar_url")?.Value
+                        var avatar = User.Claims.FirstOrDefault(c => c.Type == "avatar_url")?.Value 
                         ?? Url.Content("~/images/avatar.png");
 
                         <li class="nav-item dropdown ms-lg-3">

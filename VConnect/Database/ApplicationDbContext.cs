@@ -11,8 +11,6 @@ namespace VConnect.Database
         }
 
         public DbSet<ApplicationUser> Users { get; set; }
-        public DbSet<Donation> Donations { get; set; }
-        public DbSet<RecurringDonation> RecurringDonations { get; set; }
 
     }
 }

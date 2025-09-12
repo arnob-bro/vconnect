@@ -4,48 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace VConnect.Models
 {
-    // Main donation model
-    public class Donation
-    {
-        public int Id { get; set; }
 
-        [Required(ErrorMessage = "Name is required")]
-        [Display(Name = "Full Name")]
-        [StringLength(100, ErrorMessage = "Name cannot exceed 100 characters")]
-        public string DonorName { get; set; }
-
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
-        [Display(Name = "Email Address")]
-        public string Email { get; set; }
-
-        [Phone(ErrorMessage = "Invalid phone number")]
-        [Display(Name = "Phone Number")]
-        public string Phone { get; set; }
-
-        [Required(ErrorMessage = "Amount is required")]
-        [Range(1, 1000000, ErrorMessage = "Amount must be at least 1 BDT")]
-        [Display(Name = "Donation Amount (BDT)")]
-        public decimal Amount { get; set; }
-
-        [StringLength(500, ErrorMessage = "Message cannot exceed 500 characters")]
-        [Display(Name = "Message (Optional)")]
-        public string Message { get; set; }
-
-        [Required(ErrorMessage = "Payment method is required")]
-        [Display(Name = "Payment Method")]
-        public string PaymentMethod { get; set; }
-
-        [Display(Name = "Make this donation anonymous")]
-        public bool IsAnonymous { get; set; }
-
-        public DateTime DonationDate { get; set; } = DateTime.Now;
-
-        [Display(Name = "Transaction ID")]
-        public string TransactionId { get; set; }
-
-        public DonationStatus Status { get; set; } = DonationStatus.Pending;
-    }
 
     // Donation status enum
     public enum DonationStatus
@@ -137,11 +96,13 @@ namespace VConnect.Models
     // Custom validation attribute for conditional required fields
     public class RequiredIfAttribute : ValidationAttribute
     {
-        private string[] DependentProperties { get; set; }
+        private readonly string PropertyName;
+        private readonly string[] ExpectedValues;
 
-        public RequiredIfAttribute(params string[] dependentProperties)
+        public RequiredIfAttribute(string propertyName, params string[] expectedValues)
         {
-            DependentProperties = dependentProperties;
+            PropertyName = propertyName;
+            ExpectedValues = expectedValues;
         }
 
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
@@ -149,22 +110,20 @@ namespace VConnect.Models
             var instance = validationContext.ObjectInstance;
             var type = instance.GetType();
 
-            foreach (var propertyName in DependentProperties)
-            {
-                var propertyValue = type.GetProperty(propertyName)?.GetValue(instance, null)?.ToString();
+            var propertyValue = type.GetProperty(PropertyName)?.GetValue(instance, null)?.ToString();
 
-                if (propertyValue != null && propertyValue == validationContext.MemberName)
+            if (propertyValue != null && ExpectedValues.Contains(propertyValue, StringComparer.OrdinalIgnoreCase))
+            {
+                if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
                 {
-                    if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
-                    {
-                        return new ValidationResult(ErrorMessage);
-                    }
+                    return new ValidationResult(ErrorMessage);
                 }
             }
 
             return ValidationResult.Success;
         }
     }
+
 
     // Model for donation thank you page
     public class DonationThankYouModel
@@ -252,7 +211,7 @@ namespace VConnect.Models
         public decimal TotalAmount { get; set; }
         public int TotalDonations { get; set; }
         public int UniqueDonors { get; set; }
-        public List<Donation> Donations { get; set; } = new List<Donation>();
+       
         public Dictionary<string, decimal> AmountByPaymentMethod { get; set; } = new Dictionary<string, decimal>();
         public Dictionary<string, int> CountByPaymentMethod { get; set; } = new Dictionary<string, int>();
     }

@@ -2,16 +2,19 @@ using Microsoft.EntityFrameworkCore;
 using VConnect.Database;
 using VConnect.Services;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Npgsql.EntityFrameworkCore.PostgreSQL;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<DonationService>();
+
 
 // Register DbContext using connection string from appsettings.json
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("VConnect")));
+
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(o =>
     {

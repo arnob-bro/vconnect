@@ -104,7 +104,7 @@ namespace VConnect.Controllers
         [HttpGet]
         public IActionResult Profile()
         {
-            return View("~/Views/Account1/Profile.cshtml");
+            return RedirectToAction("Index", "ProfileDetails");
         }
     }
 }
