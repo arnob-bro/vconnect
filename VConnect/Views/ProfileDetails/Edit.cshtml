@@ -95,7 +95,7 @@
                     <div class="d-flex align-items-center gap-3">
                         <img src="@(string.IsNullOrWhiteSpace(Model?.ProfilePictureUrl) ? Url.Content("~/images/avatar.png") : Model.ProfilePictureUrl)"
                              style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #eee;" />
-                        <input asp-for="ProfilePictureFile" type="file" class="form-control" accept="image/*" />
+                        <input asp-for="ProfilePictureUrl" type="file" class="form-control" accept="image/*" />
                     </div>
                     <small class="text-muted">PNG/JPG allowed</small>
                 </div>
