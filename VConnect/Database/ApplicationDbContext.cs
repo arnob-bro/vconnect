@@ -10,13 +10,14 @@ namespace VConnect.Database
     public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options) { }
+            : base(options)
+        {
+        }
 
-        // Tables
-        public DbSet<ApplicationUser> Users { get; set; } = null!;
-        public DbSet<ProfileDetails> ProfileDetails { get; set; } = null!;
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        public DbSet<ApplicationUser> Users { get; set; }
+        public DbSet<Donation> Donations { get; set; }
+        public DbSet<ProfileDetails> ProfileDetails { get; set; } 
+ protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
