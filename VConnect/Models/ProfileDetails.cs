@@ -22,7 +22,8 @@ namespace VConnect.Models
         public int TotalVolunteerHours { get; set; }
         public int EventsParticipated { get; set; }
 
-        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-        public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
+        // Use DateTimeOffset for PostgreSQL "timestamptz"
+        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
+        public DateTimeOffset UpdatedAt { get; set; } = DateTimeOffset.UtcNow;
     }
 }

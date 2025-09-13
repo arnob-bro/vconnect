@@ -9,6 +9,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IProfileDetailsService, ProfileDetailsService>();
 
 
 // Register DbContext using connection string from appsettings.json
