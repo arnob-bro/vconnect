@@ -5,7 +5,7 @@ namespace VConnect.Models
     public class ApplicationUser
     {
         [Key]
-        public int Id { get; set; } // Primary key
+        public int Id { get; set; } 
 
         [Required, EmailAddress]
         public string Email { get; set; }
@@ -18,5 +18,7 @@ namespace VConnect.Models
 
         [Required]
         public string LastName { get; set; }
+        [Required]
+        public string Role { get; set; } = "Volunteer";
     }
 }

@@ -30,15 +30,14 @@ namespace VConnect.Services
             var existing = await _db.ProfileDetails.FirstOrDefaultAsync(p => p.UserId == userId);
             if (existing != null) return existing;
 
-            // Seed from Users if available
             var user = await _db.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Id == userId);
 
             var profile = new ProfileDetails
             {
                 UserId = userId,
-                FirstName = user?.FirstName ?? string.Empty,
-                LastName = user?.LastName ?? string.Empty,
-                Email = user?.Email ?? string.Empty,
+                FirstName = user?.FirstName?.Trim() ?? string.Empty,
+                LastName = user?.LastName?.Trim() ?? string.Empty,
+                Email = user?.Email?.Trim() ?? string.Empty,
                 CreatedAt = DateTimeOffset.UtcNow,
                 UpdatedAt = DateTimeOffset.UtcNow
             };
@@ -50,6 +49,7 @@ namespace VConnect.Services
 
         public async Task UpdateAsync(ProfileDetails incoming, IFormFile? upload, string webRootPath)
         {
+            // Load or create entity for this user
             var entity = await _db.ProfileDetails
                 .FirstOrDefaultAsync(p => p.ProfileDetailsId == incoming.ProfileDetailsId && p.UserId == incoming.UserId);
 
@@ -67,17 +67,18 @@ namespace VConnect.Services
                 }
             }
 
-            // Update fields
-            entity.FirstName = incoming.FirstName ?? string.Empty;
-            entity.LastName = incoming.LastName ?? string.Empty;
-            entity.Email = incoming.Email ?? string.Empty;
-            entity.PhoneNumber = incoming.PhoneNumber;
-            entity.City = incoming.City;
-            entity.Address = incoming.Address;
+            // Normalize text fields
+            entity.FirstName = (incoming.FirstName ?? string.Empty).Trim();
+            entity.LastName = (incoming.LastName ?? string.Empty).Trim();
+            entity.Email = (incoming.Email ?? string.Empty).Trim();
+            entity.PhoneNumber = incoming.PhoneNumber?.Trim();
+            entity.City = incoming.City?.Trim();
+            entity.Address = incoming.Address?.Trim();
 
-            // Treat DOB as a pure date (strip any time)
-            entity.DateOfBirth = incoming.DateOfBirth?.Date;
+            // DateOnly? just assign directly; column is "date"
+            entity.DateOfBirth = incoming.DateOfBirth;
 
+            // Timestamps
             entity.UpdatedAt = DateTimeOffset.UtcNow;
 
             // Optional file upload
@@ -99,7 +100,7 @@ namespace VConnect.Services
 
                     entity.ProfilePictureUrl = $"/uploads/avatars/{fileName}";
                 }
-                // else: ignore invalid types or add validation as needed
+                // else: silently ignore or add ModelState validation upstream
             }
 
             await _db.SaveChangesAsync();

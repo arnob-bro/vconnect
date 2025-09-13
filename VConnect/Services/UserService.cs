@@ -13,17 +13,24 @@ namespace VConnect.Services
             _dbContext = dbContext;
         }
 
-        public async Task<ApplicationUser> RegisterUserAsync(RegisterViewModel model)
+        public async Task<ApplicationUser?> RegisterUserAsync(RegisterViewModel model)
         {
-            if (await UserExistsAsync(model.Email))
+            var email = model.Email?.Trim().ToLowerInvariant() ?? string.Empty;
+
+            if (await UserExistsAsync(email))
                 return null;
+
+            // Hash the password
+            var hashed = BCrypt.Net.BCrypt.HashPassword(model.Password);
 
             var user = new ApplicationUser
             {
-                Email = model.Email,
-                Password = model.Password, // ⚠️ In production, hash passwords!
-                FirstName = model.FirstName,
-                LastName = model.LastName
+                Email = email,
+                Password = hashed,
+                FirstName = model.FirstName?.Trim() ?? string.Empty,
+                LastName = model.LastName?.Trim() ?? string.Empty,
+                // default everyone to Volunteer unless it’s the special admin
+                Role = email == "admin@gmail.com" ? "Admin" : "Volunteer"
             };
 
             _dbContext.Users.Add(user);
@@ -31,15 +38,25 @@ namespace VConnect.Services
             return user;
         }
 
-        public async Task<ApplicationUser> AuthenticateUserAsync(LoginViewModel model)
+        public async Task<ApplicationUser?> AuthenticateUserAsync(LoginViewModel model)
         {
-            return await _dbContext.Users
-                .FirstOrDefaultAsync(u => u.Email == model.Email && u.Password == model.Password);
+            var email = model.Email?.Trim().ToLowerInvariant() ?? string.Empty;
+
+            var user = await _dbContext.Users
+                .FirstOrDefaultAsync(u => u.Email == email);
+
+            if (user == null)
+                return null;
+
+            // Verify hashed password
+            var ok = BCrypt.Net.BCrypt.Verify(model.Password, user.Password);
+            return ok ? user : null;
         }
 
         public async Task<bool> UserExistsAsync(string email)
         {
-            return await _dbContext.Users.AnyAsync(u => u.Email == email);
+            var norm = email?.Trim().ToLowerInvariant() ?? string.Empty;
+            return await _dbContext.Users.AnyAsync(u => u.Email == norm);
         }
     }
 }

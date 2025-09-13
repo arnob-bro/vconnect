@@ -10,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProfileDetailsService, ProfileDetailsService>();
-
+builder.Services.AddScoped<IEventService, EventService>();
 
 // Register DbContext using connection string from appsettings.json
 builder.Services.AddDbContext<ApplicationDbContext>(options =>

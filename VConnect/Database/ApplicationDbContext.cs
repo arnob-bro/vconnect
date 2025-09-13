@@ -2,8 +2,8 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using VConnect.Models;                 // ApplicationUser, Donation, ProfileDetails
-using VConnect.Models.Events;          // Event, Role, EventApplication, Participation, EventNotification
+using VConnect.Models;
+using VConnect.Models.Events;
 
 namespace VConnect.Database
 {
@@ -44,13 +44,10 @@ namespace VConnect.Database
                 e.HasKey(p => p.ProfileDetailsId);
 
                 e.HasIndex(p => p.UserId).IsUnique(); // enforce 1:1
-                e.Property(p => p.FirstName).HasMaxLength(50);
-                e.Property(p => p.LastName).HasMaxLength(50);
-                e.Property(p => p.Email).HasMaxLength(100);
-                e.Property(p => p.PhoneNumber).HasMaxLength(30);
-                e.Property(p => p.City).HasMaxLength(100);
-                e.Property(p => p.Address).HasMaxLength(200);
-                e.Property(p => p.ProfilePictureUrl).HasMaxLength(500);
+
+                e.Property(p => p.DateOfBirth).HasColumnType("date");   // <-- crucial
+                e.Property(p => p.CreatedAt).HasColumnType("timestamptz");
+                e.Property(p => p.UpdatedAt).HasColumnType("timestamptz");
 
                 e.HasOne<ApplicationUser>()
                  .WithOne()
@@ -93,7 +90,7 @@ namespace VConnect.Database
                  .HasForeignKey(ap => ap.EventRoleId);
 
                 a.HasOne(ap => ap.User)
-                 .WithMany()  // no navigation for now
+                 .WithMany()
                  .HasForeignKey(ap => ap.UserId);
             });
 
@@ -146,7 +143,7 @@ namespace VConnect.Database
 
         private void StampProfileTimestamps()
         {
-            var now = DateTime.UtcNow;
+            var now = DateTimeOffset.UtcNow;
 
             foreach (var entry in ChangeTracker.Entries<ProfileDetails>())
             {
