@@ -48,11 +48,11 @@ body {
 /* Nav links styling */
 .nav-link {
     font-weight: 700;
-    font-size: 2.1rem; /* your chosen size */
+    font-size: 1.2rem; /* your chosen size */
     margin: 0 30px;
     color: #fff !important;
-    padding-top: 25px; /* extra top space inside navbar */
-    padding-bottom: 12px;
+    padding-top: 20px; /* extra top space inside navbar */
+    padding-bottom: 10px;
 }
 
     .nav-link.active,
