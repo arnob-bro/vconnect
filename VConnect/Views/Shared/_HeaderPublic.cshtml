@@ -1,13 +1,24 @@
 ﻿@model VConnect.Models.NavViewModel
+@inject VConnect.Services.IProfileDetailsService ProfileService
+@using System.Security.Claims
 
 @{
     var nav = Model ?? new VConnect.Models.NavViewModel();
 
-    // Resolve avatar (falls back to default)
-    var avatarUrl = (ViewBag.ProfileImageUrl as string);
-    if (string.IsNullOrWhiteSpace(avatarUrl))
+    // Get current avatar - FETCH FROM DATABASE FOR REAL-TIME UPDATE
+    string avatarUrl = Url.Content("~/images/avatar.png"); // default
+
+    if (User?.Identity?.IsAuthenticated ?? false)
     {
-        avatarUrl = Url.Content("~/images/avatar.png");
+        var userIdClaim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (int.TryParse(userIdClaim, out int userId))
+        {
+            var profile = await ProfileService.GetByUserIdAsync(userId);
+            if (profile != null && !string.IsNullOrWhiteSpace(profile.ProfilePictureUrl))
+            {
+                avatarUrl = profile.ProfilePictureUrl;
+            }
+        }
     }
 
     // Precompute login URL & active state so we don't declare code blocks inside other blocks
@@ -105,19 +116,17 @@
                         }
                     }
 
-
-
-
                     <!-- Right: Auth block -->
                     @if (User?.Identity?.IsAuthenticated ?? false)
                     {
-                        var avatar = User.Claims.FirstOrDefault(c => c.Type == "avatar_url")?.Value 
-                        ?? Url.Content("~/images/avatar.png");
+                        // Get avatar from updated claims first, then database if needed
+                        var claimAvatar = User.FindFirst("ProfilePictureUrl")?.Value;
+                        var finalAvatar = !string.IsNullOrWhiteSpace(claimAvatar) ? claimAvatar : avatarUrl;
 
                         <li class="nav-item dropdown ms-lg-3">
                             <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="userMenu"
                                role="button" data-bs-toggle="dropdown" aria-expanded="false" aria-haspopup="menu">
-                                <img src="@avatar" alt="Profile"
+                                <img src="@finalAvatar" alt="Profile"
                                      style="width:60px;height:60px;border-radius:50%;object-fit:cover;border:2px solid #ffd700;">
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
@@ -138,8 +147,6 @@
                             <a class="nav-link" asp-controller="Account" asp-action="Login">Login</a>
                         </li>
                     }
-
-
                 </ul>
             </div>
         </div>
@@ -166,8 +173,11 @@
 
     /* Optional: tighten avatar dropdown menu on larger screens */
     @@media (min-width: 992px) {
-        #userMenu + .dropdown-menu {
-            min-width: 200px;
-        }
+        #userMenu + .dropdown-menu
+
+    {
+        min-width: 200px;
+    }
+
     }
 </style>
