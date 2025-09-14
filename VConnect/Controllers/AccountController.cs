@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using VConnect.Models;
 using VConnect.Services;
-
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace VConnect.Controllers
 {
@@ -19,6 +21,7 @@ namespace VConnect.Controllers
 
         // GET: /Account/Login
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Login()
         {
             return View("~/Views/Account1/Login.cshtml");
@@ -26,6 +29,7 @@ namespace VConnect.Controllers
 
         // GET: /Account/Register
         [HttpGet]
+        [AllowAnonymous]
         public IActionResult Register()
         {
             return View("~/Views/Account1/Register.cshtml");
@@ -33,6 +37,7 @@ namespace VConnect.Controllers
 
         // POST: /Account/Login
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
         {
@@ -42,14 +47,13 @@ namespace VConnect.Controllers
             var user = await _userService.AuthenticateUserAsync(model);
             if (user == null)
             {
-                ModelState.AddModelError("", "Invalid email or password.");
+                ModelState.AddModelError(string.Empty, "Invalid email or password.");
                 return View("~/Views/Account1/Login.cshtml", model);
             }
 
             var fullName = $"{user.FirstName} {user.LastName}".Trim();
             if (string.IsNullOrWhiteSpace(fullName)) fullName = user.Email;
 
-            // Use a default avatar for now. Later you can set this to a real URL.
             var avatarUrl = Url.Content("~/images/avatar-default.png");
 
             var claims = new List<Claim>
@@ -57,8 +61,14 @@ namespace VConnect.Controllers
                 new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, fullName),
                 new Claim(ClaimTypes.Email, user.Email),
-                new Claim("avatar_url", avatarUrl) // navbar will read this
+                new Claim("avatar_url", avatarUrl)
             };
+
+            // include Role claim if available (e.g., "Admin" or "Volunteer")
+            if (!string.IsNullOrWhiteSpace(user.Role))
+            {
+                claims.Add(new Claim(ClaimTypes.Role, user.Role));
+            }
 
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             var principal = new ClaimsPrincipal(identity);
@@ -66,15 +76,21 @@ namespace VConnect.Controllers
             var authProps = new AuthenticationProperties
             {
                 IsPersistent = model.RememberMe,
-                ExpiresUtc = DateTimeOffset.UtcNow.AddDays(model.RememberMe ? 30 : 1)
+                ExpiresUtc = System.DateTimeOffset.UtcNow.AddDays(model.RememberMe ? 30 : 1)
             };
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProps);
+
+            // Optional: send admins to an admin area/dashboard
+            if (!string.IsNullOrWhiteSpace(user.Role) && user.Role == "Admin")
+                return RedirectToAction("Index", "Admin"); // change if you don't have this
+
             return RedirectToAction("Index", "Home");
         }
 
         // POST: /Account/Register
         [HttpPost]
+        [AllowAnonymous]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
@@ -84,10 +100,11 @@ namespace VConnect.Controllers
             var user = await _userService.RegisterUserAsync(model);
             if (user == null)
             {
-                ModelState.AddModelError("", "Email already exists.");
+                ModelState.AddModelError(string.Empty, "Email already exists.");
                 return View("~/Views/Account1/Register.cshtml", model);
             }
 
+            // after successful registration, send to login
             return RedirectToAction("Login", "Account");
         }
 
@@ -100,8 +117,9 @@ namespace VConnect.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        // Optional
+        // Optional profile entry point
         [HttpGet]
+        [Authorize]
         public IActionResult Profile()
         {
             return RedirectToAction("Index", "ProfileDetails");

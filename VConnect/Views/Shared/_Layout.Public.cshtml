@@ -16,6 +16,17 @@
         }
     };
 
+
+    if (User?.Identity?.IsAuthenticated == true)
+    {
+        // Insert Events at position 4 (after "Meet Our Heroes")
+        nav.Items.Insert(4, new NavItem
+        {
+            Text = "Events",
+            Url = Url.Action("Index", "Events")
+        });
+    }
+
     // Mark active item
     var currentPath = Context.Request.Path.Value?.ToLowerInvariant() ?? "";
     foreach (var item in nav.Items)
