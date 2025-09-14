@@ -1,0 +1,189 @@
+﻿@using VConnect.Models.Events
+@using VConnect.Models.Enums
+@model VConnect.Models.Events.Event
+
+@{
+    ViewData["Title"] = $"{Model.Title} - Event";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int capacity = Math.Max(1, Model.Capacity);
+    int accepted = ViewBag.AcceptedCount is int ac ? ac : (Model.Applications?.Count(a => a.Status == ApplicationStatus.Accepted) ?? 0);
+    int pct = Math.Min(100, (int)Math.Round(accepted * 100.0 / capacity));
+
+    bool hasApplied = ViewBag.HasApplied is bool ha && ha;
+    bool canApply = ViewBag.CanApply is bool ca ? ca : (Model.Status == EventStatus.Active && accepted < capacity);
+    string returnUrl = ViewBag.ReturnUrl as string ?? Url.Action("Index", "Events")!;
+
+    string statusBadge = Model.Status switch
+    {
+        EventStatus.Active => "bg-success",
+        EventStatus.Completed => "bg-secondary",
+        EventStatus.Cancelled => "bg-danger",
+        _ => "bg-secondary"
+    };
+}
+
+<!-- Hero / breadcrumb -->
+<section class="py-4" style="background: linear-gradient(135deg,#232a36 0%,#1d4538 100%);">
+    <div class="container text-white">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-2">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")" class="text-white text-decoration-none">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Events")" class="text-white text-decoration-none">Events</a></li>
+                <li class="breadcrumb-item active text-warning" aria-current="page">@Model.Title</li>
+            </ol>
+        </nav>
+        <h1 class="h3 fw-bold mb-0">@Model.Title</h1>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="row g-4">
+            <!-- Main -->
+            <div class="col-lg-8">
+                <!-- Cover -->
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="ratio ratio-16x9 bg-light d-flex align-items-center justify-content-center">
+                        <i class="fas fa-hands-helping text-muted" style="font-size: 3rem;"></i>
+                    </div>
+                    <div class="card-body">
+                        <div class="d-flex flex-wrap gap-2 mb-2">
+                            <span class="badge @statusBadge">@Model.Status</span>
+                            <span class="badge text-bg-light">
+                                <i class="fas fa-coins me-1"></i>@(string.IsNullOrWhiteSpace(Model.Compensation) ? "Free" : Model.Compensation)
+                            </span>
+                        </div>
+
+                        <div class="small text-muted mb-2">
+                            <i class="fas fa-map-marker-alt me-1"></i>@Model.Location
+                        </div>
+                        <div class="small text-muted mb-3">
+                            <i class="far fa-calendar-alt me-1"></i>
+                            @Model.StartDateTime.ToString("dddd, MMM d yyyy · h:mm tt") — @Model.EndDateTime.ToString("h:mm tt")
+                        </div>
+
+                        <p class="mb-0">@Model.Description</p>
+                    </div>
+                </div>
+
+                <!-- Roles -->
+                @if (Model.Roles != null && Model.Roles.Any())
+                {
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header text-white" style="background-color:#0b3d2e;">
+                            <h5 class="mb-0"><i class="fas fa-users me-2"></i>Volunteer Roles</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                @foreach (var r in Model.Roles)
+                                {
+                                    var roleAccepted = Model.Applications?.Count(a => a.EventRoleId == r.EventRoleId && a.Status == ApplicationStatus.Accepted) ?? 0;
+                                    var rolePct = Math.Min(100, (int)Math.Round(roleAccepted * 100.0 / Math.Max(1, r.Capacity)));
+
+                                    <div class="col-md-6">
+                                        <div class="border rounded p-3 h-100">
+                                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                                <strong>@r.RoleName</strong>
+                                                <span class="small text-muted">@roleAccepted / @r.Capacity</span>
+                                            </div>
+                                            <div class="progress" style="height:6px;">
+                                                <div class="progress-bar" style="width:@rolePct%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                }
+
+                <!-- Applicants (optional simple count) -->
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header text-white" style="background-color:#0b3d2e;">
+                        <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Capacity</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-2">
+                            <div class="progress" style="height:8px;">
+                                <div class="progress-bar" role="progressbar" style="width:@pct%"></div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-1 small text-muted">
+                                <span>@accepted / @capacity filled</span>
+                                <span>@pct%</span>
+                            </div>
+                        </div>
+                        <div class="text-muted small">
+                            Applications marked as <em>Accepted</em> count toward capacity.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="card border-0 shadow-sm mb-3">
+                    <div class="card-body">
+                        <h6 class="fw-bold mb-3" style="color:#0b3d2e;">Take Action</h6>
+
+                        <div class="d-grid gap-2">
+                            <form asp-controller="Events" asp-action="Apply" method="post">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="eventId" value="@Model.EventId" />
+                                <input type="hidden" name="returnUrl" value="@returnUrl" />
+                                <button class="btn btn-primary w-100"
+                                        @(canApply && !hasApplied ? null : "disabled")>
+                                    <i class="fas fa-check-circle me-1"></i>
+                                    @(hasApplied ? "Applied" : "Apply Now")
+                                </button>
+                            </form>
+
+                            <a href="@Url.Action("Index", "Events")" class="btn btn-outline-secondary w-100">
+                                <i class="fas fa-arrow-left me-1"></i>Back to Events
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm">
+                    <div class="card-header text-white" style="background-color:#0b3d2e;">
+                        <h6 class="mb-0"><i class="fas fa-info-circle me-2"></i>Event Info</h6>
+                    </div>
+                    <div class="card-body small">
+                        <div class="mb-2"><strong>Status:</strong> <span class="badge @statusBadge">@Model.Status</span></div>
+                        <div class="mb-2"><strong>Location:</strong> @Model.Location</div>
+                        <div class="mb-2">
+                            <strong>Starts:</strong> @Model.StartDateTime.ToString("MMM d, yyyy h:mm tt")
+                        </div>
+                        <div class="mb-2">
+                            <strong>Ends:</strong> @Model.EndDateTime.ToString("MMM d, yyyy h:mm tt")
+                        </div>
+                        <div class="mb-0"><strong>Compensation:</strong> @(string.IsNullOrWhiteSpace(Model.Compensation) ? "Free" : Model.Compensation)</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        .btn-primary {
+            background-color: #0b3d2e;
+            border-color: #0b3d2e;
+        }
+
+            .btn-primary:hover {
+                filter: brightness(1.05);
+            }
+
+        .breadcrumb {
+            margin-bottom: .25rem;
+        }
+
+        .ratio > i {
+            opacity: .35;
+        }
+    </style>
+}

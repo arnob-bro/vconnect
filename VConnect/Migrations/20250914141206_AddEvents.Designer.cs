@@ -12,8 +12,8 @@ using VConnect.Database;
 namespace VConnect.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250913084226_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250914141206_AddEvents")]
+    partial class AddEvents
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

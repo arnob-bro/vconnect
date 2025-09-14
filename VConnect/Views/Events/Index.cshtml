@@ -1,0 +1,261 @@
+﻿@using VConnect.Models.Events
+@using VConnect.Models.Enums
+@model IEnumerable<Event>
+
+@{
+    ViewData["Title"] = "Volunteer Activities - VConnect";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    // Read current filters from ViewBag (set them in controller)
+    string search = ViewBag.Search as string ?? "";
+    string category = ViewBag.Category as string ?? "";
+    string statusSel = ViewBag.Status as string ?? "";
+    string monthSel = ViewBag.Month as string ?? "";
+
+    // Helper to mark <option selected>
+    string Sel(string v, string current) =>
+        string.Equals(v ?? "", current ?? "", StringComparison.OrdinalIgnoreCase) ? "selected" : null;
+
+    // Categories shown in the dropdown (adjust to your domain)
+    var categories = new[] { "Health", "Education", "Environment", "Community", "Fundraising", "Logistics", "Other" };
+
+    // Months filter (value = "YYYY-MM" that your controller can parse)
+    var months = Enumerable.Range(0, 6)
+        .Select(i => DateTime.UtcNow.AddMonths(-i))
+        .OrderByDescending(d => d)
+        .Select(d => new { Value = d.ToString("yyyy-MM"), Label = d.ToString("MMMM yyyy") })
+        .ToList();
+}
+
+@section Styles {
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
+    <style>
+        .events-hero {
+            background: linear-gradient(135deg, #232a36 0%, #1d4538 100%);
+            color: #fff;
+            padding: 48px 0 64px;
+            text-align: center;
+        }
+
+        .filters-bar {
+            margin-top: -40px;
+        }
+
+        .filters-card {
+            border-radius: 14px;
+            box-shadow: 0 8px 24px rgba(16,24,40,.10);
+        }
+
+        .event-card {
+            border: 0;
+            border-radius: 16px;
+            box-shadow: 0 12px 26px rgba(16,24,40,.10);
+            overflow: hidden;
+        }
+
+        .event-img {
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .badge-soft {
+            background: #f3f4f6;
+            color: #374151;
+            font-weight: 600;
+        }
+
+        .capacity-bar {
+            height: 6px;
+            background: #f1f5f9;
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .capacity-fill {
+            height: 100%;
+            background: #7c3aed;
+        }
+
+        .apply-btn {
+            border-radius: 10px;
+            font-weight: 700;
+        }
+
+        .pill {
+            border-radius: 999px !important;
+        }
+        @@media (max-width: 768px) {
+            .events-hero
+
+        {
+            padding: 36px 0 56px;
+        }
+
+        .filters-card {
+            border-radius: 12px;
+        }
+
+        }
+    </style>
+}
+
+<!-- HERO -->
+<section class="events-hero">
+    <div class="container">
+        <h1 class="fw-bold mb-2">Find a Social-Impact Event</h1>
+        <p class="mb-0" style="opacity:.9">Search, filter, and apply to volunteer opportunities</p>
+    </div>
+</section>
+
+<!-- FILTERS -->
+<div class="container filters-bar">
+    <div class="card filters-card border-0 p-3 p-md-4">
+        <form method="get" asp-action="Index" asp-controller="Events" class="row g-3 align-items-end">
+            <div class="col-lg-4">
+                <label class="form-label fw-semibold">Search</label>
+                <div class="input-group">
+                    <span class="input-group-text bg-light"><i class="fas fa-search"></i></span>
+                    <input type="text" name="search" value="@search" class="form-control" placeholder="Search title, location..." />
+                </div>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <label class="form-label fw-semibold">Category</label>
+                <select class="form-select" name="category">
+                    <option value="">All Categories</option>
+                    @foreach (var c in categories)
+                    {
+                        <option value="@c" selected="@Sel(c, category)">@c</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-6 col-lg-3">
+                <label class="form-label fw-semibold">Status</label>
+                <select class="form-select" name="status">
+                    <option value="">Any Status</option>
+                    <option value="@EventStatus.Active" selected="@Sel(nameof(EventStatus.Active), statusSel)">Active</option>
+                    <option value="@EventStatus.Completed" selected="@Sel(nameof(EventStatus.Completed), statusSel)">Completed</option>
+                    <option value="@EventStatus.Cancelled" selected="@Sel(nameof(EventStatus.Cancelled), statusSel)">Cancelled</option>
+                </select>
+            </div>
+
+            <div class="col-6 col-lg-2">
+                <label class="form-label fw-semibold">Month</label>
+                <select class="form-select" name="month">
+                    <option value="">This Month</option>
+                    @foreach (var m in months)
+                    {
+                        <option value="@m.Value" selected="@Sel(m.Value, monthSel)">@m.Label</option>
+                    }
+                </select>
+            </div>
+
+            <div class="col-6 col-lg-12 col-xl-12 d-flex gap-2 justify-content-end">
+                <a asp-action="Index" asp-controller="Events" class="btn btn-outline-secondary pill">
+                    <i class="fas fa-rotate-left me-1"></i> Reset
+                </a>
+                <button class="btn btn-primary pill" type="submit">
+                    <i class="fas fa-filter me-1"></i> Apply Filters
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- RESULTS -->
+<section class="py-4">
+    <div class="container">
+        @if (Model == null || !Model.Any())
+        {
+            <div class="alert alert-light border text-center">
+                <i class="far fa-calendar-xmark me-1"></i> No events match your filters.
+            </div>
+        }
+        else
+        {
+            <div class="row g-4">
+                @foreach (var e in Model)
+                {
+                    var filled = (e.Participations?.Count() ?? 0);
+                    var cap = Math.Max(0, e.Capacity);
+                    var pct = cap > 0 ? Math.Clamp((int)Math.Round(100.0 * filled / cap), 0, 100) : 0;
+
+                    <div class="col-md-6 col-xl-4">
+                        <div class="card event-card h-100">
+                            <!-- Image (optional image URL property could be added to Event) -->
+                            <img class="event-img w-100" src="@(string.IsNullOrWhiteSpace(e.Description) ? Url.Content("~/images/volunteer-placeholder.jpg") : Url.Content("~/images/volunteer-placeholder.jpg"))" alt="@e.Title" />
+
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between align-items-center mb-2">
+                                    <span class="badge badge-soft pill">
+                                        <i class="fas fa-location-dot me-1"></i>@(e.Location ?? "TBA")
+                                    </span>
+                                    <span class="badge @(e.Status == EventStatus.Active ? "bg-success" : e.Status == EventStatus.Completed ? "bg-secondary" : "bg-danger")">
+                                        @e.Status
+                                    </span>
+                                </div>
+
+                                <h5 class="fw-bold mb-1">@e.Title</h5>
+                                <div class="text-muted small mb-2">
+                                    <i class="far fa-clock me-1"></i>
+                                    @e.StartDateTime.ToString("MMM d, yyyy — h:mm tt")
+                                </div>
+                                <p class="mb-3 small text-secondary">
+                                    @((e.Description ?? "").Length > 120 ? (e.Description.Substring(0, 120) + "...") : e.Description)
+                                </p>
+
+                                <div class="d-flex align-items-center justify-content-between mb-2">
+                                    <div class="small text-secondary">
+                                        <i class="fas fa-users me-1"></i>@filled / @cap
+                                    </div>
+                                    <div class="small fw-semibold">
+                                        @(string.IsNullOrWhiteSpace(e.Compensation) ? "Free" : e.Compensation)
+                                    </div>
+                                </div>
+                                <div class="capacity-bar mb-3">
+                                    <div class="capacity-fill" style="width:@pct%"></div>
+                                </div>
+
+                                <div class="d-flex gap-2">
+                                    <a asp-action="Details" asp-route-id="@e.EventId" class="btn btn-outline-secondary w-50">
+                                        Details
+                                    </a>
+
+                                    @if (e.Status == EventStatus.Active && filled < cap)
+                                    {
+                                        <form asp-action="Apply" asp-controller="Events" method="post" class="w-50">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="eventId" value="@e.EventId" />
+                                            <button type="submit" class="btn btn-primary w-100 apply-btn">
+                                                Apply Now
+                                            </button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-secondary w-50" disabled>
+                                            @((e.Status != EventStatus.Active) ? "Closed" : "Full")
+                                        </button>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+
+            <!-- Simple pager placeholder (hook to your paging) -->
+            <div class="d-flex justify-content-between align-items-center mt-4">
+                <div class="text-muted small">Showing @Model.Count() item(s)</div>
+                <nav aria-label="Event page navigation">
+                    <ul class="pagination pagination-sm mb-0">
+                        <li class="page-item disabled"><span class="page-link">«</span></li>
+                        <li class="page-item active"><span class="page-link">1</span></li>
+                        <li class="page-item disabled"><span class="page-link">»</span></li>
+                    </ul>
+                </nav>
+            </div>
+        }
+    </div>
+</section>

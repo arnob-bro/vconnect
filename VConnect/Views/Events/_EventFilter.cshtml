@@ -1,0 +1,39 @@
+﻿@{
+    var search = ViewBag.Search as string ?? "";
+    var category = ViewBag.Category as string ?? "";
+    var month = ViewBag.Month as string ?? "";
+}
+
+<form method="get" asp-action="Index" class="mb-4">
+    <div class="row g-2 align-items-end">
+        <div class="col-md-4">
+            <label class="form-label small">Search</label>
+            <input type="text" name="search" value="@search" class="form-control" placeholder="Search events..." />
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label small">Category</label>
+            <select name="category" class="form-select">
+                @{
+                    string sel(string value) => string.Equals(category, value, StringComparison.OrdinalIgnoreCase) ? "selected" : null;
+                }
+                <option value="">All Categories</option>
+                <option value="Health" selected="@sel("Health")">Health</option>
+                <option value="Education" selected="@sel("Education")">Education</option>
+                <option value="Environment" selected="@sel("Environment")">Environment</option>
+                <option value="Community" selected="@sel("Community")">Community</option>
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label small">Month</label>
+            <input type="month" name="month" value="@month" class="form-control" />
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-dark w-100">
+                <i class="fas fa-filter me-1"></i>Filter
+            </button>
+        </div>
+    </div>
+</form>

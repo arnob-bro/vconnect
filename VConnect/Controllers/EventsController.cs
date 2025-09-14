@@ -7,37 +7,55 @@ using VConnect.Services;
 
 namespace VConnect.Controllers
 {
-    public class EventController : Controller
+    public class EventsController : Controller
     {
         private readonly IEventService _service;
 
-        public EventController(IEventService service)
+        public EventsController(IEventService service)
         {
             _service = service;
         }
 
-        // Volunteer views
+        // PUBLIC LIST (with filters & paging)
+        // /Events?search=&category=&status=&month=&page=1
         [HttpGet]
         [AllowAnonymous]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(
+            string? search,
+            string? category,
+            EventStatus? status,
+            string? month,
+            int page = 1)
         {
-            var events = await _service.GetAllAsync();
+            // Service should filter + optionally page
+            var events = await _service.GetFilteredAsync(search, category, status, month, page);
+
+            // Keep selected filter values for the view
+            ViewBag.Search = search;
+            ViewBag.Category = category;
+            ViewBag.Status = status;
+            ViewBag.Month = month;
+            ViewBag.Page = page;
+
             return View(events);
         }
 
+        // PUBLIC DETAILS
         [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> Details(int id)
         {
+            // Ensure service includes Roles, Applications, Participations
             var evt = await _service.GetByIdAsync(id);
             if (evt == null) return NotFound();
             return View(evt);
         }
 
+        // VOLUNTEER APPLY
         [HttpPost]
         [Authorize] // must be logged in to apply
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Apply(int eventId, int roleId)
+        public async Task<IActionResult> Apply(int eventId, int? roleId)
         {
             var userIdStr = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if (!int.TryParse(userIdStr, out var userId) || userId <= 0)
@@ -57,7 +75,10 @@ namespace VConnect.Controllers
             return RedirectToAction("Details", new { id = eventId });
         }
 
+        // =========================
         // ADMIN AREA
+        // =========================
+
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public IActionResult Create() => View();
