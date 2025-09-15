@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using VConnect.Database;
@@ -11,9 +12,11 @@ using VConnect.Database;
 namespace VConnect.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250915144831_InitialCreate")]
+    partial class InitialCreate
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -586,8 +589,7 @@ namespace VConnect.Migrations
                     b.ToTable("ProfileDetails");
                 });
 
-            modelBuilder.Entity("VConnect.Models.SOS.SosComment", b =>
-
+            modelBuilder.Entity("VConnect.Models.SOS.HelpComment", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -595,44 +597,39 @@ namespace VConnect.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-            modelBuilder.Entity("VConnect.Models.SOS.HelpRequest", b =>
-
-                    b.Property<string>("AuthorName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.Property<DateTime>("CreatedAt")
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTimeOffset?>("EditedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("HelpRequestId")
+                        .HasColumnType("integer");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("boolean");
 
+                    b.Property<bool>("IsEdited")
+                        .HasColumnType("boolean");
+
                     b.Property<string>("Message")
                         .IsRequired()
-                        .HasMaxLength(1000)
-                        .HasColumnType("character varying(1000)");
+                        .HasMaxLength(3000)
+                        .HasColumnType("character varying(3000)");
 
-                    b.Property<int?>("ParentCommentId")
+                    b.Property<int>("UserId")
                         .HasColumnType("integer");
-
-                    b.Property<int>("SosPostId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("UserId")
-                        .HasColumnType("text");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ParentCommentId");
+                    b.HasIndex("HelpRequestId");
 
-                    b.HasIndex("SosPostId");
+                    b.HasIndex("UserId");
 
-                    b.ToTable("SosComments");
+                    b.ToTable("HelpComments");
                 });
 
-            modelBuilder.Entity("VConnect.Models.SOS.SosPost", b =>
-
+            modelBuilder.Entity("VConnect.Models.SOS.HelpRequest", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -640,38 +637,24 @@ namespace VConnect.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTime?>("CompletedAt")
+                    b.Property<DateTimeOffset?>("ClosedAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Contact")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
-                    b.Property<DateTime>("CreatedAt")
-
+                    b.Property<DateTimeOffset>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
+                        .HasMaxLength(4000)
+                        .HasColumnType("character varying(4000)");
 
-
-                        .HasMaxLength(2000)
-                        .HasColumnType("character varying(2000)");
-
-                    b.Property<string>("EmergencyType")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
-
+                    b.Property<DateTimeOffset?>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<bool>("IsAcceptingHelp")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("IsDeleted")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsGuest")
                         .HasColumnType("boolean");
 
                     b.Property<bool>("IsVisible")
@@ -680,30 +663,33 @@ namespace VConnect.Migrations
                     b.Property<double?>("Latitude")
                         .HasColumnType("double precision");
 
-                    b.Property<string>("Location")
-                        .IsRequired()
-                        .HasMaxLength(300)
-                        .HasColumnType("character varying(300)");
-
                     b.Property<double?>("Longitude")
                         .HasColumnType("double precision");
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    b.Property<int>("OwnerUserId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("OwnerUserId")
-                        .HasColumnType("text");
-
-                    b.Property<string>("Status")
+                    b.Property<string>("Region")
                         .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("character varying(50)");
+                        .HasMaxLength(120)
+                        .HasColumnType("character varying(120)");
+
+                    b.Property<int>("Status")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(140)
+                        .HasColumnType("character varying(140)");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.ToTable("SosPosts");
+                    b.HasIndex("OwnerUserId");
+
+                    b.ToTable("HelpRequests");
                 });
 
             modelBuilder.Entity("VConnect.Models.Cases.CaseGalleryImage", b =>
@@ -821,23 +807,34 @@ namespace VConnect.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("VConnect.Models.SOS.SosComment", b =>
+            modelBuilder.Entity("VConnect.Models.SOS.HelpComment", b =>
                 {
-                    b.HasOne("VConnect.Models.SOS.SosComment", "ParentComment")
-                        .WithMany("Replies")
-                        .HasForeignKey("ParentCommentId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("VConnect.Models.SOS.SosPost", "SosPost")
+                    b.HasOne("VConnect.Models.SOS.HelpRequest", "HelpRequest")
                         .WithMany("Comments")
-                        .HasForeignKey("SosPostId")
+                        .HasForeignKey("HelpRequestId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("ParentComment");
+                    b.HasOne("VConnect.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
-                    b.Navigation("SosPost");
+                    b.Navigation("HelpRequest");
 
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("VConnect.Models.SOS.HelpRequest", b =>
+                {
+                    b.HasOne("VConnect.Models.ApplicationUser", "Owner")
+                        .WithMany()
+                        .HasForeignKey("OwnerUserId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Owner");
                 });
 
             modelBuilder.Entity("VConnect.Models.Cases.Study", b =>
@@ -861,14 +858,7 @@ namespace VConnect.Migrations
                     b.Navigation("Applications");
                 });
 
-
-            modelBuilder.Entity("VConnect.Models.SOS.SosComment", b =>
-                {
-                    b.Navigation("Replies");
-                });
-
-            modelBuilder.Entity("VConnect.Models.SOS.SosPost", b =>
-
+            modelBuilder.Entity("VConnect.Models.SOS.HelpRequest", b =>
                 {
                     b.Navigation("Comments");
                 });

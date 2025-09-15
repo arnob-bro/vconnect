@@ -81,9 +81,11 @@ namespace VConnect.Controllers
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal, authProps);
 
-            // Optional: send admins to an admin area/dashboard
             if (!string.IsNullOrWhiteSpace(user.Role) && user.Role == "Admin")
-                return RedirectToAction("Index", "Admin"); // change if you don't have this
+            {
+                return RedirectToAction("Index", "Dashboard", new { area = "Admin" });
+            }
+
 
             return RedirectToAction("Index", "Home");
         }

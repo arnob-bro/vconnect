@@ -1,0 +1,74 @@
+﻿@model IEnumerable<VConnect.Models.ApplicationUser>
+
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Users Management";
+}
+
+<style>
+    .users-table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+        .users-table th, .users-table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f2f2f2;
+            text-align: left;
+        }
+
+        .users-table th {
+            background: #0e0e53;
+            color: #fff;
+        }
+
+        .users-table tr:hover {
+            background: #f9f9f9;
+        }
+
+    .btn {
+        padding: 6px 12px;
+        background-color: #22577a;
+        color: #fff;
+        border: none;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.9rem;
+        transition: 0.3s;
+    }
+
+        .btn:hover {
+            background-color: #ff8800;
+            color: #fff;
+        }
+</style>
+
+<h2>Users Management</h2>
+
+<table class="users-table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model)
+        {
+            <tr>
+                <td>@user.FirstName @user.LastName</td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+                <td>
+                    <a href="/Admin/Users/Edit/@user.Id" class="btn">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
