@@ -5,7 +5,7 @@
 }
 
 <!-- Hero Section -->
-<section class="hero-banner">
+<section class="hero-section">
     <div class="container text-center text-white">
         <h1 class="hero-title">Meet Our Heroes</h1>
         <p class="hero-subtitle">Celebrating the extraordinary volunteers who make VConnect possible</p>
@@ -13,25 +13,25 @@
 </section>
 
 <!-- Stats Section -->
-<section class="stats-section py-5 bg-light">
+<section class="stats-section bg-light">
     <div class="container">
         <div class="row text-center">
-            <div class="col-md-4">
+            <div class="col-md-4 col-6 mb-4">
                 <div class="stat-card">
-                    <h2 class="stat-number text-vol" data-count="@Model.TotalHeroes">0</h2>
-                    <p class="text-muted">Active Volunteers</p>
+                    <h2 class="stat-number" id="stat1" data-count="@Model.TotalHeroes">0</h2>
+                    <p class="stat-label">Active Volunteers</p>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-6 mb-4">
                 <div class="stat-card">
-                    <h2 class="stat-number text-vol" data-count="@Model.TotalHours">0</h2>
-                    <p class="text-muted">Hours Volunteered</p>
+                    <h2 class="stat-number" id="stat2" data-count="@Model.TotalHours">0</h2>
+                    <p class="stat-label">Hours Volunteered</p>
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 col-6 mb-4">
                 <div class="stat-card">
-                    <h2 class="stat-number text-vol" data-count="@Model.TotalProjects">0</h2>
-                    <p class="text-muted">Projects Completed</p>
+                    <h2 class="stat-number" id="stat3" data-count="@Model.TotalProjects">0</h2>
+                    <p class="stat-label">Projects Completed</p>
                 </div>
             </div>
         </div>
@@ -39,45 +39,51 @@
 </section>
 
 <!-- Featured Heroes -->
-<section class="featured-heroes py-5">
+<section class="featured-section">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="section-title text-vol">Featured Heroes</h2>
-            <p class="section-subtitle">Our most dedicated volunteers making significant impacts</p>
+        <div class="text-center section-heading">
+            <span class="badge featured-badge">Featured Heroes</span>
+            <h2 class="section-title">Our Most Dedicated Volunteers</h2>
+            <p class="section-subtitle">Making significant impacts across communities</p>
         </div>
 
         <div class="row g-4">
             @foreach (var hero in Model.FeaturedHeroes)
             {
                 <div class="col-lg-4 col-md-6">
-                    <div class="hero-card card border-0 shadow-lg h-100">
-                        <div class="hero-image-container">
-                            <img src="@hero.ProfileImage" class="hero-image" alt="@hero.FullName">
-                            <div class="hero-overlay">
-                                <a href="@Url.Action("Details", "Heroes", new { id = hero.Id })" class="btn btn-warning btn-sm">View Profile</a>
+                    <div class="case-card card border-0 shadow-sm h-100">
+                        <div class="case-image-container">
+                            <img src="@hero.ProfileImage" class="case-image" alt="@hero.FullName">
+                            <div class="case-overlay">
+                                <span class="badge category-badge">@hero.Role</span>
                             </div>
                         </div>
                         <div class="card-body text-center">
-                            <h5 class="card-title fw-bold">@hero.FullName</h5>
-                            <p class="text-muted mb-2">@hero.Role</p>
-                            <p class="text-vol mb-3"><i class="fas fa-map-marker-alt me-2"></i>@hero.Location</p>
-
-                            <div class="hero-stats d-flex justify-content-around mb-3">
-                                <div>
-                                    <h6 class="fw-bold mb-0">@hero.HoursVolunteered</h6>
-                                    <small class="text-muted">Hours</small>
-                                </div>
-                                <div>
-                                    <h6 class="fw-bold mb-0">@hero.ProjectsCompleted</h6>
-                                    <small class="text-muted">Projects</small>
-                                </div>
-                                <div>
-                                    <h6 class="fw-bold mb-0">@hero.JoinedDate.ToString("yyyy")</h6>
-                                    <small class="text-muted">Since</small>
-                                </div>
+                            <div class="case-meta mb-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-map-marker-alt me-1"></i>@hero.Location
+                                </small>
+                                <span class="badge status-badge float-end">
+                                    Since @hero.JoinedDate.ToString("yyyy")
+                                </span>
                             </div>
 
-                            <p class="card-text">@hero.ShortBio</p>
+                            <h5 class="card-title case-title">@hero.FullName</h5>
+                            <p class="card-text case-description">@hero.ShortBio</p>
+
+                            <div class="case-stats d-flex justify-content-between mb-3">
+                                <small>
+                                    <i class="fas fa-clock me-1"></i>@hero.HoursVolunteered hours
+                                </small>
+                                <small>
+                                    <i class="fas fa-tasks me-1"></i>@hero.ProjectsCompleted projects
+                                </small>
+                            </div>
+                        </div>
+                        <div class="card-footer bg-transparent border-0">
+                            <a href="@Url.Action("Details", "Heroes", new { id = hero.Id })" class="btn btn-sm w-100 case-button">
+                                View Profile
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -87,10 +93,10 @@
 </section>
 
 <!-- All Heroes Grid -->
-<section class="all-heroes py-5 bg-light">
+<section class="categories-section bg-light">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="section-title text-vol">Our Volunteer Community</h2>
+        <div class="text-center section-heading">
+            <h2 class="section-title">Our Volunteer Community</h2>
             <p class="section-subtitle">Join thousands of volunteers making a difference across Bangladesh</p>
         </div>
 
@@ -98,14 +104,17 @@
             @foreach (var hero in Model.AllHeroes)
             {
                 <div class="col-xl-3 col-lg-4 col-md-6">
-                    <div class="hero-card-sm card border-0 shadow-sm h-100">
-                        <div class="hero-image-sm-container">
-                            <img src="@hero.ProfileImage" class="hero-image-sm" alt="@hero.FullName">
+                    <div class="case-card card border-0 shadow-sm h-100">
+                        <div class="case-image-container">
+                            <img src="@hero.ProfileImage" class="case-image" alt="@hero.FullName">
+                            <div class="case-overlay">
+                                <span class="badge category-badge">@hero.Role</span>
+                            </div>
                         </div>
                         <div class="card-body text-center">
-                            <h6 class="card-title fw-bold mb-1">@hero.FullName</h6>
-                            <p class="text-muted small mb-2">@hero.Role</p>
-                            <div class="hero-stats-sm d-flex justify-content-center gap-3 mb-2">
+                            <h6 class="card-title case-title mb-1">@hero.FullName</h6>
+                            <p class="text-muted small mb-2">@hero.Location</p>
+                            <div class="case-stats d-flex justify-content-center gap-3 mb-2">
                                 <div>
                                     <span class="fw-bold">@hero.HoursVolunteered</span>
                                     <small class="text-muted d-block">Hours</small>
@@ -115,7 +124,11 @@
                                     <small class="text-muted d-block">Projects</small>
                                 </div>
                             </div>
-                            <a href="@Url.Action("Details", "Heroes", new { id = hero.Id })" class="btn btn-outline-vol btn-sm">View Profile</a>
+                        </div>
+                        <div class="card-footer bg-transparent border-0 pt-0">
+                            <a href="@Url.Action("Details", "Heroes", new { id = hero.Id })" class="btn btn-sm w-100 case-button">
+                                View Profile
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -127,9 +140,9 @@
 <!-- Call to Action -->
 <section class="cta-section">
     <div class="container text-center text-white">
-        <h2 class="cta-title">Become a Hero Today</h2>
-        <p class="cta-subtitle">Join our community of volunteers and make a difference in your community</p>
-        <a href="@Url.Action("Register", "Account")" class="btn btn-warning btn-lg px-5 py-3">
+        <h2 class="cta-title mb-3">Become a Hero Today</h2>
+        <p class="cta-subtitle mb-4">Join our community of volunteers and make a difference in your community</p>
+        <a href="@Url.Action("Register", "Account")" class="btn btn-warning btn-lg px-4">
             <i class="fas fa-user-plus me-2"></i>Join Now
         </a>
     </div>
@@ -141,34 +154,40 @@
         /* Global Styles */
         :root {
             --primary-color: #0b3d2e;
-            --primary-light: #1a5e48;
+            --secondary-color: #1a5e48;
             --accent-color: #ffc107;
-            --text-dark: #333;
-            --text-light: #6c757d;
-            --bg-light: #f8f9fa;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --light-bg: #f8f9fa;
+            --dark-text: #232a36;
         }
 
         /* Hero Section */
-        .hero-banner {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+        .hero-section {
             padding: 7rem 0 5rem;
+            background: linear-gradient(135deg, var(--dark-text) 0%, var(--secondary-color) 100%);
             margin-top: -25px;
+            position: relative;
+            overflow: hidden;
         }
 
+            .hero-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0.5;
+            }
+
         .hero-title {
-            font-size: 3rem;
+            font-size: 3.5rem;
             font-weight: 800;
             margin-bottom: 1rem;
             animation: fadeInDown 1s ease;
         }
 
         .hero-subtitle {
-            font-size: 1.25rem;
-            font-weight: 300;
+            font-size: 1.35rem;
             max-width: 700px;
             margin: 0 auto;
             animation: fadeInUp 1s ease;
@@ -176,12 +195,11 @@
 
         /* Stats Section */
         .stats-section {
-            position: relative;
-            z-index: 1;
+            padding: 5rem 0;
         }
 
         .stat-card {
-            padding: 2.5rem 1rem;
+            padding: 2rem 1rem;
             transition: transform 0.3s ease;
         }
 
@@ -192,159 +210,195 @@
         .stat-number {
             font-size: 3.5rem;
             font-weight: 700;
+            color: var(--primary-color);
             margin-bottom: 0.5rem;
         }
 
-        /* Section Titles */
-        .section-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            position: relative;
-            display: inline-block;
+        .stat-label {
+            color: #6c757d;
+            font-size: 1.1rem;
         }
 
-            .section-title::after {
-                content: '';
-                position: absolute;
-                bottom: -10px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 60px;
-                height: 3px;
-                background-color: var(--primary-color);
-            }
+        /* Section Headings */
+        .section-heading {
+            margin-bottom: 4rem;
+        }
+
+        .featured-badge {
+            background-color: var(--accent-color);
+            color: #000;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
 
         .section-subtitle {
-            font-size: 1.1rem;
-            color: var(--text-light);
-            max-width: 600px;
+            font-size: 1.25rem;
+            color: #6c757d;
+            max-width: 700px;
             margin: 0 auto;
         }
 
-        /* Hero Cards */
-        .hero-card {
+        /* Featured Section */
+        .featured-section {
+            padding: 5rem 0;
+        }
+
+        /* Badges */
+        .category-badge {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .location-badge {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .status-badge {
+            background-color: #198754;
+            color: white;
+        }
+
+        .count-badge {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        /* Case Cards */
+        .case-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-radius: 15px;
             overflow: hidden;
-            animation: fadeIn 0.5s ease;
         }
 
-            .hero-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+            .case-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
             }
 
-        .hero-image-container {
+        .case-image-container {
             position: relative;
-            height: 250px;
+            height: 220px;
             overflow: hidden;
         }
 
-        .hero-image {
+        .case-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.5s ease;
         }
 
-        .hero-card:hover .hero-image {
-            transform: scale(1.05);
+        .case-card:hover .case-image {
+            transform: scale(1.1);
         }
 
-        .hero-overlay {
+        .case-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(11, 61, 46, 0.8);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            top: 15px;
+            left: 15px;
             opacity: 0;
             transition: opacity 0.3s ease;
         }
 
-        .hero-card:hover .hero-overlay {
+        .case-card:hover .case-overlay {
             opacity: 1;
         }
 
-        .hero-stats {
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-            padding: 1rem 0;
-        }
-
-        /* Small hero cards */
-        .hero-card-sm {
-            transition: transform 0.3s ease;
-            border-radius: 10px;
-            animation: fadeIn 0.5s ease;
-        }
-
-            .hero-card-sm:hover {
-                transform: translateY(-3px);
-            }
-
-        .hero-image-sm-container {
-            height: 120px;
-            overflow: hidden;
-        }
-
-        .hero-image-sm {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .hero-stats-sm {
-            font-size: 0.9rem;
-        }
-
-        .btn-outline-vol {
+        .case-title {
             color: var(--primary-color);
-            border-color: var(--primary-color);
+            font-weight: 700;
+            transition: color 0.3s ease;
         }
 
-            .btn-outline-vol:hover {
+        .case-card:hover .case-title {
+            color: var(--secondary-color);
+        }
+
+        .case-description {
+            color: #6c757d;
+            line-height: 1.6;
+        }
+
+        .case-button {
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+            .case-button:hover {
                 background-color: var(--primary-color);
                 color: white;
             }
 
         /* CTA Section */
         .cta-section {
-            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
             padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            position: relative;
+            overflow: hidden;
         }
 
+            .cta-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0.5;
+            }
+
         .cta-title {
-            font-size: 2.5rem;
             font-weight: 700;
-            margin-bottom: 1rem;
+            font-size: 2.5rem;
         }
 
         .cta-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.3rem;
             max-width: 600px;
-            margin: 0 auto 2rem;
+            margin: 0 auto;
         }
 
+        .cta-buttons .btn {
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .cta-buttons .btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            }
+
         /* Animations */
-        @@keyframes fadeIn {
+        @@keyframes fadeInDown {
             from {
                 opacity: 0;
+                transform: translateY(-30px);
             }
 
             to {
                 opacity: 1;
+                transform: translateY(0);
             }
         }
 
         @@keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(20px);
+                transform: translateY(30px);
             }
 
             to {
@@ -353,40 +407,54 @@
             }
         }
 
-        @@keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-20px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Responsive adjustments */
-        @@media (max-width: 992px) {
+        /* Responsive Design */
+        @@media (max-width: 1200px) {
             .hero-title {
-                font-size: 2.5rem;
+                font-size: 3rem;
             }
 
             .stat-number {
-                font-size: 2.8rem;
+                font-size: 3rem;
             }
         }
 
-        @@media (max-width: 768px) {
-            .hero-banner {
+        @@media (max-width: 992px) {
+            .hero-section {
                 padding: 6rem 0 4rem;
             }
 
             .hero-title {
-                font-size: 2rem;
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .stats-section, .featured-section, .categories-section {
+                padding: 4rem 0;
+            }
+
+            .section-heading {
+                margin-bottom: 3rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
             }
 
             .hero-subtitle {
                 font-size: 1.1rem;
+            }
+
+            .stats-section, .featured-section, .categories-section {
+                padding: 3rem 0;
             }
 
             .stat-card {
@@ -394,24 +462,28 @@
             }
 
             .stat-number {
-                font-size: 2.2rem;
-            }
-
-            .section-title {
                 font-size: 2rem;
             }
 
-            .hero-image-container {
-                height: 200px;
+            .stat-label {
+                font-size: 1rem;
             }
 
             .cta-title {
                 font-size: 2rem;
             }
+
+            .cta-subtitle {
+                font-size: 1.1rem;
+            }
         }
 
         @@media (max-width: 576px) {
             .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
                 font-size: 1.8rem;
             }
 
@@ -426,32 +498,45 @@
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Counter animation for stats
-            const counters = document.querySelectorAll('.stat-number');
-            const speed = 200; // The lower the slower
+            function animateCounter(element, target) {
+                let current = 0;
+                let increment = target / 50;
+                let duration = 2000; // 2 seconds
+                let stepTime = Math.abs(Math.floor(duration / (target / increment)));
 
-            counters.forEach(counter => {
-                const target = +counter.getAttribute('data-count');
-                const count = +counter.innerText;
-                const increment = Math.ceil(target / speed);
-
-                const updateCount = () => {
-                    if (count < target) {
-                        counter.innerText = Math.min(count + increment, target).toLocaleString();
-                        setTimeout(updateCount, 1);
+                let timer = setInterval(function() {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        current = target;
                     }
-                };
 
-                updateCount();
-            });
+                    element.textContent = Math.floor(current).toLocaleString();
+                }, stepTime);
+            }
 
-            // Add animation to hero cards when they come into view
-            const heroCards = document.querySelectorAll('.hero-card, .hero-card-sm');
-
+            // Start counter animation when stats are in viewport
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
+                        animateCounter(document.getElementById('stat1'), @Model.TotalHeroes);
+                        animateCounter(document.getElementById('stat2'), @Model.TotalHours);
+                        animateCounter(document.getElementById('stat3'), @Model.TotalProjects);
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(document.querySelector('.stats-section'));
+
+            // Add animation to hero cards when they come into view
+            const heroCards = document.querySelectorAll('.case-card');
+
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
                         entry.target.style.animation = 'fadeInUp 0.5s ease forwards';
-                        observer.unobserve(entry.target);
+                        cardObserver.unobserve(entry.target);
                     }
                 });
             }, {
@@ -459,7 +544,7 @@
             });
 
             heroCards.forEach(card => {
-                observer.observe(card);
+                cardObserver.observe(card);
             });
         });
     </script>

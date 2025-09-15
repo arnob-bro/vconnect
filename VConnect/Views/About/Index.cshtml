@@ -5,21 +5,23 @@
 }
 
 <!-- Hero Section -->
-<section class="py-5" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%); margin-top: -25px;">
-    <div class="container py-5 text-center text-white">
-        <h1 class="display-4 fw-bold mb-3">About VConnect</h1>
-        <p class="lead mb-0">Empowering youth to create sustainable change across Bangladesh</p>
+<section class="hero-section">
+    <div class="container text-center text-white">
+        <h1 class="hero-title">About VConnect</h1>
+        <p class="hero-subtitle">Empowering youth to create sustainable change across Bangladesh</p>
     </div>
 </section>
 
 <!-- Mission Section -->
-<section class="py-5">
+<section class="featured-section">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <h2 class="fw-bold text-vol mb-4">Our Mission</h2>
-                <p class="lead">@Model.MissionStatement</p>
-                <p>@Model.History</p>
+                <div class="section-heading text-start mb-4">
+                    <h2 class="section-title">Our Mission</h2>
+                </div>
+                <p class="featured-description mb-4">@Model.MissionStatement</p>
+                <p class="featured-description">@Model.History</p>
             </div>
             <div class="col-lg-6">
                 <div class="about-gallery d-flex flex-wrap gap-2">
@@ -34,31 +36,31 @@
 </section>
 
 <!-- Stats Section -->
-<section class="py-5 bg-light">
+<section class="stats-section bg-light">
     <div class="container">
         <div class="row text-center">
             <div class="col-md-3 col-6 mb-4">
                 <div class="stat-card">
-                    <h2 class="display-4 fw-bold text-vol">@Model.Stats.Volunteers.ToString("N0")</h2>
-                    <p class="text-muted">Volunteers</p>
+                    <h2 class="stat-number" id="stat1">0</h2>
+                    <p class="stat-label">Volunteers</p>
                 </div>
             </div>
             <div class="col-md-3 col-6 mb-4">
                 <div class="stat-card">
-                    <h2 class="display-4 fw-bold text-vol">@Model.Stats.ProjectsCompleted.ToString("N0")</h2>
-                    <p class="text-muted">Projects Completed</p>
+                    <h2 class="stat-number" id="stat2">0</h2>
+                    <p class="stat-label">Projects Completed</p>
                 </div>
             </div>
             <div class="col-md-3 col-6 mb-4">
                 <div class="stat-card">
-                    <h2 class="display-4 fw-bold text-vol">@Model.Stats.CommunitiesServed.ToString("N0")</h2>
-                    <p class="text-muted">Communities Served</p>
+                    <h2 class="stat-number" id="stat3">0</h2>
+                    <p class="stat-label">Communities Served</p>
                 </div>
             </div>
             <div class="col-md-3 col-6 mb-4">
                 <div class="stat-card">
-                    <h2 class="display-4 fw-bold text-vol">@Model.Stats.HoursVolunteered.ToString("N0")</h2>
-                    <p class="text-muted">Hours Volunteered</p>
+                    <h2 class="stat-number" id="stat4">0</h2>
+                    <p class="stat-label">Hours Volunteered</p>
                 </div>
             </div>
         </div>
@@ -66,11 +68,11 @@
 </section>
 
 <!-- Values Section -->
-<section class="py-5">
+<section class="featured-section">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold text-vol">Our Values</h2>
-            <p class="lead">The principles that guide everything we do</p>
+        <div class="text-center section-heading mb-5">
+            <h2 class="section-title">Our Values</h2>
+            <p class="section-subtitle">The principles that guide everything we do</p>
         </div>
 
         <div class="row g-4">
@@ -93,11 +95,11 @@
 </section>
 
 <!-- Timeline Section -->
-<section class="py-5 bg-light">
+<section class="categories-section bg-light">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold text-vol">Our Journey</h2>
-            <p class="lead">Milestones in our growth and impact</p>
+        <div class="text-center section-heading mb-5">
+            <h2 class="section-title">Our Journey</h2>
+            <p class="section-subtitle">Milestones in our growth and impact</p>
         </div>
 
         <div class="timeline">
@@ -105,7 +107,7 @@
             {
                 <div class="timeline-item">
                     <div class="timeline-year">
-                        <span class="year-badge">@eventItem.Year</span>
+                        <span class="badge category-badge year-badge">@eventItem.Year</span>
                     </div>
                     <div class="timeline-content">
                         <h5 class="fw-bold">@eventItem.Title</h5>
@@ -118,11 +120,11 @@
 </section>
 
 <!-- Team Section -->
-<section class="py-5">
+<section class="featured-section">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold text-vol">Leadership Team</h2>
-            <p class="lead">The passionate individuals driving our mission forward</p>
+        <div class="text-center section-heading mb-5">
+            <h2 class="section-title">Leadership Team</h2>
+            <p class="section-subtitle">The passionate individuals driving our mission forward</p>
         </div>
 
         <div class="row g-4">
@@ -130,7 +132,12 @@
             {
                 <div class="col-lg-4 col-md-6">
                     <div class="team-card card border-0 shadow-lg">
-                        <img src="@member.ImageUrl" class="card-img-top team-image" alt="@member.Name">
+                        <div class="case-image-container">
+                            <img src="@member.ImageUrl" class="case-image" alt="@member.Name">
+                            <div class="case-overlay">
+                                <span class="badge category-badge">@member.Position</span>
+                            </div>
+                        </div>
                         <div class="card-body text-center">
                             <h5 class="card-title fw-bold">@member.Name</h5>
                             <p class="text-vol mb-3">@member.Position</p>
@@ -160,11 +167,11 @@
 </section>
 
 <!-- Call to Action -->
-<section class="py-5" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%);">
+<section class="cta-section">
     <div class="container text-center text-white">
-        <h2 class="fw-bold mb-3">Join Our Movement</h2>
-        <p class="lead mb-4">Become part of the change and help us build a better Bangladesh</p>
-        <div class="d-flex gap-3 justify-content-center">
+        <h2 class="cta-title mb-3">Join Our Movement</h2>
+        <p class="cta-subtitle mb-4">Become part of the change and help us build a better Bangladesh</p>
+        <div class="d-flex gap-3 justify-content-center cta-buttons">
             <a href="@Url.Action("Register", "Account")" class="btn btn-warning btn-lg px-4">
                 <i class="fas fa-user-plus me-2"></i>Join as Volunteer
             </a>
@@ -179,10 +186,97 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
-        .stat-card {
-            padding: 2rem 1rem;
+        :root {
+            --primary-color: #0b3d2e;
+            --secondary-color: #1a5e48;
+            --accent-color: #ffc107;
+            --light-bg: #f8f9fa;
+            --dark-text: #232a36;
         }
 
+        /* Hero Section */
+        .hero-section {
+            padding: 7rem 0 5rem;
+            background: linear-gradient(135deg, var(--dark-text) 0%, var(--secondary-color) 100%);
+            margin-top: -25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 5rem 0;
+        }
+
+        .stat-card {
+            padding: 2rem 1rem;
+            transition: transform 0.3s ease;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+
+        /* Section Headings */
+        .section-heading {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #6c757d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Featured Section */
+        .featured-section {
+            padding: 5rem 0;
+        }
+
+        .featured-description {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #495057;
+        }
+
+        /* Badges */
+        .category-badge {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        /* About Gallery */
         .about-gallery {
             display: flex;
             flex-wrap: wrap;
@@ -194,16 +288,23 @@
             border-radius: 8px;
             object-fit: cover;
             height: 150px;
+            transition: transform 0.3s ease;
         }
 
+            .about-img:hover {
+                transform: scale(1.05);
+            }
+
+        /* Values */
         .value-card {
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-radius: 15px;
             padding: 2rem 1rem;
         }
 
             .value-card:hover {
-                transform: translateY(-5px);
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
             }
 
         .value-icon {
@@ -237,8 +338,6 @@
         }
 
         .year-badge {
-            background: #0b3d2e;
-            color: white;
             padding: 0.5rem 1rem;
             border-radius: 20px;
             font-weight: bold;
@@ -250,7 +349,7 @@
             padding: 1.5rem;
             border-radius: 10px;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            border-left: 4px solid #0b3d2e;
+            border-left: 4px solid var(--primary-color);
         }
 
         .timeline::before {
@@ -260,23 +359,48 @@
             top: 0;
             bottom: 0;
             width: 2px;
-            background: #0b3d2e;
+            background: var(--primary-color);
         }
 
         /* Team */
         .team-card {
-            transition: transform 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-radius: 15px;
             overflow: hidden;
         }
 
             .team-card:hover {
-                transform: translateY(-5px);
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
             }
 
-        .team-image {
+        .case-image-container {
+            position: relative;
             height: 250px;
+            overflow: hidden;
+        }
+
+        .case-image {
+            width: 100%;
+            height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .team-card:hover .case-image {
+            transform: scale(1.1);
+        }
+
+        .case-overlay {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .team-card:hover .case-overlay {
+            opacity: 1;
         }
 
         .social-links a {
@@ -284,11 +408,62 @@
         }
 
             .social-links a:hover {
-                color: #ffd700 !important;
+                color: var(--accent-color) !important;
             }
 
-        /* Responsive */
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-title {
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-buttons .btn {
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .cta-buttons .btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+            }
+
+        /* Responsive Design */
         @@media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .stats-section, .featured-section, .categories-section {
+                padding: 4rem 0;
+            }
+
+            .stat-card {
+                padding: 1.5rem 0.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.5rem;
+            }
+
             .timeline-item {
                 flex-direction: column;
             }
@@ -307,10 +482,59 @@
                 width: 100%;
                 margin-bottom: 0.5rem;
             }
+        }
 
-            .stat-card {
-                padding: 1.5rem 0.5rem;
+        @@media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .stat-number {
+                font-size: 2rem;
             }
         }
     </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Counter animation for stats
+            function animateCounter(element, target) {
+                let current = 0;
+                let increment = target / 50;
+                let duration = 2000; // 2 seconds
+                let stepTime = Math.abs(Math.floor(duration / (target / increment)));
+
+                let timer = setInterval(function () {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        current = target;
+                    }
+
+                    element.textContent = Math.floor(current).toLocaleString();
+                }, stepTime);
+            }
+
+            // Start counter animation when stats are in viewport
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(document.getElementById('stat1'), @Model.Stats.Volunteers);
+                        animateCounter(document.getElementById('stat2'), @Model.Stats.ProjectsCompleted);
+                        animateCounter(document.getElementById('stat3'), @Model.Stats.CommunitiesServed);
+                        animateCounter(document.getElementById('stat4'), @Model.Stats.HoursVolunteered);
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(document.querySelector('.stats-section'));
+        });
+    </script>
 }

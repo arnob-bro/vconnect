@@ -29,7 +29,7 @@ namespace VConnect.Controllers
             {
                 FeaturedCase = MapToFrontend(studies.FirstOrDefault()),
                 AllCases = studies.Select(MapToFrontend).ToList(),
-                Categories = await _db.CaseCategories
+                Categories = await _db.Categories
                                       .Select(c => new CaseCategory
                                       {
                                           Name = c.Name,
