@@ -12,7 +12,7 @@ using VConnect.Database;
 namespace VConnect.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250915144831_InitialCreate")]
+    [Migration("20250915224446_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
