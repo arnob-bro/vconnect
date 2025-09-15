@@ -1,26 +1,24 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using VConnect.Database;
 using VConnect.Services;
-using VConnect.Models;            // <-- your frontend models
-using VConnect.Models.Cases;      // <-- your EF entities
+using VConnect.Models;
+using VConnect.Models.Cases;
 
 namespace VConnect.Controllers
 {
     public class CaseController : Controller
     {
-        private readonly StudyService _service;
+        private readonly IStudyService _service;
         private readonly ApplicationDbContext _db;
 
-        public CaseController(StudyService service, ApplicationDbContext db)
+        public CaseController(IStudyService service, ApplicationDbContext db)
         {
             _service = service;
             _db = db;
         }
 
-        // GET: /Case
         public async Task<IActionResult> Index()
         {
             var studies = (await _service.GetAllAsync()).ToList();
@@ -52,16 +50,13 @@ namespace VConnect.Controllers
             return View(vm);
         }
 
-        // GET: /Case/Details/5
         public async Task<IActionResult> Details(int id)
         {
             var study = await _service.GetByIdAsync(id);
             if (study == null) return NotFound();
-
             return View(MapToFrontend(study));
         }
 
-        // Mapping helper: EF entity -> frontend model
         private CaseStudy MapToFrontend(Study s)
         {
             if (s == null) return null;
