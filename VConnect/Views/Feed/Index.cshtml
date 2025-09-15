@@ -1,0 +1,169 @@
+﻿@using VConnect.Models.SOS
+@model IEnumerable<SosPost>
+
+@{
+    ViewData["Title"] = "Feed";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var currentUserId = User?.Identity?.IsAuthenticated == true
+        ? User.FindFirst("sub")?.Value ?? User.FindFirst("userid")?.Value
+        : null;
+}
+
+<section class="container py-4">
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h2 class="mb-0">Feed</h2>
+        <div class="d-flex gap-2">
+            <button id="refreshFeed" class="btn btn-outline-secondary btn-sm">
+                <i class="fa-solid fa-rotate-right me-1"></i> Refresh
+            </button>
+            <button id="showNewSince" class="btn btn-outline-primary btn-sm" data-lastvisit="@ViewBag.LastVisitUtc">
+                <i class="fa-solid fa-clock-rotate-left me-1"></i> New since last visit
+            </button>
+        </div>
+    </div>
+
+    <!-- Feed list -->
+    <div id="feedList" class="row g-3">
+        @if (Model == null || !Model.Any())
+        {
+            <div class="col-12">
+                <div class="alert alert-light border">
+                    No posts yet. Tap the red SOS button to create one.
+                </div>
+            </div>
+        }
+        else
+        {
+            foreach (var post in Model.OrderByDescending(p => p.CreatedAt))
+            {
+                <div class="col-12" data-created-utc="@post.CreatedAt.ToUniversalTime().ToString("o")">
+                    @await Html.PartialAsync("~/Views/Feed/_PostPartial.cshtml", post, ViewData)
+                </div>
+            }
+        }
+    </div>
+</section>
+
+<!-- Floating SOS button + Modal -->
+@await Html.PartialAsync("~/Views/Shared/_SosModal.cshtml")
+
+@section Styles {
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Card look for feed posts */
+        .feed-card {
+            border: 1px solid #e9ecef;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.04);
+        }
+
+            .feed-card .card-header {
+                background: #fff;
+                border-bottom: 1px solid #f1f3f5;
+            }
+
+        .badge-emergency {
+            background: #dc3545;
+        }
+
+        .badge-open {
+            background: #198754;
+        }
+
+        .badge-closed {
+            background: #6c757d;
+        }
+
+        .post-actions .btn {
+            min-width: 110px;
+        }
+
+        /* Floating SOS button (matches prototype) */
+        .sos-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 10000;
+        }
+
+        .sos-button {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff3b30, #d70015);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            box-shadow: 0 6px 15px rgba(255,59,48,0.4);
+            border: 0;
+            cursor: pointer;
+            transition: transform .2s, box-shadow .2s;
+        }
+
+            .sos-button:hover {
+                transform: scale(1.08);
+                box-shadow: 0 8px 22px rgba(255,59,48,0.55);
+            }
+        @@keyframes pulse {
+            0%
+
+        {
+            box-shadow: 0 0 0 0 rgba(255,59,48,.6);
+        }
+
+        70% {
+            box-shadow: 0 0 0 15px rgba(255,59,48,0);
+        }
+
+        100% {
+            box-shadow: 0 0 0 0 rgba(255,59,48,0);
+        }
+
+        }
+
+        .sos-button.pulse {
+            animation: pulse 2s infinite;
+        }
+    </style>
+}
+
+@section Scripts {
+    <script>
+        // Simple refresh that re-hits the Feed index
+        document.getElementById('refreshFeed')?.addEventListener('click', () => {
+            location.reload();
+        });
+
+        // “New since last visit”: highlight posts newer than ViewBag.LastVisitUtc
+        (function(){
+            const btn = document.getElementById('showNewSince');
+            if (!btn) return;
+            const last = btn.getAttribute('data-lastvisit');
+            if (!last) return;
+            const lastDt = new Date(last);
+            btn.addEventListener('click', () => {
+                document.querySelectorAll('[data-created-utc]').forEach(el => {
+                    const created = new Date(el.getAttribute('data-created-utc'));
+                    if (created > lastDt) {
+                        el.classList.add('border','border-primary');
+                        el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                });
+            });
+        })();
+
+        // Wire the floating button to the modal from _SosModal.cshtml
+        (function () {
+            const btn = document.getElementById('sosButton');
+            const modal = document.getElementById('sosModal');
+            if (!btn || !modal) return;
+
+            btn.addEventListener('click', () => {
+                modal.classList.add('show');
+                document.body.style.overflow = 'hidden';
+            });
+        })();
+    </script>
+}

@@ -1,7 +1,8 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using VConnect.Database;
 using VConnect.Services; // <-- ensure this is present
-using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,9 +13,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProfileDetailsService, ProfileDetailsService>();
 builder.Services.AddScoped<IEventService, EventService>();
 builder.Services.AddScoped<IDonationService, DonationService>();
-
-// Study service (interface-based)
 builder.Services.AddScoped<IStudyService, StudyService>();
+builder.Services.AddScoped<ISosService, SosService>();
 
 // Register DbContext using connection string from appsettings.json
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
