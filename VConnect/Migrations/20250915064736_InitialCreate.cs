@@ -234,6 +234,38 @@ namespace VConnect.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HelpRequests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    OwnerUserId = table.Column<int>(type: "integer", nullable: false),
+                    Title = table.Column<string>(type: "character varying(140)", maxLength: 140, nullable: false),
+                    Description = table.Column<string>(type: "character varying(4000)", maxLength: 4000, nullable: false),
+                    Region = table.Column<string>(type: "character varying(120)", maxLength: 120, nullable: false),
+                    Latitude = table.Column<double>(type: "double precision", nullable: true),
+                    Longitude = table.Column<double>(type: "double precision", nullable: true),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    IsAcceptingHelp = table.Column<bool>(type: "boolean", nullable: false),
+                    IsVisible = table.Column<bool>(type: "boolean", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    ClosedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    ExpiresAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HelpRequests", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HelpRequests_Users_OwnerUserId",
+                        column: x => x.OwnerUserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProfileDetails",
                 columns: table => new
                 {
@@ -334,6 +366,37 @@ namespace VConnect.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "HelpComments",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    HelpRequestId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    Message = table.Column<string>(type: "character varying(3000)", maxLength: 3000, nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: false),
+                    IsEdited = table.Column<bool>(type: "boolean", nullable: false),
+                    EditedAt = table.Column<DateTimeOffset>(type: "timestamp with time zone", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HelpComments", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_HelpComments_HelpRequests_HelpRequestId",
+                        column: x => x.HelpRequestId,
+                        principalTable: "HelpRequests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_HelpComments_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_CaseGalleryImages_StudyId",
                 table: "CaseGalleryImages",
@@ -368,6 +431,21 @@ namespace VConnect.Migrations
                 name: "IX_EventRoles_EventId",
                 table: "EventRoles",
                 column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HelpComments_HelpRequestId",
+                table: "HelpComments",
+                column: "HelpRequestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HelpComments_UserId",
+                table: "HelpComments",
+                column: "UserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HelpRequests_OwnerUserId",
+                table: "HelpRequests",
+                column: "OwnerUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Milestones_StudyId",
@@ -421,6 +499,9 @@ namespace VConnect.Migrations
                 name: "EventNotifications");
 
             migrationBuilder.DropTable(
+                name: "HelpComments");
+
+            migrationBuilder.DropTable(
                 name: "ImpactStats");
 
             migrationBuilder.DropTable(
@@ -431,6 +512,9 @@ namespace VConnect.Migrations
 
             migrationBuilder.DropTable(
                 name: "ProfileDetails");
+
+            migrationBuilder.DropTable(
+                name: "HelpRequests");
 
             migrationBuilder.DropTable(
                 name: "Studies");

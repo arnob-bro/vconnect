@@ -416,3 +416,30 @@
         });
     </script>
 }
+using System;
+using System.ComponentModel.DataAnnotations;
+using VConnect.Models; // for ApplicationUser
+
+namespace VConnect.Models.SOS
+{
+    public class VolunteerPresence
+    {
+        [Key]
+        public int Id { get; set; }
+
+        // The volunteer this presence belongs to
+        [Required]
+        public int UserId { get; set; }
+        public ApplicationUser User { get; set; }
+
+        // Toggle this from the header switch
+        public bool IsAvailable { get; set; } = false;
+
+        // Optional region preference to receive relevant toasts
+        [MaxLength(120)]
+        public string Region { get; set; }
+
+        // Updated whenever they toggle or ping the hub
+        public DateTimeOffset LastSeenAt { get; set; } = DateTimeOffset.UtcNow;
+    }
+}
