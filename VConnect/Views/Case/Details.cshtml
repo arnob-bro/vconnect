@@ -1,226 +1,152 @@
-﻿@model VConnect.Models.CaseStudy
+﻿@model VConnect.Models.Cases.Study
+
 @{
     ViewData["Title"] = Model.Title + " - Case Study - VConnect";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<!-- Hero Section -->
-<section class="py-4" style="background: linear-gradient(135deg, #232a36 0%, #1d4538 100%); margin-top:-25px;">
+<!-- Hero -->
+<section class="py-4" style="background:linear-gradient(135deg,#232a36 0%,#1d4538 100%);margin-top:0;">
     <div class="container py-4">
-        
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")" class="text-white">Home</a></li>
+                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Case")" class="text-white">Case Studies</a></li>
+                <li class="breadcrumb-item active text-warning" aria-current="page">@Model.Title</li>
+            </ol>
+        </nav>
     </div>
 </section>
 
-<!-- Case Study Details -->
 <section class="py-5">
     <div class="container">
         <div class="row">
             <div class="col-lg-8">
-                <!-- Header -->
                 <div class="mb-4">
-                    <span class="badge text-white mb-2" style="background-color: #0b3d2e;">@Model.Category</span>
-                    <h1 class="fw-bold mb-2" style="color: #0b3d2e;">@Model.Title</h1>
-                    <p class="lead">@Model.Subtitle</p>
+                    <span class="badge text-white mb-2" style="background-color:#0b3d2e;">@Model.Category</span>
+                    <h1 class="fw-bold mb-2" style="color:#0b3d2e;">@Model.Title</h1>
+                    @if (!string.IsNullOrWhiteSpace(Model.Subtitle))
+                    {
+                        <p class="lead">@Model.Subtitle</p>
+                    }
 
                     <div class="d-flex flex-wrap gap-3 mb-3">
-                        <span class="badge bg-secondary">
-                            <i class="fas fa-map-marker-alt me-1"></i>@Model.Location
-                        </span>
-                        <span class="badge bg-info text-dark">
-                            <i class="fas fa-clock me-1"></i>@Model.Duration
-                        </span>
-                        <span class="badge @(Model.Status == "Completed" ? "bg-success" : "bg-warning")">
-                            @Model.Status
-                        </span>
+                        @if (!string.IsNullOrWhiteSpace(Model.Location))
+                        {
+                            <span class="badge bg-secondary"><i class="fas fa-map-marker-alt me-1"></i>@Model.Location</span>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.Duration))
+                        {
+                            <span class="badge bg-info text-dark"><i class="fas fa-clock me-1"></i>@Model.Duration</span>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(Model.Status))
+                        {
+                            <span class="badge @(Model.Status == "Completed" ? "bg-success" : "bg-warning")">@Model.Status</span>
+                        }
                     </div>
                 </div>
 
-                <!-- Main Image -->
-                <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid rounded-3 shadow mb-4">
+                @if (!string.IsNullOrWhiteSpace(Model.ImageUrl))
+                {
+                    <img src="@Model.ImageUrl" alt="@Model.Title" class="img-fluid rounded-3 shadow mb-4">
+                }
 
-                <!-- Challenge -->
                 <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header text-white" style="background-color: #0b3d2e;">
+                    <div class="card-header text-white" style="background-color:#0b3d2e;">
                         <h5 class="mb-0"><i class="fas fa-exclamation-circle me-2"></i>The Challenge</h5>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text">@Model.Challenge</p>
-                    </div>
+                    <div class="card-body"><p class="card-text">@Model.Challenge</p></div>
                 </div>
 
-                <!-- Solution -->
                 <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header text-white" style="background-color: #0b3d2e;">
+                    <div class="card-header text-white" style="background-color:#0b3d2e;">
                         <h5 class="mb-0"><i class="fas fa-lightbulb me-2"></i>Our Solution</h5>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text">@Model.Solution</p>
-                    </div>
+                    <div class="card-body"><p class="card-text">@Model.Solution</p></div>
                 </div>
 
-                <!-- Results -->
                 <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header text-white" style="background-color: #0b3d2e;">
+                    <div class="card-header text-white" style="background-color:#0b3d2e;">
                         <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Results & Impact</h5>
                     </div>
                     <div class="card-body">
                         <p class="card-text">@Model.Results</p>
-
                         <div class="row text-center mt-4">
-                            <div class="col-md-4">
-                                <div class="bg-light p-3 rounded">
-                                    <h4 class="fw-bold mb-1" style="color: #0b3d2e;">@Model.Volunteers</h4>
-                                    <small>Volunteers Engaged</small>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="bg-light p-3 rounded">
-                                    <h4 class="fw-bold mb-1" style="color: #0b3d2e;">@Model.Beneficiaries.ToString("N0")</h4>
-                                    <small>Direct Beneficiaries</small>
-                                </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="bg-light p-3 rounded">
-                                    <h4 class="fw-bold mb-1" style="color: #0b3d2e;">@Model.Duration</h4>
-                                    <small>Project Duration</small>
-                                </div>
-                            </div>
+                            <div class="col-md-4"><div class="bg-light p-3 rounded"><h4 class="fw-bold mb-1" style="color:#0b3d2e;">@Model.Volunteers</h4><small>Volunteers</small></div></div>
+                            <div class="col-md-4"><div class="bg-light p-3 rounded"><h4 class="fw-bold mb-1" style="color:#0b3d2e;">@Model.Beneficiaries.ToString("N0")</h4><small>Beneficiaries</small></div></div>
+                            <div class="col-md-4"><div class="bg-light p-3 rounded"><h4 class="fw-bold mb-1" style="color:#0b3d2e;">@Model.Duration</h4><small>Duration</small></div></div>
                         </div>
                     </div>
                 </div>
+
+                @if (Model.Milestones?.Any() == true)
+                {
+                    <div class="card border-0 shadow-sm mb-4">
+                        <div class="card-header text-white" style="background-color:#0b3d2e;">
+                            <h5 class="mb-0"><i class="fas fa-flag-checkered me-2"></i>Milestones</h5>
+                        </div>
+                        <div class="card-body">
+                            <ul class="list-unstyled">
+                                @foreach (var m in Model.Milestones.OrderBy(x => x.Date))
+                                {
+                                    <li class="mb-2">
+                                        <strong>@m.Date.ToString("yyyy-MM-dd")</strong> — @m.Title
+                                        @if (!string.IsNullOrWhiteSpace(m.Description))
+                                        {
+                                            <span>: @m.Description</span>
+                                        }
+                                    </li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                }
             </div>
 
             <div class="col-lg-4">
-                <!-- Quick Facts -->
                 <div class="card border-0 shadow-sm mb-4">
-                    <div class="card-header text-white" style="background-color: #0b3d2e;">
+                    <div class="card-header text-white" style="background-color:#0b3d2e;">
                         <h5 class="mb-0"><i class="fas fa-info-circle me-2"></i>Project Details</h5>
                     </div>
                     <div class="card-body">
                         <div class="quick-facts">
-                            <div class="fact-item mb-3">
-                                <strong>Category:</strong>
-                                <span class="badge text-white" style="background-color: #0b3d2e;">@Model.Category</span>
-                            </div>
-                            <div class="fact-item mb-3">
-                                <strong>Location:</strong>
-                                <span>@Model.Location</span>
-                            </div>
-                            <div class="fact-item mb-3">
-                                <strong>Duration:</strong>
-                                <span>@Model.Duration</span>
-                            </div>
-                            <div class="fact-item mb-3">
-                                <strong>Status:</strong>
-                                <span class="badge @(Model.Status == "Completed" ? "bg-success" : "bg-warning")">@Model.Status</span>
-                            </div>
+                            <div class="fact-item mb-3"><strong>Category:</strong> <span class="badge text-white" style="background-color:#0b3d2e;">@Model.Category</span></div>
+                            @if (!string.IsNullOrWhiteSpace(Model.Location))
+                            {
+                                <div class="fact-item mb-3"><strong>Location:</strong> <span>@Model.Location</span></div>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(Model.Duration))
+                            {
+                                <div class="fact-item mb-3"><strong>Duration:</strong> <span>@Model.Duration</span></div>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(Model.Status))
+                            {
+                                <div class="fact-item mb-3"><strong>Status:</strong> <span class="badge @(Model.Status == "Completed" ? "bg-success" : "bg-warning")">@Model.Status</span></div>
+                            }
                             @if (!string.IsNullOrEmpty(Model.Budget))
                             {
-                                <div class="fact-item mb-3">
-                                    <strong>Budget:</strong>
-                                    <span>@Model.Budget</span>
-                                </div>
+                                <div class="fact-item mb-3"><strong>Budget:</strong> <span>@Model.Budget</span></div>
                             }
                             @if (!string.IsNullOrEmpty(Model.Partners))
                             {
-                                <div class="fact-item">
-                                    <strong>Partners:</strong>
-                                    <span>@Model.Partners</span>
-                                </div>
+                                <div class="fact-item"><strong>Partners:</strong> <span>@Model.Partners</span></div>
                             }
                         </div>
                     </div>
                 </div>
 
-                <!-- Call to Action -->
                 <div class="card border-0 shadow-sm mb-4">
                     <div class="card-body text-center">
-                        <h6 class="fw-bold mb-3" style="color: #0b3d2e;">Inspired by this project?</h6>
-                        <a href="@Url.Action("Register", "Account")" class="btn btn-warning btn-sm w-100 mb-2">
-                            <i class="fas fa-user-plus me-1"></i>Join Similar Projects
-                        </a>
-                        <a href="@Url.Action("Index", "Donation")" class="btn btn-sm w-100" style="color: #0b3d2e; border-color: #0b3d2e;">
-                            <i class="fas fa-donate me-1"></i>Support Our Work
-                        </a>
+                        <h6 class="fw-bold mb-3" style="color:#0b3d2e;">Inspired by this project?</h6>
+                        <a href="@Url.Action("Register", "Account")" class="btn btn-warning btn-sm w-100 mb-2"><i class="fas fa-user-plus me-1"></i>Join Similar Projects</a>
+                        <a href="@Url.Action("Index", "Donation")" class="btn btn-sm w-100" style="color:#0b3d2e;border-color:#0b3d2e;"><i class="fas fa-donate me-1"></i>Support Our Work</a>
                     </div>
                 </div>
 
-                <!-- Back to Cases -->
                 <div class="text-center">
-                    <a href="@Url.Action("Index", "Case")" class="btn btn-outline-secondary btn-sm">
-                        <i class="fas fa-arrow-left me-1"></i>Back to All Case Studies
-                    </a>
+                    <a href="@Url.Action("Index", "Case")" class="btn btn-outline-secondary btn-sm"><i class="fas fa-arrow-left me-1"></i>Back to All Case Studies</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
-
-<!-- Related Cases -->
-<section class="py-5 bg-light">
-    <div class="container">
-        <h3 class="fw-bold mb-4" style="color: #0b3d2e;">Related Case Studies</h3>
-        <div class="row g-4">
-            <!-- You would typically populate this with related cases from the same category -->
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm h-100">
-                    <img src="/images/cases/related-1.jpg" class="card-img-top" alt="Related case" height="150" style="object-fit: cover;">
-                    <div class="card-body">
-                        <h6 class="card-title fw-bold" style="color: #0b3d2e;">Community Health Initiative</h6>
-                        <p class="card-text small">Improving healthcare access in remote areas through mobile clinics.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm h-100">
-                    <img src="/images/cases/related-2.jpg" class="card-img-top" alt="Related case" height="150" style="object-fit: cover;">
-                    <div class="card-body">
-                        <h6 class="card-title fw-bold" style="color: #0b3d2e;">Education for All</h6>
-                        <p class="card-text small">Digital learning solutions for underprivileged children.</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card border-0 shadow-sm h-100">
-                    <img src="/images/cases/related-3.jpg" class="card-img-top" alt="Related case" height="150" style="object-fit: cover;">
-                    <div class="card-body">
-                        <h6 class="card-title fw-bold" style="color: #0b3d2e;">Sustainable Agriculture</h6>
-                        <p class="card-text small">Promoting organic farming practices among rural communities.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-@section Styles {
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
-    <style>
-        .quick-facts .fact-item {
-            border-bottom: 1px solid #eee;
-            padding-bottom: 0.5rem;
-        }
-
-            .quick-facts .fact-item:last-child {
-                border-bottom: none;
-                padding-bottom: 0;
-            }
-
-        .breadcrumb {
-            margin-bottom: 0;
-            height:71px;
-        }
-
-        .breadcrumb-item a {
-            text-decoration: none;
-        }
-
-        /* Responsive adjustments */
-        @@media (max-width: 768px) {
-            .card-body .row > div {
-                margin-bottom: 1rem;
-            }
-        }
-    </style>
-}
