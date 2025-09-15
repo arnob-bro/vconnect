@@ -1,0 +1,37 @@
+﻿@model VConnect.Models.SOS.SosComment
+
+<div class="d-flex mb-3">
+    <div class="flex-grow-1">
+        <div class="p-2 rounded border">
+            <div class="d-flex justify-content-between">
+                <strong>@(!string.IsNullOrWhiteSpace(Model.AuthorName) ? Model.AuthorName : "Guest")</strong>
+                <span class="text-muted small">@Model.CreatedAt.ToLocalTime().ToString("g")</span>
+            </div>
+            <div class="mt-1">
+                @Model.Message
+            </div>
+        </div>
+
+        <!-- Reply form -->
+        <form asp-controller="Sos" asp-action="AddComment" method="post" class="mt-2 ms-2">
+            @Html.AntiForgeryToken()
+            <input type="hidden" name="postId" value="@Model.SosPostId" />
+            <input type="hidden" name="parentCommentId" value="@Model.Id" />
+            <div class="input-group input-group-sm">
+                <input type="text" name="message" class="form-control" placeholder="Reply..." required />
+                <button class="btn btn-outline-primary" type="submit">Reply</button>
+            </div>
+        </form>
+
+        <!-- Child replies -->
+        @if (Model.Replies != null && Model.Replies.Any(r => !r.IsDeleted))
+        {
+            <div class="ms-4 mt-2">
+                @foreach (var r in Model.Replies.Where(r => !r.IsDeleted).OrderBy(r => r.CreatedAt))
+                {
+                    @await Html.PartialAsync("_CommentPartial", r)
+                }
+            </div>
+        }
+    </div>
+</div>

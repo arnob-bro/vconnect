@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using VConnect.Models;
 using VConnect.Models.Events;
 using VConnect.Models.Cases;
-using VConnect.Models.SOS; // ← SOS models
+using VConnect.Models.SOS; 
 
 namespace VConnect.Database
 {
@@ -36,8 +36,8 @@ namespace VConnect.Database
         public DbSet<Impact_Stats> ImpactStats { get; set; } // underscore class
 
         // SOS system
-        public DbSet<HelpRequest> HelpRequests { get; set; }
-        public DbSet<HelpComment> HelpComments { get; set; }
+        public DbSet<SosPost> SosPosts { get; set; }
+        public DbSet<SosComment> SosComments { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -185,78 +185,49 @@ namespace VConnect.Database
                 i.HasKey(im => im.Id);
             });
 
-            // ======================
-            // SOS: HelpRequest
-            // ======================
-            modelBuilder.Entity<HelpRequest>(hr =>
+            // SOS Post
+            modelBuilder.Entity<SosPost>(s =>
             {
-                hr.HasKey(h => h.Id);
+                s.HasKey(sp => sp.Id);
+                s.Property(sp => sp.Name).HasMaxLength(100);
+                s.Property(sp => sp.Contact).HasMaxLength(150);
+                s.Property(sp => sp.Location).HasMaxLength(300);
+                s.Property(sp => sp.Description).HasMaxLength(2000);
+                s.Property(sp => sp.Status).HasMaxLength(50);
 
-                hr.Property(h => h.Title)
-                  .IsRequired()
-                  .HasMaxLength(140);
-
-                hr.Property(h => h.Description)
-                  .IsRequired()
-                  .HasMaxLength(4000);
-
-                hr.Property(h => h.Region)
-                  .HasMaxLength(120);
-
-                hr.Property(h => h.Status)
-                  .HasConversion<int>(); // store enum as int
-
-                // Owner (do not cascade delete users to avoid wiping requests)
-                hr.HasOne(h => h.Owner)
-                  .WithMany()
-                  .HasForeignKey(h => h.OwnerUserId)
-                  .OnDelete(DeleteBehavior.Restrict);
-
-                // Comments
-                hr.HasMany(h => h.Comments)
-                  .WithOne(c => c.HelpRequest)
-                  .HasForeignKey(c => c.HelpRequestId)
-                  .OnDelete(DeleteBehavior.Cascade);
-
-                // Default visibility/global filters
-                hr.HasQueryFilter(h => !h.IsDeleted);
+                s.HasMany(sp => sp.Comments)
+                 .WithOne(c => c.SosPost)
+                 .HasForeignKey(c => c.SosPostId)
+                 .OnDelete(DeleteBehavior.Cascade);
             });
 
-            // SOS: HelpComment
-            modelBuilder.Entity<HelpComment>(hc =>
+            // SOS Comment
+            modelBuilder.Entity<SosComment>(c =>
             {
-                hc.HasKey(c => c.Id);
+                c.HasKey(co => co.Id);
+                c.Property(co => co.Message).IsRequired().HasMaxLength(1000);
 
-                hc.Property(c => c.Message)
-                  .IsRequired()
-                  .HasMaxLength(3000);
+                c.HasOne(co => co.SosPost)
+                 .WithMany(sp => sp.Comments)
+                 .HasForeignKey(co => co.SosPostId);
 
-                hc.HasOne(c => c.HelpRequest)
-                  .WithMany(r => r.Comments)
-                  .HasForeignKey(c => c.HelpRequestId)
-                  .OnDelete(DeleteBehavior.Cascade);
-
-                hc.HasOne(c => c.User)
-                  .WithMany()
-                  .HasForeignKey(c => c.UserId)
-                  .OnDelete(DeleteBehavior.Restrict);
-
-                hc.HasQueryFilter(c => !c.IsDeleted);
+                c.HasOne(co => co.ParentComment)
+                 .WithMany(co => co.Replies)
+                 .HasForeignKey(co => co.ParentCommentId)
+                 .OnDelete(DeleteBehavior.Restrict);
             });
         }
 
-        // Auto-timestamps for ProfileDetails and SOS updated-at
+        // Auto-timestamps for ProfileDetails
         public override int SaveChanges()
         {
             StampProfileTimestamps();
-            StampSosTimestamps();
             return base.SaveChanges();
         }
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             StampProfileTimestamps();
-            StampSosTimestamps();
             return base.SaveChangesAsync(cancellationToken);
         }
 
@@ -274,29 +245,6 @@ namespace VConnect.Database
                 else if (entry.State == EntityState.Modified)
                 {
                     entry.Entity.UpdatedAt = now;
-                }
-            }
-        }
-
-        private void StampSosTimestamps()
-        {
-            var now = DateTimeOffset.UtcNow;
-
-            foreach (var entry in ChangeTracker.Entries<HelpRequest>())
-            {
-                if (entry.State == EntityState.Modified)
-                {
-                    entry.Entity.UpdatedAt = now;
-                    // ClosedAt should be set by service/controller when Status moves to Completed.
-                }
-            }
-
-            foreach (var entry in ChangeTracker.Entries<HelpComment>())
-            {
-                if (entry.State == EntityState.Modified)
-                {
-                    entry.Entity.EditedAt = now;
-                    entry.Entity.IsEdited = true;
                 }
             }
         }
