@@ -1,0 +1,119 @@
+﻿@using VConnect.Models.Enums
+@using Microsoft.AspNetCore.Mvc.Rendering
+@model VConnect.Areas.Admin.Models.AdminEventViewModel
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "All Events";
+}
+
+<style>
+    .events-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .create-btn {
+        padding: 10px 20px;
+        background-color: #22577a;
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        cursor: pointer;
+        text-decoration: none;
+        transition: 0.3s;
+    }
+
+        .create-btn:hover {
+            background-color: #ff8800;
+            color: #fff;
+        }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background: #fff;
+        color: #333;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+        table th, table td {
+            padding: 12px 15px;
+            border-bottom: 1px solid #f2f2f2;
+            text-align: left;
+        }
+
+        table th {
+            background: #0e0e53;
+            color: #fff;
+        }
+
+        table tr:hover {
+            background: #f9f9f9;
+        }
+
+    .status-form {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+
+        .status-form select {
+            min-width: 120px;
+        }
+</style>
+
+<div class="events-header">
+    <h2>All Events (@Model.TotalEvents)</h2>
+    <a href="@Url.Action("Create", "Events", new { area = "Admin" })" class="create-btn">
+        + Create Event
+    </a>
+</div>
+
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Location</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th>Capacity</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var ev in Model.AllEvents)
+        {
+            <tr>
+                <td>@ev.Title</td>
+                <td>@ev.Description</td>
+                <td>@ev.Location</td>
+                <td>@ev.StartDateTime.ToString("g")</td>
+                <td>@ev.EndDateTime.ToString("g")</td>
+                <td>@ev.Capacity</td>
+                <td>
+                    <form asp-action="ChangeStatus" asp-controller="Events" asp-area="Admin" method="post" class="status-form">
+                        @Html.AntiForgeryToken()
+                        <input type="hidden" name="eventId" value="@ev.EventId" />
+                        <select name="newStatus" class="form-select">
+                            @foreach (var status in Enum.GetValues(typeof(EventStatus)))
+                            {
+                                <option value="@status" selected="@(ev.Status == (EventStatus)status)">
+                                    @status
+                                </option>
+                            }
+                        </select>
+                        <button type="submit" class="create-btn" style="padding:5px 10px; font-size:0.9rem;">
+                            Update
+                        </button>
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
