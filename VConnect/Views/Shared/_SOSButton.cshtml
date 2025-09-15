@@ -1,0 +1,524 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emergency SOS Button</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* SOS Button Container */
+        .sos-container {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 10000;
+        }
+
+        /* Main SOS Button */
+        .sos-button {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #ff3b30, #d70015);
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            font-weight: bold;
+            box-shadow: 0 6px 15px rgba(255, 59, 48, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            position: relative;
+        }
+
+        .sos-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(255, 59, 48, 0.6);
+        }
+
+        .sos-button:active {
+            transform: scale(0.95);
+        }
+
+        /* Pulsing animation effect */
+        @@keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(255, 59, 48, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 15px rgba(255, 59, 48, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(255, 59, 48, 0);
+            }
+        }
+
+        .sos-button.pulse {
+            animation: pulse 2s infinite;
+        }
+
+        /* Emergency Help Modal */
+        .sos-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10001;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .sos-modal.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            width: 90%;
+            max-width: 500px;
+            transform: scale(0.9);
+            transition: all 0.3s ease;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .sos-modal.show .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .modal-header h2 {
+            margin: 0;
+            color: #dc3545;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .close-modal {
+            background: none;
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            color: #999;
+            transition: color 0.2s;
+        }
+
+        .close-modal:hover {
+            color: #333;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            transition: border-color 0.2s;
+        }
+
+        .form-control:focus {
+            border-color: #dc3545;
+            outline: none;
+        }
+
+        .location-group {
+            display: flex;
+            gap: 10px;
+        }
+
+        .location-group .form-control {
+            flex: 1;
+        }
+
+        .detect-location {
+            background: #f8f9fa;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 0 15px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .detect-location:hover {
+            background: #e9ecef;
+        }
+
+        .detect-location i {
+            margin-right: 5px;
+        }
+
+        .location-status {
+            font-size: 14px;
+            margin-top: 5px;
+            color: #6c757d;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .location-status.success {
+            color: #28a745;
+        }
+
+        .location-status.error {
+            color: #dc3545;
+        }
+
+        .emergency-type-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .emergency-option {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .emergency-option:hover {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .emergency-option.selected {
+            border-color: #dc3545;
+            background: #fff5f5;
+        }
+
+        .emergency-option i {
+            font-size: 24px;
+            margin-bottom: 10px;
+            display: block;
+            color: #dc3545;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 15px;
+            background: #dc3545;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: #c82333;
+        }
+
+        /* Responsive design */
+        @@media (max-width: 768px) {
+            .sos-container {
+                bottom: 20px;
+                right: 20px;
+            }
+            
+            .sos-button {
+                width: 60px;
+                height: 60px;
+                font-size: 18px;
+            }
+            
+            .emergency-type-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @@media (max-width: 576px) {
+            .sos-container {
+                bottom: 15px;
+                right: 15px;
+            }
+            
+            .sos-button {
+                width: 55px;
+                height: 55px;
+                font-size: 16px;
+            }
+            
+            .modal-content {
+                padding: 20px 15px;
+            }
+            
+            .location-group {
+                flex-direction: column;
+            }
+        }
+
+        /* Accessibility features */
+        @@media (prefers-reduced-motion: reduce) {
+            .sos-button,
+            .sos-modal,
+            .modal-content {
+                transition: none;
+            }
+            
+            .sos-button.pulse {
+                animation: none;
+            }
+        }
+    </style>
+</head>
+<body>
+   
+
+    <!-- SOS Button Container -->
+    <div class="sos-container">
+        <!-- Main SOS Button -->
+        <button class="sos-button pulse" id="sosButton" aria-label="Emergency SOS button">
+            <i class="fas fa-life-ring"></i>
+        </button>
+    </div>
+    
+    <!-- Emergency Help Modal -->
+    <div class="sos-modal" id="sosModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fas fa-exclamation-triangle"></i> Emergency Help Request</h2>
+                <button class="close-modal" id="closeModal">&times;</button>
+            </div>
+            
+            <form id="emergencyForm">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" class="form-control" placeholder="Enter your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact">Phone Number / Email</label>
+                    <input type="text" id="contact" class="form-control" placeholder="Enter phone number or email">
+                </div>
+                
+                <div class="form-group">
+                    <label for="location">Your Location</label>
+                    <div class="location-group">
+                        <input type="text" id="location" class="form-control" placeholder="Enter your location">
+                        <button type="button" class="detect-location" id="detectLocation">
+                            <i class="fas fa-location-arrow"></i> Detect
+                        </button>
+                    </div>
+                    <div class="location-status" id="locationStatus"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label>Type of Emergency</label>
+                    <div class="emergency-type-grid">
+                        <div class="emergency-option" data-type="fire">
+                            <i class="fas fa-fire"></i>
+                            <div>Fire</div>
+                        </div>
+                        <div class="emergency-option" data-type="accident">
+                            <i class="fas fa-car-crash"></i>
+                            <div>Accident</div>
+                        </div>
+                        <div class="emergency-option" data-type="flood">
+                            <i class="fas fa-water"></i>
+                            <div>Flood</div>
+                        </div>
+                        <div class="emergency-option" data-type="medical">
+                            <i class="fas fa-heartbeat"></i>
+                            <div>Medical</div>
+                        </div>
+                        <div class="emergency-option" data-type="other">
+                            <i class="fas fa-exclamation-circle"></i>
+                            <div>Other</div>
+                        </div>
+                    </div>
+                    <input type="hidden" id="emergencyType" name="emergencyType">
+                </div>
+                
+                <div class="form-group">
+                    <label for="description">Emergency Description</label>
+                    <textarea id="description" class="form-control" rows="4" placeholder="Please describe the emergency situation"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">
+                    <i class="fas fa-paper-plane"></i> Send Emergency Alert
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // DOM Elements
+        const sosButton = document.getElementById('sosButton');
+        const sosModal = document.getElementById('sosModal');
+        const closeModalBtn = document.getElementById('closeModal');
+        const emergencyForm = document.getElementById('emergencyForm');
+        const detectLocationBtn = document.getElementById('detectLocation');
+        const locationInput = document.getElementById('location');
+        const locationStatus = document.getElementById('locationStatus');
+        const emergencyOptions = document.querySelectorAll('.emergency-option');
+        const emergencyTypeInput = document.getElementById('emergencyType');
+        
+        // Open modal when SOS button is clicked
+        sosButton.addEventListener('click', function() {
+            sosModal.classList.add('show');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling
+        });
+        
+        // Close modal
+        function closeModal() {
+            sosModal.classList.remove('show');
+            document.body.style.overflow = ''; // Re-enable scrolling
+        }
+        
+        closeModalBtn.addEventListener('click', closeModal);
+        
+        // Close modal when clicking outside
+        sosModal.addEventListener('click', function(event) {
+            if (event.target === sosModal) {
+                closeModal();
+            }
+        });
+        
+        // Handle emergency type selection
+        emergencyOptions.forEach(option => {
+            option.addEventListener('click', function() {
+                // Remove selected class from all options
+                emergencyOptions.forEach(opt => opt.classList.remove('selected'));
+                
+                // Add selected class to clicked option
+                this.classList.add('selected');
+                
+                // Set the hidden input value
+                emergencyTypeInput.value = this.getAttribute('data-type');
+            });
+        });
+        
+        // Detect location
+        detectLocationBtn.addEventListener('click', function() {
+            locationStatus.textContent = 'Detecting location...';
+            locationStatus.className = 'location-status';
+            
+            if (!navigator.geolocation) {
+                locationStatus.textContent = 'Geolocation is not supported by this browser.';
+                locationStatus.className = 'location-status error';
+                return;
+            }
+            
+            navigator.geolocation.getCurrentPosition(
+                function(position) {
+                    // Success callback
+                    const latitude = position.coords.latitude;
+                    const longitude = position.coords.longitude;
+                    
+                    // Use reverse geocoding to get address (in a real app, you'd use a geocoding service)
+                    locationInput.value = `Lat: ${latitude.toFixed(6)}, Long: ${longitude.toFixed(6)}`;
+                    locationStatus.innerHTML = '<i class="fas fa-check-circle"></i> Location detected successfully';
+                    locationStatus.className = 'location-status success';
+                    
+                    // In a real application, you would call a reverse geocoding API here
+                    // to convert coordinates to a human-readable address
+                },
+                function(error) {
+                    // Error callback
+                    let errorMessage;
+                    switch(error.code) {
+                        case error.PERMISSION_DENIED:
+                            errorMessage = "Location access denied by user";
+                            break;
+                        case error.POSITION_UNAVAILABLE:
+                            errorMessage = "Location information unavailable";
+                            break;
+                        case error.TIMEOUT:
+                            errorMessage = "Location request timed out";
+                            break;
+                        default:
+                            errorMessage = "An unknown error occurred";
+                            break;
+                    }
+                    locationStatus.innerHTML = `<i class="fas fa-exclamation-circle"></i> ${errorMessage}`;
+                    locationStatus.className = 'location-status error';
+                },
+                {
+                    enableHighAccuracy: true,
+                    timeout: 10000,
+                    maximumAge: 60000
+                }
+            );
+        });
+        
+        // Handle form submission
+        emergencyForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Validate form
+            if (!emergencyTypeInput.value) {
+                alert('Please select the type of emergency');
+                return;
+            }
+            
+            // In a real application, you would send this data to your server
+            const formData = {
+                name: document.getElementById('name').value,
+                contact: document.getElementById('contact').value,
+                location: locationInput.value,
+                emergencyType: emergencyTypeInput.value,
+                description: document.getElementById('description').value
+            };
+            
+            console.log('Emergency alert submitted:', formData);
+            
+            // Show confirmation (in a real app, you would actually send the data)
+            alert('Emergency alert has been sent! Help is on the way.');
+            
+            // Close the modal
+            closeModal();
+            
+            // Reset form
+            emergencyForm.reset();
+            emergencyOptions.forEach(opt => opt.classList.remove('selected'));
+            locationStatus.textContent = '';
+        });
+        
+        // Handle escape key to close modal
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape' && sosModal.classList.contains('show')) {
+                closeModal();
+            }
+        });
+    </script>
+</body>
+</html>

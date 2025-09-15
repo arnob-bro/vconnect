@@ -57,6 +57,8 @@
     <!-- Font Awesome Icons -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Render Styles section if defined -->
     @if (IsSectionDefined("Styles"))
     {
@@ -74,6 +76,9 @@
 
     <!-- Footer -->
     @Html.Partial("_Footer") 
+
+    <!-- SOS Button -->
+    <partial name="_SOSButton" />
 
     <!-- jQuery -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
