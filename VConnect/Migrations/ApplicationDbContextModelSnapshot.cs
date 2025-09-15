@@ -58,6 +58,192 @@ namespace VConnect.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("VConnect.Models.Cases.CaseGalleryImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("StudyId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudyId");
+
+                    b.ToTable("CaseGalleryImages");
+                });
+
+            modelBuilder.Entity("VConnect.Models.Cases.Category", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Count")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Icon")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
+            modelBuilder.Entity("VConnect.Models.Cases.Impact_Stats", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CommunitiesImpacted")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("SuccessRate")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TotalCases")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("VolunteersInvolved")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ImpactStats");
+                });
+
+            modelBuilder.Entity("VConnect.Models.Cases.Milestone", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<DateTime>("Date")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<int>("StudyId")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("StudyId");
+
+                    b.ToTable("Milestones");
+                });
+
+            modelBuilder.Entity("VConnect.Models.Cases.Study", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("Beneficiaries")
+                        .HasColumnType("integer");
+
+                    b.Property<string>("Budget")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Category")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("Challenge")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Duration")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<string>("Partners")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<string>("Results")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("ShortDescription")
+                        .IsRequired()
+                        .HasMaxLength(1000)
+                        .HasColumnType("character varying(1000)");
+
+                    b.Property<string>("Solution")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("character varying(50)");
+
+                    b.Property<string>("Subtitle")
+                        .IsRequired()
+                        .HasMaxLength(300)
+                        .HasColumnType("character varying(300)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<int>("Volunteers")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Studies");
+                });
+
             modelBuilder.Entity("VConnect.Models.Donation", b =>
                 {
                     b.Property<int>("Id")
@@ -397,6 +583,28 @@ namespace VConnect.Migrations
                     b.ToTable("ProfileDetails");
                 });
 
+            modelBuilder.Entity("VConnect.Models.Cases.CaseGalleryImage", b =>
+                {
+                    b.HasOne("VConnect.Models.Cases.Study", "Study")
+                        .WithMany("GalleryImages")
+                        .HasForeignKey("StudyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Study");
+                });
+
+            modelBuilder.Entity("VConnect.Models.Cases.Milestone", b =>
+                {
+                    b.HasOne("VConnect.Models.Cases.Study", "Study")
+                        .WithMany("Milestones")
+                        .HasForeignKey("StudyId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Study");
+                });
+
             modelBuilder.Entity("VConnect.Models.Events.EventApplication", b =>
                 {
                     b.HasOne("VConnect.Models.Events.Event", "Event")
@@ -488,6 +696,13 @@ namespace VConnect.Migrations
                         .HasForeignKey("VConnect.Models.ProfileDetails", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("VConnect.Models.Cases.Study", b =>
+                {
+                    b.Navigation("GalleryImages");
+
+                    b.Navigation("Milestones");
                 });
 
             modelBuilder.Entity("VConnect.Models.Events.Event", b =>

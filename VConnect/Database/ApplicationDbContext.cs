@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using VConnect.Models;
 using VConnect.Models.Events;
+using VConnect.Models.Cases;
 
 namespace VConnect.Database
 {
@@ -19,12 +20,19 @@ namespace VConnect.Database
         public DbSet<Donation> Donations { get; set; }
         public DbSet<ProfileDetails> ProfileDetails { get; set; }
 
-        // New Event system
+        // Event system
         public DbSet<Event> Events { get; set; }
         public DbSet<Role> EventRoles { get; set; }
         public DbSet<EventApplication> EventApplications { get; set; }
         public DbSet<Participation> Participations { get; set; }
         public DbSet<EventNotification> EventNotifications { get; set; }
+
+        // Case Study system
+        public DbSet<Study> Studies { get; set; }
+        public DbSet<Category>Categories { get; set; }
+        public DbSet<CaseGalleryImage> CaseGalleryImages { get; set; }
+        public DbSet<Milestone> Milestones { get; set; }
+        public DbSet<Impact_Stats> ImpactStats { get; set; }   // using your underscore class
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -45,7 +53,7 @@ namespace VConnect.Database
 
                 e.HasIndex(p => p.UserId).IsUnique(); // enforce 1:1
 
-                e.Property(p => p.DateOfBirth).HasColumnType("date");   // <-- crucial
+                e.Property(p => p.DateOfBirth).HasColumnType("date");
                 e.Property(p => p.CreatedAt).HasColumnType("timestamptz");
                 e.Property(p => p.UpdatedAt).HasColumnType("timestamptz");
 
@@ -125,6 +133,49 @@ namespace VConnect.Database
                 n.HasOne(no => no.User)
                  .WithMany()
                  .HasForeignKey(no => no.UserId);
+            });
+
+            // Study
+            modelBuilder.Entity<Study>(c =>
+            {
+                c.HasKey(cs => cs.Id);
+                c.Property(cs => cs.Title).IsRequired().HasMaxLength(200);
+                c.Property(cs => cs.Category).HasMaxLength(100);
+
+                c.HasMany(cs => cs.GalleryImages)
+                 .WithOne(g => g.Study)
+                 .HasForeignKey(g => g.StudyId);
+
+                c.HasMany(cs => cs.Milestones)
+                 .WithOne(m => m.Study)
+                 .HasForeignKey(m => m.StudyId);
+            });
+
+            // CaseCategory
+            modelBuilder.Entity<Category>(cat =>
+            {
+                cat.HasKey(ca => ca.Id);
+                cat.Property(ca => ca.Name).IsRequired().HasMaxLength(100);
+            });
+
+            // CaseGalleryImage
+            modelBuilder.Entity<CaseGalleryImage>(g =>
+            {
+                g.HasKey(gi => gi.Id);
+                g.Property(gi => gi.ImageUrl).IsRequired();
+            });
+
+            // Milestone
+            modelBuilder.Entity<Milestone>(m =>
+            {
+                m.HasKey(ms => ms.Id);
+                m.Property(ms => ms.Title).IsRequired().HasMaxLength(200);
+            });
+
+            // Impact_Stats
+            modelBuilder.Entity<Impact_Stats>(i =>
+            {
+                i.HasKey(im => im.Id);
             });
         }
 
