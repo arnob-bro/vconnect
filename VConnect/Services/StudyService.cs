@@ -4,18 +4,13 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using VConnect.Database;
 using VConnect.Models.Cases;
-using VConnect.Services;
 
 namespace VConnect.Services
 {
     public class StudyService : IStudyService
     {
         private readonly ApplicationDbContext _db;
-
-        public StudyService(ApplicationDbContext db)
-        {
-            _db = db;
-        }
+        public StudyService(ApplicationDbContext db) => _db = db;
 
         public async Task<IEnumerable<Study>> GetAllAsync()
         {
@@ -58,7 +53,6 @@ namespace VConnect.Services
         {
             var exists = await _db.Studies.AnyAsync(s => s.Id == study.Id);
             if (!exists) return false;
-
             _db.Studies.Update(study);
             await _db.SaveChangesAsync();
             return true;
@@ -73,7 +67,6 @@ namespace VConnect.Services
 
             if (study == null) return false;
 
-            // EF will cascade delete children if configured; otherwise remove explicitly:
             if (study.GalleryImages?.Any() == true)
                 _db.CaseGalleryImages.RemoveRange(study.GalleryImages);
             if (study.Milestones?.Any() == true)

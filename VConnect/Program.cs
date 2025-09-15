@@ -1,18 +1,19 @@
 using Microsoft.EntityFrameworkCore;
 using VConnect.Database;
-using VConnect.Services;
+using VConnect.Services; // <-- ensure this is present
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Npgsql.EntityFrameworkCore.PostgreSQL;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProfileDetailsService, ProfileDetailsService>();
 builder.Services.AddScoped<IEventService, EventService>();
-builder.Services.AddScoped<VConnect.Services.IStudyService, VConnect.Services.StudyService>();
 
+// Study service (interface-based)
+builder.Services.AddScoped<IStudyService, StudyService>();
 
 // Register DbContext using connection string from appsettings.json
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
@@ -26,6 +27,7 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         o.AccessDeniedPath = "/Account/Login";
         o.Cookie.HttpOnly = true;
     });
+
 var app = builder.Build();
 
 if (!app.Environment.IsDevelopment())
@@ -40,7 +42,6 @@ app.UseStaticFiles();
 app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
-
 
 app.MapControllerRoute(
     name: "default",
