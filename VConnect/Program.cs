@@ -11,6 +11,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProfileDetailsService, ProfileDetailsService>();
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<VConnect.Services.IStudyService, VConnect.Services.StudyService>();
+
 
 // Register DbContext using connection string from appsettings.json
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
