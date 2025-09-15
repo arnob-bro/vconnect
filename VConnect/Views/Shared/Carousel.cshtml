@@ -1,21 +1,26 @@
-﻿@* Public carousel: 5 auto-rotating images, no text overlay *@
+﻿@* Public carousel: 5 auto-rotating images with dark green overlay *@
 <section class="public-carousel">
     <div id="publicCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="4000">
         <div class="carousel-inner">
             <div class="carousel-item active">
                 <img src="~/images/pic1.png" class="d-block w-100 public-carousel-img" alt="Slide 1">
+                <div class="carousel-overlay"></div>
             </div>
             <div class="carousel-item">
                 <img src="~/images/pic2.png" class="d-block w-100 public-carousel-img" alt="Slide 2">
+                <div class="carousel-overlay"></div>
             </div>
             <div class="carousel-item">
                 <img src="~/images/pic3.png" class="d-block w-100 public-carousel-img" alt="Slide 3">
+                <div class="carousel-overlay"></div>
             </div>
             <div class="carousel-item">
                 <img src="~/images/pic4.png" class="d-block w-100 public-carousel-img" alt="Slide 4">
+                <div class="carousel-overlay"></div>
             </div>
             <div class="carousel-item">
                 <img src="~/images/pic5.png" class="d-block w-100 public-carousel-img" alt="Slide 5">
+                <div class="carousel-overlay"></div>
             </div>
         </div>
 
@@ -38,3 +43,207 @@
     </div>
 </section>
 
+<style>
+    /* Carousel Section Styles */
+    .public-carousel {
+        position: relative;
+        margin: 0px;
+        padding: 0px;
+        height: 110vh;
+        overflow: hidden;
+        margin-top: -25px;
+    }
+
+    .public-carousel-img {
+        height: 110vh;
+        width: 100%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    /* Dark green overlay for navbar visibility */
+    .carousel-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 120px;
+        background: linear-gradient(to bottom, black 0%, black 50%, transparent 100%);
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    /* Enhanced carousel indicators */
+    .public-carousel .carousel-indicators {
+        bottom: 30px;
+        z-index: 15;
+    }
+
+        .public-carousel .carousel-indicators [data-bs-target] {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            /* border: 2px solid rgba(255, 215, 0, 0.8); */
+            margin: 0 6px;
+            transition: all 0.3s ease;
+        }
+
+            .public-carousel .carousel-indicators [data-bs-target].active {
+                background-color: #ffd700;
+                transform: scale(1.2);
+            }
+
+    /* Enhanced carousel controls */
+    .public-carousel .carousel-control-prev,
+    .public-carousel .carousel-control-next {
+        width: 60px;
+        height: 60px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        background-color: rgba(11, 61, 46, 0.7);
+        /* border: 2px solid rgba(255, 215, 0, 0.8); */
+        opacity: 0.8;
+        transition: all 0.3s ease;
+    }
+
+    .public-carousel .carousel-control-prev {
+        left: 30px;
+    }
+
+    .public-carousel .carousel-control-next {
+        right: 30px;
+    }
+
+        .public-carousel .carousel-control-prev:hover,
+        .public-carousel .carousel-control-next:hover {
+            opacity: 1;
+            background-color: rgba(11, 61, 46, 0.9);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+    .public-carousel .carousel-control-prev-icon,
+    .public-carousel .carousel-control-next-icon {
+        width: 20px;
+        height: 20px;
+        filter: brightness(0) saturate(100%) invert(79%) sepia(85%) saturate(2475%) hue-rotate(35deg) brightness(103%) contrast(101%);
+        
+    }
+
+    /* Smooth fade transition */
+    .carousel-fade .carousel-item {
+        opacity: 0;
+        transition: opacity 0.6s ease-in-out;
+    }
+
+        .carousel-fade .carousel-item.active {
+            opacity: 1;
+        }
+
+    /* Media Queries */
+    @@media (max-width: 991.98px) {
+        .public-carousel
+
+    {
+        height: 70vh;
+    }
+
+    .public-carousel-img {
+        height: 70vh;
+    }
+
+    .carousel-overlay {
+        height: 70px;
+    }
+
+    .public-carousel .carousel-control-prev,
+    .public-carousel .carousel-control-next {
+        width: 50px;
+        height: 50px;
+    }
+
+    .public-carousel .carousel-control-prev {
+        left: 20px;
+    }
+
+    .public-carousel .carousel-control-next {
+        right: 20px;
+    }
+
+    .public-carousel .carousel-indicators {
+        bottom: 20px;
+    }
+
+        .public-carousel .carousel-indicators [data-bs-target] {
+            width: 10px;
+            height: 10px;
+            margin: 0 4px;
+        }
+
+    }
+
+    @@media (max-width: 767.98px) {
+        .public-carousel
+
+    {
+        height: 60vh;
+    }
+
+    .public-carousel-img {
+        height: 60vh;
+    }
+
+    .carousel-overlay {
+        height: 60px;
+    }
+
+    .public-carousel .carousel-control-prev,
+    .public-carousel .carousel-control-next {
+        width: 40px;
+        height: 40px;
+    }
+
+    .public-carousel .carousel-control-prev {
+        left: 15px;
+    }
+
+    .public-carousel .carousel-control-next {
+        right: 15px;
+    }
+
+    .public-carousel .carousel-control-prev-icon,
+    .public-carousel .carousel-control-next-icon {
+        width: 16px;
+        height: 16px;
+    }
+
+    }
+
+    @@media (max-width: 575.98px) {
+        .public-carousel
+
+    {
+        height: 50vh;
+    }
+
+    .public-carousel-img {
+        height: 50vh;
+    }
+
+    .carousel-overlay {
+        height: 50px;
+    }
+
+    .public-carousel .carousel-indicators {
+        bottom: 15px;
+    }
+
+        .public-carousel .carousel-indicators [data-bs-target] {
+            width: 8px;
+            height: 8px;
+            margin: 0 3px;
+        }
+
+    }
+</style>

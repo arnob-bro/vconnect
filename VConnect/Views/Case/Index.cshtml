@@ -5,39 +5,39 @@
 }
 
 <!-- Hero Section -->
-<section class="py-5" style="background: linear-gradient(135deg, #232a36 0%, #1d4538 100%); margin-top: 0;">
-    <div class="container py-5 text-center text-white">
-        <h1 class="display-4 fw-bold mb-3">Case Studies</h1>
-        <p class="lead mb-0">Exploring our impact through real stories of change and transformation</p>
+<section class="hero-section">
+    <div class="container text-center text-white">
+        <h1 class="hero-title">Case Studies</h1>
+        <p class="hero-subtitle">Exploring our impact through real stories of change and transformation</p>
     </div>
 </section>
 
 <!-- Impact Stats -->
-<section class="py-5 bg-light">
+<section class="stats-section bg-light">
     <div class="container">
         <div class="row text-center">
             <div class="col-md-3 col-6 mb-4">
                 <div class="stat-card">
-                    <h2 class="display-4 fw-bold" style="color: #0b3d2e;">@Model.ImpactStats.TotalCases</h2>
-                    <p class="text-muted">Successful Projects</p>
+                    <h2 class="stat-number" id="stat1">0</h2>
+                    <p class="stat-label">Successful Projects</p>
                 </div>
             </div>
             <div class="col-md-3 col-6 mb-4">
                 <div class="stat-card">
-                    <h2 class="display-4 fw-bold" style="color: #0b3d2e;">@Model.ImpactStats.CommunitiesImpacted</h2>
-                    <p class="text-muted">Communities Impacted</p>
+                    <h2 class="stat-number" id="stat2">0</h2>
+                    <p class="stat-label">Communities Impacted</p>
                 </div>
             </div>
             <div class="col-md-3 col-6 mb-4">
                 <div class="stat-card">
-                    <h2 class="display-4 fw-bold" style="color: #0b3d2e;">@Model.ImpactStats.VolunteersInvolved</h2>
-                    <p class="text-muted">Volunteers Involved</p>
+                    <h2 class="stat-number" id="stat3">0</h2>
+                    <p class="stat-label">Volunteers Involved</p>
                 </div>
             </div>
             <div class="col-md-3 col-6 mb-4">
                 <div class="stat-card">
-                    <h2 class="display-4 fw-bold" style="color: #0b3d2e;">@Model.ImpactStats.SuccessRate%</h2>
-                    <p class="text-muted">Success Rate</p>
+                    <h2 class="stat-number" id="stat4">0</h2>
+                    <p class="stat-label">Success Rate</p>
                 </div>
             </div>
         </div>
@@ -45,43 +45,45 @@
 </section>
 
 <!-- Featured Case Study -->
-<section class="py-5">
+<section class="featured-section">
     <div class="container">
-        <div class="text-center mb-5">
-            <span class="badge bg-warning text-dark mb-3">Featured Case Study</span>
-            <h2 class="fw-bold" style="color: #0b3d2e;">@Model.FeaturedCase.Title</h2>
-            <p class="lead">@Model.FeaturedCase.Subtitle</p>
+        <div class="text-center section-heading">
+            <span class="badge featured-badge">Featured Case Study</span>
+            <h2 class="section-title">@Model.FeaturedCase.Title</h2>
+            <p class="section-subtitle">@Model.FeaturedCase.Subtitle</p>
         </div>
 
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <img src="@Model.FeaturedCase.ImageUrl" alt="@Model.FeaturedCase.Title" class="img-fluid rounded-3 shadow">
+                <div class="featured-image-container">
+                    <img src="@Model.FeaturedCase.ImageUrl" alt="@Model.FeaturedCase.Title" class="img-fluid rounded-3 shadow">
+                </div>
             </div>
             <div class="col-lg-6">
                 <div class="case-meta mb-4">
-                    <span class="badge text-white me-2" style="background-color: #0b3d2e;">@Model.FeaturedCase.Category</span>
-                    <span class="badge bg-secondary me-2">@Model.FeaturedCase.Location</span>
-                    <span class="badge bg-success">@Model.FeaturedCase.Status</span>
+                    <span class="badge category-badge me-2">@Model.FeaturedCase.Category</span>
+                    <span class="badge location-badge me-2">@Model.FeaturedCase.Location</span>
+                    <span class="badge status-badge">@Model.FeaturedCase.Status</span>
                 </div>
 
-                <p class="lead mb-4">@Model.FeaturedCase.ShortDescription</p>
+                <p class="featured-description mb-4">@Model.FeaturedCase.ShortDescription</p>
 
                 <div class="case-stats row text-center mb-4">
                     <div class="col-4">
-                        <h4 class="fw-bold mb-1" style="color: #0b3d2e;">@Model.FeaturedCase.Volunteers</h4>
+                        <h4 class="stat-value mb-1">@Model.FeaturedCase.Volunteers</h4>
                         <small>Volunteers</small>
                     </div>
                     <div class="col-4">
-                        <h4 class="fw-bold mb-1" style="color: #0b3d2e;">@Model.FeaturedCase.Beneficiaries.ToString("N0")</h4>
+                        <h4 class="stat-value mb-1">@Model.FeaturedCase.Beneficiaries.ToString("N0")</h4>
                         <small>Beneficiaries</small>
                     </div>
                     <div class="col-4">
-                        <h4 class="fw-bold mb-1" style="color: #0b3d2e;">@Model.FeaturedCase.Duration</h4>
+                        <h4 class="stat-value mb-1">@Model.FeaturedCase.Duration</h4>
                         <small>Duration</small>
                     </div>
                 </div>
 
-                <a href="@Url.Action("Details", "Case", new { id = Model.FeaturedCase.Id })" class="btn btn-warning btn-lg">
+                <a href="@Url.Action("Details", "Case", new { id = Model.FeaturedCase.Id })" class="btn btn-warning btn-lg cta-button">
                     <i class="fas fa-book-open me-2"></i>Read Full Case Study
                 </a>
             </div>
@@ -90,27 +92,27 @@
 </section>
 
 <!-- Categories Filter -->
-<section class="py-5 bg-light">
+<section class="categories-section bg-light">
     <div class="container">
-        <div class="text-center mb-5">
-            <h2 class="fw-bold" style="color: #0b3d2e;">Explore Our Work</h2>
-            <p class="lead">Browse case studies by category</p>
+        <div class="text-center section-heading">
+            <h2 class="section-title">Explore Our Work</h2>
+            <p class="section-subtitle">Browse case studies by category</p>
         </div>
 
         <div class="row justify-content-center mb-5">
-            <div class="col-lg-8">
+            <div class="col-lg-10">
                 <div class="categories-filter d-flex flex-wrap justify-content-center gap-2">
-                    <button class="btn btn-primary rounded-pill px-4 filter-btn active" data-filter="all">
-                        All <span class="badge bg-light text-dark ms-2">@Model.AllCases.Count</span>
+                    <button class="btn filter-btn active" data-filter="all">
+                        All <span class="badge count-badge ms-2">@Model.AllCases.Count</span>
                     </button>
                     @foreach (var category in Model.Categories.Where(c => c.Name != "All"))
                     {
-                        <button class="btn btn-outline-primary rounded-pill px-4 filter-btn" data-filter="@category.Name.ToLower()">
+                        <button class="btn filter-btn" data-filter="@category.Name.ToLower()">
                             @if (!string.IsNullOrEmpty(category.Icon))
                             {
                                 <i class="@category.Icon me-2"></i>
                             }
-                            @category.Name <span class="badge bg-light text-dark ms-2">@category.Count</span>
+                            @category.Name <span class="badge count-badge ms-2">@category.Count</span>
                         </button>
                     }
                 </div>
@@ -126,7 +128,7 @@
                         <div class="case-image-container">
                             <img src="@caseStudy.ImageUrl" class="case-image" alt="@caseStudy.Title">
                             <div class="case-overlay">
-                                <span class="badge text-white" style="background-color: #0b3d2e;">@caseStudy.Category</span>
+                                <span class="badge category-badge">@caseStudy.Category</span>
                             </div>
                         </div>
                         <div class="card-body">
@@ -134,13 +136,13 @@
                                 <small class="text-muted">
                                     <i class="fas fa-map-marker-alt me-1"></i>@caseStudy.Location
                                 </small>
-                                <span class="badge @(caseStudy.Status == "Completed" ? "bg-success" : "bg-warning") float-end">
+                                <span class="badge @(caseStudy.Status == "Completed" ? "status-badge" : "bg-warning") float-end">
                                     @caseStudy.Status
                                 </span>
                             </div>
 
-                            <h5 class="card-title fw-bold" style="color: #0b3d2e;">@caseStudy.Title</h5>
-                            <p class="card-text">@caseStudy.ShortDescription</p>
+                            <h5 class="card-title case-title">@caseStudy.Title</h5>
+                            <p class="card-text case-description">@caseStudy.ShortDescription</p>
 
                             <div class="case-stats d-flex justify-content-between mb-3">
                                 <small>
@@ -152,7 +154,7 @@
                             </div>
                         </div>
                         <div class="card-footer bg-transparent border-0">
-                            <a href="@Url.Action("Details", "Case", new { id = caseStudy.Id })" class="btn btn-sm w-100" style="color: #0b3d2e; border-color: #0b3d2e;">
+                            <a href="@Url.Action("Details", "Case", new { id = caseStudy.Id })" class="btn btn-sm w-100 case-button">
                                 Read Case Study
                             </a>
                         </div>
@@ -173,11 +175,11 @@
 </section>
 
 <!-- Call to Action -->
-<section class="py-5" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%);">
+<section class="cta-section">
     <div class="container text-center text-white">
-        <h2 class="fw-bold mb-3">Inspired by Our Work?</h2>
-        <p class="lead mb-4">Join us in creating more success stories across Bangladesh</p>
-        <div class="d-flex gap-3 justify-content-center">
+        <h2 class="cta-title mb-3">Inspired by Our Work?</h2>
+        <p class="cta-subtitle mb-4">Join us in creating more success stories across Bangladesh</p>
+        <div class="d-flex gap-3 justify-content-center cta-buttons">
             <a href="@Url.Action("Register", "Account")" class="btn btn-warning btn-lg px-4">
                 <i class="fas fa-user-plus me-2"></i>Join as Volunteer
             </a>
@@ -190,12 +192,187 @@
 
 @section Styles {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
     <style>
-        .stat-card {
-            padding: 2rem 1rem;
+        /* Global Styles */
+        :root {
+            --primary-color: #0b3d2e;
+            --secondary-color: #1a5e48;
+            --accent-color: #ffc107;
+            --light-bg: #f8f9fa;
+            --dark-text: #232a36;
         }
 
+        /* Hero Section */
+        .hero-section {
+            padding: 7rem 0 5rem;
+            background: linear-gradient(135deg, var(--dark-text) 0%, var(--secondary-color) 100%);
+            margin-top: -25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .hero-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                /* background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E"); */
+                opacity: 0.5;
+            }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 5rem 0;
+        }
+
+        .stat-card {
+            padding: 2rem 1rem;
+            transition: transform 0.3s ease;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+
+        /* Section Headings */
+        .section-heading {
+            margin-bottom: 4rem;
+        }
+
+        .featured-badge {
+            background-color: var(--accent-color);
+            color: #000;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #6c757d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Featured Section */
+        .featured-section {
+            padding: 5rem 0;
+        }
+
+        .featured-image-container {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
+        }
+
+            .featured-image-container img {
+                transition: transform 0.5s ease;
+            }
+
+            .featured-image-container:hover img {
+                transform: scale(1.03);
+            }
+
+        .featured-description {
+            font-size: 1.2rem;
+            line-height: 1.7;
+            color: #495057;
+        }
+
+        /* Badges */
+        .category-badge {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .location-badge {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .status-badge {
+            background-color: #198754;
+            color: white;
+        }
+
+        .count-badge {
+            background-color: white;
+            color: var(--primary-color);
+        }
+
+        /* Case Stats */
+        .stat-value {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Buttons */
+        .cta-button {
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .cta-button:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            }
+
+        /* Categories Section */
+        .categories-section {
+            padding: 5rem 0;
+        }
+
+        .filter-btn {
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 500;
+            border: 2px solid var(--primary-color);
+            transition: all 0.3s ease;
+        }
+
+            .filter-btn.active, .filter-btn:hover {
+                background-color: var(--primary-color);
+                color: white;
+            }
+
+        /* Case Cards */
         .case-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-radius: 15px;
@@ -203,13 +380,13 @@
         }
 
             .case-card:hover {
-                transform: translateY(-5px);
-                box-shadow: 0 10px 25px rgba(0,0,0,0.15) !important;
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
             }
 
         .case-image-container {
             position: relative;
-            height: 200px;
+            height: 220px;
             overflow: hidden;
         }
 
@@ -217,66 +394,239 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.3s ease;
+            transition: transform 0.5s ease;
         }
 
         .case-card:hover .case-image {
-            transform: scale(1.05);
+            transform: scale(1.1);
         }
 
         .case-overlay {
             position: absolute;
             top: 15px;
             left: 15px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .case-meta {
-            font-size: 0.9rem;
+        .case-card:hover .case-overlay {
+            opacity: 1;
         }
 
-        .case-stats {
-            font-size: 0.85rem;
+        .case-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            transition: color 0.3s ease;
         }
 
-        .categories-filter .btn {
+        .case-card:hover .case-title {
+            color: var(--secondary-color);
+        }
+
+        .case-description {
+            color: #6c757d;
+            line-height: 1.6;
+        }
+
+        .case-button {
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            padding: 0.5rem 1rem;
+            font-weight: 500;
             transition: all 0.3s ease;
         }
 
-            .categories-filter .btn:hover {
-                background-color: #0b3d2e !important;
-                color: white !important;
+            .case-button:hover {
+                background-color: var(--primary-color);
+                color: white;
             }
 
-            /* Active filter button style */
-            .categories-filter .btn.active {
-                background-color: #0b3d2e !important;
-                color: white !important;
-                border-color: #0b3d2e !important;
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+            .cta-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                /* background: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23ffffff' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E"); */
             }
 
-        /* Case study item animation */
-        .case-item {
+        .cta-title {
+            font-weight: 700;
+            font-size: 2.5rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.3rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-buttons .btn {
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
             transition: all 0.3s ease;
         }
 
-            .case-item.hidden {
-                display: none;
+            .cta-buttons .btn:hover {
+                transform: translateY(-3px);
+                box-shadow: 0 10px 20px rgba(0,0,0,0.15);
             }
 
-        /* Responsive adjustments */
+        /* Animations */
+        @@keyframes fadeInDown {
+            from
+
+        {
+            opacity: 0;
+            transform: translateY(-30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        }
+
+        @@keyframes fadeInUp {
+            from
+
+        {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 1200px) {
+            .hero-title
+
+        {
+            font-size: 3rem;
+        }
+
+        .stat-number {
+            font-size: 3rem;
+        }
+
+        }
+
+        @@media (max-width: 992px) {
+            .hero-section
+
+        {
+            padding: 6rem 0 4rem;
+        }
+
+        .hero-title {
+            font-size: 2.5rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+        }
+
+        .stats-section, .featured-section, .categories-section {
+            padding: 4rem 0;
+        }
+
+        .section-heading {
+            margin-bottom: 3rem;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+        }
+
+        }
+
         @@media (max-width: 768px) {
-            .stat-card {
-                padding: 1.5rem 0.5rem;
+            .hero-title
+
+        {
+            font-size: 2.2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+        }
+
+        .stats-section, .featured-section, .categories-section {
+            padding: 3rem 0;
+        }
+
+        .stat-card {
+            padding: 1.5rem 0.5rem;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+        }
+
+        .categories-filter {
+            flex-direction: column;
+            gap: 0.5rem !important;
+        }
+
+            .categories-filter .btn {
+                width: 100%;
             }
 
-            .categories-filter {
-                flex-direction: column;
-                gap: 0.5rem !important;
-            }
+        .cta-buttons {
+            flex-direction: column;
+            gap: 1rem;
+        }
 
-                .categories-filter .btn {
-                    width: 100%;
-                }
+        .cta-title {
+            font-size: 2rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.1rem;
+        }
+
+        }
+
+        @@media (max-width: 576px) {
+            .hero-title
+
+        {
+            font-size: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+        }
+
+        .featured-description {
+            font-size: 1rem;
+        }
+
+        .stat-number {
+            font-size: 1.8rem;
+        }
+
         }
     </style>
 }
@@ -284,6 +634,43 @@
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
+            // Counter animation for stats
+            function animateCounter(element, target) {
+                let current = 0;
+                let increment = target / 50;
+                let duration = 2000; // 2 seconds
+                let stepTime = Math.abs(Math.floor(duration / (target / increment)));
+
+                let timer = setInterval(function() {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        current = target;
+                    }
+
+                    if (element.id === 'stat4') {
+                        element.textContent = Math.floor(current) + '%';
+                    } else {
+                        element.textContent = Math.floor(current).toLocaleString();
+                    }
+                }, stepTime);
+            }
+
+            // Start counter animation when stats are in viewport
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        animateCounter(document.getElementById('stat1'), @Model.ImpactStats.TotalCases);
+                        animateCounter(document.getElementById('stat2'), @Model.ImpactStats.CommunitiesImpacted);
+                        animateCounter(document.getElementById('stat3'), @Model.ImpactStats.VolunteersInvolved);
+                        animateCounter(document.getElementById('stat4'), @Model.ImpactStats.SuccessRate);
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            observer.observe(document.querySelector('.stats-section'));
+
             // Get all filter buttons and case items
             const filterButtons = document.querySelectorAll('.filter-btn');
             const caseItems = document.querySelectorAll('.case-item');
@@ -298,10 +685,19 @@
                     const itemCategory = item.getAttribute('data-category');
 
                     if (category === 'all' || itemCategory === category) {
-                        item.classList.remove('hidden');
+                        item.style.display = 'block';
                         visibleItems++;
+                        // Add animation
+                        setTimeout(() => {
+                            item.style.opacity = '1';
+                            item.style.transform = 'translateY(0)';
+                        }, 50);
                     } else {
-                        item.classList.add('hidden');
+                        item.style.opacity = '0';
+                        item.style.transform = 'translateY(20px)';
+                        setTimeout(() => {
+                            item.style.display = 'none';
+                        }, 300);
                     }
                 });
 
@@ -319,16 +715,16 @@
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     // Remove active class from all buttons
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
+                    filterButtons.forEach(btn => {
+                        btn.classList.remove('active');
+                        btn.classList.remove('btn-primary');
+                        btn.classList.add('btn-outline-primary');
+                    });
 
                     // Add active class to clicked button
                     this.classList.add('active');
-
-                    // Change button style based on active state
-                    if (this.classList.contains('btn-outline-primary')) {
-                        this.classList.remove('btn-outline-primary');
-                        this.classList.add('btn-primary');
-                    }
+                    this.classList.remove('btn-outline-primary');
+                    this.classList.add('btn-primary');
 
                     // Filter cases
                     const filterValue = this.getAttribute('data-filter');
@@ -336,7 +732,21 @@
                 });
             });
 
-            // Initialize with 'all' filter
+            // Initialize with 'all' filter and set initial styles
+            filterButtons.forEach(btn => {
+                if (btn.classList.contains('active')) {
+                    btn.classList.remove('btn-outline-primary');
+                    btn.classList.add('btn-primary');
+                } else {
+                    btn.classList.add('btn-outline-primary');
+                }
+            });
+
+            // Initialize case items with transition
+            caseItems.forEach(item => {
+                item.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
+            });
+
             filterCases('all');
         });
     </script>

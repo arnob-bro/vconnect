@@ -5,32 +5,32 @@
 }
 
 <!-- Hero Section -->
-<section class="py-5" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%); margin-top: 0;">
-    <div class="container py-5 text-center text-white">
-        <h1 class="display-4 fw-bold mb-3">Meet Our Heroes</h1>
-        <p class="lead mb-0">Celebrating the extraordinary volunteers who make VConnect possible</p>
+<section class="hero-banner">
+    <div class="container text-center text-white">
+        <h1 class="hero-title">Meet Our Heroes</h1>
+        <p class="hero-subtitle">Celebrating the extraordinary volunteers who make VConnect possible</p>
     </div>
 </section>
 
 <!-- Stats Section -->
-<section class="py-5 bg-light">
+<section class="stats-section py-5 bg-light">
     <div class="container">
         <div class="row text-center">
             <div class="col-md-4">
                 <div class="stat-card">
-                    <h2 class="display-4 fw-bold text-vol">@Model.TotalHeroes</h2>
+                    <h2 class="stat-number text-vol" data-count="@Model.TotalHeroes">0</h2>
                     <p class="text-muted">Active Volunteers</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="stat-card">
-                    <h2 class="display-4 fw-bold text-vol">@Model.TotalHours</h2>
+                    <h2 class="stat-number text-vol" data-count="@Model.TotalHours">0</h2>
                     <p class="text-muted">Hours Volunteered</p>
                 </div>
             </div>
             <div class="col-md-4">
                 <div class="stat-card">
-                    <h2 class="display-4 fw-bold text-vol">@Model.TotalProjects</h2>
+                    <h2 class="stat-number text-vol" data-count="@Model.TotalProjects">0</h2>
                     <p class="text-muted">Projects Completed</p>
                 </div>
             </div>
@@ -39,11 +39,11 @@
 </section>
 
 <!-- Featured Heroes -->
-<section class="py-5">
+<section class="featured-heroes py-5">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold text-vol">Featured Heroes</h2>
-            <p class="lead">Our most dedicated volunteers making significant impacts</p>
+            <h2 class="section-title text-vol">Featured Heroes</h2>
+            <p class="section-subtitle">Our most dedicated volunteers making significant impacts</p>
         </div>
 
         <div class="row g-4">
@@ -87,11 +87,11 @@
 </section>
 
 <!-- All Heroes Grid -->
-<section class="py-5 bg-light">
+<section class="all-heroes py-5 bg-light">
     <div class="container">
         <div class="text-center mb-5">
-            <h2 class="fw-bold text-vol">Our Volunteer Community</h2>
-            <p class="lead">Join thousands of volunteers making a difference across Bangladesh</p>
+            <h2 class="section-title text-vol">Our Volunteer Community</h2>
+            <p class="section-subtitle">Join thousands of volunteers making a difference across Bangladesh</p>
         </div>
 
         <div class="row g-4">
@@ -125,10 +125,10 @@
 </section>
 
 <!-- Call to Action -->
-<section class="py-5" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%);">
+<section class="cta-section">
     <div class="container text-center text-white">
-        <h2 class="fw-bold mb-3">Become a Hero Today</h2>
-        <p class="lead mb-4">Join our community of volunteers and make a difference in your community</p>
+        <h2 class="cta-title">Become a Hero Today</h2>
+        <p class="cta-subtitle">Join our community of volunteers and make a difference in your community</p>
         <a href="@Url.Action("Register", "Account")" class="btn btn-warning btn-lg px-5 py-3">
             <i class="fas fa-user-plus me-2"></i>Join Now
         </a>
@@ -137,16 +137,97 @@
 
 @section Styles {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-
     <style>
-        .stat-card {
-            padding: 2rem 1rem;
+        /* Global Styles */
+        :root {
+            --primary-color: #0b3d2e;
+            --primary-light: #1a5e48;
+            --accent-color: #ffc107;
+            --text-dark: #333;
+            --text-light: #6c757d;
+            --bg-light: #f8f9fa;
         }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        /* Hero Section */
+        .hero-banner {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            padding: 7rem 0 5rem;
+            margin-top: -25px;
+        }
+
+        .hero-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.25rem;
+            font-weight: 300;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            position: relative;
+            z-index: 1;
+        }
+
+        .stat-card {
+            padding: 2.5rem 1rem;
+            transition: transform 0.3s ease;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Section Titles */
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            position: relative;
+            display: inline-block;
+        }
+
+            .section-title::after {
+                content: '';
+                position: absolute;
+                bottom: -10px;
+                left: 50%;
+                transform: translateX(-50%);
+                width: 60px;
+                height: 3px;
+                background-color: var(--primary-color);
+            }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Hero Cards */
         .hero-card {
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             border-radius: 15px;
             overflow: hidden;
+            animation: fadeIn 0.5s ease;
         }
 
             .hero-card:hover {
@@ -199,6 +280,7 @@
         .hero-card-sm {
             transition: transform 0.3s ease;
             border-radius: 10px;
+            animation: fadeIn 0.5s ease;
         }
 
             .hero-card-sm:hover {
@@ -221,28 +303,164 @@
         }
 
         .btn-outline-vol {
-            color: #0b3d2e;
-            border-color: #0b3d2e;
+            color: var(--primary-color);
+            border-color: var(--primary-color);
         }
 
             .btn-outline-vol:hover {
-                background-color: #0b3d2e;
+                background-color: var(--primary-color);
                 color: white;
             }
 
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-light) 100%);
+            padding: 5rem 0;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .cta-subtitle {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        /* Animations */
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
         /* Responsive adjustments */
+        @@media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .stat-number {
+                font-size: 2.8rem;
+            }
+        }
+
         @@media (max-width: 768px) {
-            .hero-image-container {
-                height: 200px;
+            .hero-banner {
+                padding: 6rem 0 4rem;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.1rem;
             }
 
             .stat-card {
                 padding: 1.5rem 0.5rem;
             }
 
-            .display-4 {
-                font-size: 2.5rem;
+            .stat-number {
+                font-size: 2.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .hero-image-container {
+                height: 200px;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+        }
+
+        @@media (max-width: 576px) {
+            .hero-title {
+                font-size: 1.8rem;
+            }
+
+            .stat-number {
+                font-size: 1.8rem;
             }
         }
     </style>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Counter animation for stats
+            const counters = document.querySelectorAll('.stat-number');
+            const speed = 200; // The lower the slower
+
+            counters.forEach(counter => {
+                const target = +counter.getAttribute('data-count');
+                const count = +counter.innerText;
+                const increment = Math.ceil(target / speed);
+
+                const updateCount = () => {
+                    if (count < target) {
+                        counter.innerText = Math.min(count + increment, target).toLocaleString();
+                        setTimeout(updateCount, 1);
+                    }
+                };
+
+                updateCount();
+            });
+
+            // Add animation to hero cards when they come into view
+            const heroCards = document.querySelectorAll('.hero-card, .hero-card-sm');
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.5s ease forwards';
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            heroCards.forEach(card => {
+                observer.observe(card);
+            });
+        });
+    </script>
 }

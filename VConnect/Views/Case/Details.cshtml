@@ -5,15 +5,9 @@
 }
 
 <!-- Hero Section -->
-<section class="py-4" style="background: linear-gradient(135deg, #232a36 0%, #1d4538 100%); margin-top: 0;">
+<section class="py-4" style="background: linear-gradient(135deg, #232a36 0%, #1d4538 100%); margin-top:-25px;">
     <div class="container py-4">
-        <nav aria-label="breadcrumb">
-            <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Home")" class="text-white">Home</a></li>
-                <li class="breadcrumb-item"><a href="@Url.Action("Index", "Case")" class="text-white">Case Studies</a></li>
-                <li class="breadcrumb-item active text-warning" aria-current="page">@Model.Title</li>
-            </ol>
-        </nav>
+        
     </div>
 </section>
 
@@ -215,6 +209,7 @@
 
         .breadcrumb {
             margin-bottom: 0;
+            height:71px;
         }
 
         .breadcrumb-item a {
