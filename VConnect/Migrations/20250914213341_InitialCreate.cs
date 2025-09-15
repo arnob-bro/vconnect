@@ -13,6 +13,22 @@ namespace VConnect.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Icon = table.Column<string>(type: "text", nullable: false),
+                    Count = table.Column<int>(type: "integer", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Donations",
                 columns: table => new
                 {
@@ -66,6 +82,49 @@ namespace VConnect.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ImpactStats",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    TotalCases = table.Column<int>(type: "integer", nullable: false),
+                    CommunitiesImpacted = table.Column<int>(type: "integer", nullable: false),
+                    VolunteersInvolved = table.Column<int>(type: "integer", nullable: false),
+                    SuccessRate = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ImpactStats", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Studies",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Subtitle = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false),
+                    ImageUrl = table.Column<string>(type: "character varying(500)", maxLength: 500, nullable: false),
+                    Category = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Location = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
+                    Duration = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Volunteers = table.Column<int>(type: "integer", nullable: false),
+                    Beneficiaries = table.Column<int>(type: "integer", nullable: false),
+                    ShortDescription = table.Column<string>(type: "character varying(1000)", maxLength: 1000, nullable: false),
+                    Challenge = table.Column<string>(type: "text", nullable: false),
+                    Solution = table.Column<string>(type: "text", nullable: false),
+                    Results = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<string>(type: "character varying(50)", maxLength: 50, nullable: false),
+                    Budget = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    Partners = table.Column<string>(type: "character varying(300)", maxLength: 300, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Studies", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -100,6 +159,48 @@ namespace VConnect.Migrations
                         column: x => x.EventId,
                         principalTable: "Events",
                         principalColumn: "EventId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CaseGalleryImages",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    ImageUrl = table.Column<string>(type: "text", nullable: false),
+                    StudyId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CaseGalleryImages", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CaseGalleryImages_Studies_StudyId",
+                        column: x => x.StudyId,
+                        principalTable: "Studies",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Milestones",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Date = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    Title = table.Column<string>(type: "character varying(200)", maxLength: 200, nullable: false),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    StudyId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Milestones", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Milestones_Studies_StudyId",
+                        column: x => x.StudyId,
+                        principalTable: "Studies",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -234,6 +335,11 @@ namespace VConnect.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_CaseGalleryImages_StudyId",
+                table: "CaseGalleryImages",
+                column: "StudyId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_EventApplications_EventId",
                 table: "EventApplications",
                 column: "EventId");
@@ -262,6 +368,11 @@ namespace VConnect.Migrations
                 name: "IX_EventRoles_EventId",
                 table: "EventRoles",
                 column: "EventId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Milestones_StudyId",
+                table: "Milestones",
+                column: "StudyId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Participations_EventId",
@@ -295,6 +406,12 @@ namespace VConnect.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
+                name: "CaseGalleryImages");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
                 name: "Donations");
 
             migrationBuilder.DropTable(
@@ -304,10 +421,19 @@ namespace VConnect.Migrations
                 name: "EventNotifications");
 
             migrationBuilder.DropTable(
+                name: "ImpactStats");
+
+            migrationBuilder.DropTable(
+                name: "Milestones");
+
+            migrationBuilder.DropTable(
                 name: "Participations");
 
             migrationBuilder.DropTable(
                 name: "ProfileDetails");
+
+            migrationBuilder.DropTable(
+                name: "Studies");
 
             migrationBuilder.DropTable(
                 name: "EventRoles");
