@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Buffers;
 
 namespace VConnect.Services
 {
@@ -20,6 +21,45 @@ namespace VConnect.Services
         public async Task<Donation> CreateDonationAsync(Donation donation)
         {
             donation.CreatedAt = DateTime.UtcNow;
+            switch (donation.PaymentMethod)
+            {
+                case "bKash":
+                    donation.NagadNumber = "";
+                    donation.BankName = "";
+                    donation.AccountNumber = "";
+                    donation.CardNumber = "";
+                    donation.ExpiryDate = "";
+                    donation.CVV = "";
+                    donation.CardHolderName = "";
+                    break;
+                case "Nagad":
+                    donation.BkashNumber = "";
+                    donation.BankName = "";
+                    donation.AccountNumber = "";
+                    donation.CardNumber = "";
+                    donation.ExpiryDate = "";
+                    donation.CVV = "";
+                    donation.CardHolderName = "";
+                    break;
+                case "BankTransfer":
+                    donation.BkashNumber = "";
+                    donation.NagadNumber = "";
+                    donation.CardNumber = "";
+                    donation.ExpiryDate = "";
+                    donation.CVV = "";
+                    donation.CardHolderName = "";
+                    break;
+                case "CreditCard":
+                case "DebitCard":
+                    donation.BkashNumber = "";
+                    donation.NagadNumber = "";
+                    donation.BankName = "";
+                    donation.AccountNumber = "";
+                    break;
+            }
+
+            donation.TransactionId = $"TXN-{Guid.NewGuid().ToString("N").Substring(0, 12).ToUpper()}";
+
             _context.Donations.Add(donation);
             await _context.SaveChangesAsync();
             return donation;
@@ -32,9 +72,10 @@ namespace VConnect.Services
                 .ToListAsync();
         }
 
-        public async Task<Donation> GetDonationByIdAsync(int id)
+        public async Task<Donation> GetDonationByTransactionIdAsync(string transactionId)
         {
-            return await _context.Donations.FindAsync(id);
+            return await _context.Donations
+                .FirstOrDefaultAsync(d => d.TransactionId == transactionId);
         }
 
         public async Task<bool> UpdateDonationStatusAsync(int id, DonationStatus status)
@@ -59,14 +100,14 @@ namespace VConnect.Services
         public async Task<DonationStats> GetDonationStatsAsync()
         {
             var donations = await _context.Donations.ToListAsync();
-            var monthly = donations.Where(d => d.CreatedAt >= DateTime.UtcNow.AddMonths(-1));
 
             var stats = new DonationStats
             {
+                // Lifetime totals
                 TotalDonations = donations.Sum(d => d.Amount),
                 TotalDonors = donations.Select(d => d.Email).Distinct().Count(),
-                MonthlyDonations = monthly.Sum(d => d.Amount),
-                MonthlyDonors = monthly.Select(d => d.Email).Distinct().Count(),
+
+                // Remove monthly, just keep recent + method breakdown + all donations
                 RecentDonations = donations.OrderByDescending(d => d.CreatedAt)
                                            .Take(5)
                                            .Select(d => new RecentDonation
@@ -77,11 +118,16 @@ namespace VConnect.Services
                                                Date = d.CreatedAt,
                                                IsAnonymous = d.IsAnonymous
                                            }).ToList(),
-                DonationsByMethod = donations.GroupBy(d => d.PaymentMethod.ToString())
-                                             .ToDictionary(g => g.Key, g => g.Sum(d => d.Amount))
+
+                DonationsByMethod = donations
+                    .GroupBy(d => d.PaymentMethod.ToString())
+                    .ToDictionary(g => g.Key, g => g.Sum(d => d.Amount)),
+
+                AllDonations = donations.OrderByDescending(d => d.CreatedAt).ToList()
             };
 
             return stats;
         }
+
     }
 }

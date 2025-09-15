@@ -1,4 +1,4 @@
-﻿@model VConnect.Models.DonationViewModel
+﻿@model VConnect.Models.Donation
 
 @{
     ViewData["Title"] = "Donate - VConnect";
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="card-body px-5 py-4">
-                    <form asp-controller="Donation" asp-action="Process" method="post" class="needs-validation" novalidate>
+                    <form asp-controller="Donation" asp-action="Create" method="post" class="needs-validation" novalidate>
                         @Html.AntiForgeryToken()
 
                         <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-pill"></div>
@@ -347,7 +347,7 @@
 
 @section Scripts {
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
+                document.addEventListener('DOMContentLoaded', function () {
             // Quick amount buttons
             document.querySelectorAll('.amount-btn').forEach(function (button) {
                 button.addEventListener('click', function () {
@@ -362,7 +362,7 @@
                 });
             });
 
-            // Payment method specific fields
+            // Payment method fields
             var select = document.querySelector('.payment-method-select');
             var sections = {
                 'bKash': document.getElementById('bkashFields'),
@@ -373,24 +373,15 @@
             };
 
             function showSection(method) {
-                // Hide all
+                // Hide all sections (no name removal)
                 document.querySelectorAll('.payment-method-fields').forEach(function (el) {
                     el.style.display = 'none';
                 });
 
-                // Clear inputs in hidden sections to avoid accidental posting
-                Object.keys(sections).forEach(function (key) {
-                    var el = sections[key];
-                    if (el) {
-                        el.querySelectorAll('input').forEach(function (inp) {
-                            if (el.style.display === 'none') inp.value = '';
-                        });
-                    }
-                });
-
-                // Show selected
-                var target = sections[method];
-                if (target) target.style.display = 'block';
+                // Show the selected section
+                if (sections[method]) {
+                    sections[method].style.display = 'block';
+                }
             }
 
             if (select) {
@@ -398,11 +389,11 @@
                     showSection(this.value);
                 });
 
-                // On first load (if model has a selected value after a failed POST)
+                // Initial load after failed POST
                 showSection(select.value);
             }
         });
-    </script>
 
-    @* Ensure jQuery + validation bundles are included in your _Layout for client-side validation *@
+    </script>
 }
+

@@ -21,44 +21,69 @@ namespace VConnect.Controllers
             return View();
         }
 
-        // POST: /Donation/Create
+        // Fixing the issue with the Enum.Parse line in the POST Create method
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(DonationViewModel model)
+        public async Task<IActionResult> Create(Donation donation)
         {
-            if (!ModelState.IsValid)
-                return View(model);
-
-            var donation = new Donation
+            // Remove irrelevant ModelState errors
+            if (donation.PaymentMethod == "bKash")
             {
-                DonorName = model.DonorName,
-                Email = model.Email,
-                Phone = model.Phone,
-                Amount = model.Amount,
-                Message = model.Message,
-                PaymentMethod = Enum.Parse<PaymentMethod>(model.PaymentMethod),
-                IsAnonymous = model.IsAnonymous,
-                BkashNumber = model.BkashNumber,
-                NagadNumber = model.NagadNumber,
-                BankName = model.BankName,
-                AccountNumber = model.AccountNumber,
-                CardNumber = model.CardNumber,
-                ExpiryDate = model.ExpiryDate,
-                CVV = model.CVV,
-                CardHolderName = model.CardHolderName,
-                Status = DonationStatus.Pending
-            };
+                ModelState.Remove(nameof(donation.CVV));
+                ModelState.Remove(nameof(donation.CardNumber));
+                ModelState.Remove(nameof(donation.ExpiryDate));
+                ModelState.Remove(nameof(donation.CardHolderName));
+                ModelState.Remove(nameof(donation.NagadNumber));
+                ModelState.Remove(nameof(donation.BankName));
+                ModelState.Remove(nameof(donation.AccountNumber));
+            }
+            else if (donation.PaymentMethod == "Nagad")
+            {
+                ModelState.Remove(nameof(donation.CVV));
+                ModelState.Remove(nameof(donation.CardNumber));
+                ModelState.Remove(nameof(donation.ExpiryDate));
+                ModelState.Remove(nameof(donation.CardHolderName));
+                ModelState.Remove(nameof(donation.BkashNumber));
+                ModelState.Remove(nameof(donation.BankName));
+                ModelState.Remove(nameof(donation.AccountNumber));
+            }
+            else if (donation.PaymentMethod == "BankTransfer")
+            {
+                ModelState.Remove(nameof(donation.CVV));
+                ModelState.Remove(nameof(donation.CardNumber));
+                ModelState.Remove(nameof(donation.ExpiryDate));
+                ModelState.Remove(nameof(donation.CardHolderName));
+                ModelState.Remove(nameof(donation.BkashNumber));
+                ModelState.Remove(nameof(donation.NagadNumber));
+            }
+            else if (donation.PaymentMethod == "CreditCard" || donation.PaymentMethod == "DebitCard")
+            {
+                ModelState.Remove(nameof(donation.BkashNumber));
+                ModelState.Remove(nameof(donation.NagadNumber));
+                ModelState.Remove(nameof(donation.BankName));
+                ModelState.Remove(nameof(donation.AccountNumber));
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var errors = ModelState.Values.SelectMany(v => v.Errors)
+                                  .Select(e => e.ErrorMessage)
+                                  .ToList();
+                // Debug: inspect errors
+                Console.WriteLine(string.Join(", ", errors));
+                return View(donation); // return with validation errors
+            }
 
             var created = await _donationService.CreateDonationAsync(donation);
-
-            return RedirectToAction("ThankYou", new { id = created.Id });
+            return RedirectToAction("ThankYou", new { id = created.TransactionId });
         }
+
 
         // GET: /Donation/ThankYou/5
         [HttpGet]
-        public async Task<IActionResult> ThankYou(int id)
+        public async Task<IActionResult> ThankYou(string id)
         {
-            var donation = await _donationService.GetDonationByIdAsync(id);
+            var donation = await _donationService.GetDonationByTransactionIdAsync(id);
             if (donation == null)
                 return NotFound();
 

@@ -8,7 +8,7 @@ namespace VConnect.Services
     {
         Task<Donation> CreateDonationAsync(Donation donation);
         Task<List<Donation>> GetAllDonationsAsync();
-        Task<Donation> GetDonationByIdAsync(int id);
+        Task<Donation> GetDonationByTransactionIdAsync(string id);
         Task<bool> UpdateDonationStatusAsync(int id, DonationStatus status);
         Task<List<Donation>> GetRecentDonationsAsync(int count);
         Task<DonationStats> GetDonationStatsAsync();

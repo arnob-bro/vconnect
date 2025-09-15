@@ -11,6 +11,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IProfileDetailsService, ProfileDetailsService>();
 builder.Services.AddScoped<IEventService, EventService>();
+builder.Services.AddScoped<IDonationService, DonationService>();
 
 // Study service (interface-based)
 builder.Services.AddScoped<IStudyService, StudyService>();

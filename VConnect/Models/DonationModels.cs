@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace VConnect.Models
 {
@@ -15,114 +16,7 @@ namespace VConnect.Models
         Refunded
     }
 
-    // Payment method enum
-    public enum PaymentMethod
-    {
-        bKash,
-        Nagad,
-        BankTransfer,
-        CreditCard,
-        DebitCard
-    }
 
-    // ViewModel for the donation form
-    public class DonationViewModel
-    {
-        [Required(ErrorMessage = "Name is required")]
-        [Display(Name = "Full Name")]
-        public string DonorName { get; set; }
-
-        [Required(ErrorMessage = "Email is required")]
-        [EmailAddress(ErrorMessage = "Invalid email address")]
-        [Display(Name = "Email Address")]
-        public string Email { get; set; }
-
-        [Phone(ErrorMessage = "Invalid phone number")]
-        [Display(Name = "Phone Number (Optional)")]
-        public string Phone { get; set; }
-
-        [Required(ErrorMessage = "Amount is required")]
-        [Range(1, 1000000, ErrorMessage = "Amount must be at least 1 BDT")]
-        [Display(Name = "Donation Amount (BDT)")]
-        public decimal Amount { get; set; }
-
-        [Display(Name = "Message (Optional)")]
-        public string Message { get; set; }
-
-        [Required(ErrorMessage = "Payment method is required")]
-        [Display(Name = "Payment Method")]
-        public string PaymentMethod { get; set; }
-
-        [Display(Name = "Make this donation anonymous")]
-        public bool IsAnonymous { get; set; }
-
-        // For specific payment methods
-        [Display(Name = "bKash Number")]
-        [RequiredIf(nameof(PaymentMethod), "bKash", ErrorMessage = "bKash number is required")]
-        public string BkashNumber { get; set; }
-
-        [Display(Name = "Nagad Number")]
-        [RequiredIf(nameof(PaymentMethod), "Nagad", ErrorMessage = "Nagad number is required")]
-        public string NagadNumber { get; set; }
-
-        [Display(Name = "Bank Name")]
-        [RequiredIf(nameof(PaymentMethod), "BankTransfer", ErrorMessage = "Bank name is required")]
-        public string BankName { get; set; }
-
-        [Display(Name = "Account Number")]
-        [RequiredIf(nameof(PaymentMethod), "BankTransfer", ErrorMessage = "Account number is required")]
-        public string AccountNumber { get; set; }
-
-        [Display(Name = "Card Number")]
-        [RequiredIf(nameof(PaymentMethod), "CreditCard", "DebitCard", ErrorMessage = "Card number is required")]
-        [CreditCard(ErrorMessage = "Invalid card number")]
-        public string CardNumber { get; set; }
-
-        [Display(Name = "Expiry Date")]
-        [RequiredIf(nameof(PaymentMethod), "CreditCard", "DebitCard", ErrorMessage = "Expiry date is required")]
-        [RegularExpression(@"^(0[1-9]|1[0-2])\/?([0-9]{2})$", ErrorMessage = "Invalid expiry date format (MM/YY)")]
-        public string ExpiryDate { get; set; }
-
-        [Display(Name = "CVV")]
-        [RequiredIf(nameof(PaymentMethod), "CreditCard", "DebitCard", ErrorMessage = "CVV is required")]
-        [RegularExpression(@"^[0-9]{3,4}$", ErrorMessage = "Invalid CVV")]
-        public string CVV { get; set; }
-
-        [Display(Name = "Card Holder Name")]
-        [RequiredIf(nameof(PaymentMethod), "CreditCard", "DebitCard", ErrorMessage = "Card holder name is required")]
-        public string CardHolderName { get; set; }
-    }
-
-    // Custom validation attribute for conditional required fields
-    public class RequiredIfAttribute : ValidationAttribute
-    {
-        private readonly string PropertyName;
-        private readonly string[] ExpectedValues;
-
-        public RequiredIfAttribute(string propertyName, params string[] expectedValues)
-        {
-            PropertyName = propertyName;
-            ExpectedValues = expectedValues;
-        }
-
-        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
-        {
-            var instance = validationContext.ObjectInstance;
-            var type = instance.GetType();
-
-            var propertyValue = type.GetProperty(PropertyName)?.GetValue(instance, null)?.ToString();
-
-            if (propertyValue != null && ExpectedValues.Contains(propertyValue, StringComparer.OrdinalIgnoreCase))
-            {
-                if (value == null || string.IsNullOrWhiteSpace(value.ToString()))
-                {
-                    return new ValidationResult(ErrorMessage);
-                }
-            }
-
-            return ValidationResult.Success;
-        }
-    }
 
 
     // Model for donation thank you page
@@ -141,11 +35,11 @@ namespace VConnect.Models
     {
         public decimal TotalDonations { get; set; }
         public int TotalDonors { get; set; }
-        public decimal MonthlyDonations { get; set; }
-        public int MonthlyDonors { get; set; }
-        public List<RecentDonation> RecentDonations { get; set; } = new List<RecentDonation>();
-        public Dictionary<string, decimal> DonationsByMethod { get; set; } = new Dictionary<string, decimal>();
+        public List<RecentDonation> RecentDonations { get; set; }
+        public Dictionary<string, decimal> DonationsByMethod { get; set; }
+        public List<Donation> AllDonations { get; set; }
     }
+
 
     // Model for recent donations
     public class RecentDonation
