@@ -1,0 +1,87 @@
+﻿@model IEnumerable<VConnect.Models.SOS.SosPost>
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "User Posts";
+}
+
+<style>
+    .dashboard-section h3 {
+        color: #ff8800;
+        margin-bottom: 15px;
+    }
+
+    .action-btn {
+        padding: 5px 10px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        text-decoration: none;
+        margin-right: 5px;
+        display: inline-block;
+    }
+
+    .btn-view {
+        background-color: #22577a;
+        color: #fff;
+    }
+
+    .btn-delete {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+        .btn-view:hover,
+        .btn-delete:hover {
+            opacity: 0.9;
+        }
+</style>
+
+<div class="dashboard-section">
+    <h3>All User Posts</h3>
+    <table class="dashboard-table">
+        <thead>
+            <tr>
+                <th>Created</th>
+                <th>User</th>
+                <th>Emergency</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Accepting Help</th>
+                <th>Comments</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                foreach (var post in Model)
+                {
+                    <tr>
+                        <td>@post.CreatedAt.ToLocalTime().ToString("g")</td>
+                        <td>@(string.IsNullOrWhiteSpace(post.Name) ? "Guest" : post.Name)</td>
+                        <td>@post.EmergencyType</td>
+                        <td>@post.Location</td>
+                        <td>@post.Status</td>
+                        <td>@(post.IsAcceptingHelp ? "Yes" : "No")</td>
+                        <td>@(post.Comments?.Count(c => !c.IsDeleted) ?? 0)</td>
+                        <td>
+                            <a asp-action="Details" asp-route-id="@post.Id" class="action-btn btn-view">View</a>
+                            <form asp-action="DeletePost" asp-route-id="@post.Id" method="post" style="display:inline;">
+                                @Html.AntiForgeryToken()
+                                <button type="submit" class="action-btn btn-delete"
+                                        onclick="return confirm('Are you sure you want to delete this post?');">
+                                    Delete
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="8" class="text-center">No posts found.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

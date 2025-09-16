@@ -112,11 +112,11 @@
         <aside class="sidebar">
             <h2 class="logo">VConnect Admin</h2>
             <ul class="menu">
-                <li><a href="/Admin/Dashboard/Index">Dashboard</a></li>
-                <li><a href="/Admin/Users/Index">Users</a></li>
-                <li><a href="/Admin/Events/Index">Events</a></li>
-                <li><a href="/Admin/Emergencies/Index">Emergencies</a></li>
-                @* <li><a href="/Admin/Reports/Index">Reports</a></li> *@
+                <li><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">Dashboard</a></li>
+                <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a></li>
+                <li><a asp-area="Admin" asp-controller="Events" asp-action="Index">Events</a></li>
+                <li><a asp-area="Admin" asp-controller="Posts" asp-action="Index">Emergencies</a></li>
+                @* <li><a asp-area="Admin" asp-controller="Reports" asp-action="Index">Reports</a></li> *@
                 <li>
                     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
                         @Html.AntiForgeryToken()
@@ -125,8 +125,8 @@
                         </button>
                     </form>
                 </li>
-
             </ul>
+
         </aside>
 
         <!-- Main Content -->
