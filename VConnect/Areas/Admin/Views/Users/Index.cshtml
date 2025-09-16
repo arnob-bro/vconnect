@@ -6,6 +6,31 @@
 }
 
 <style>
+    .header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+
+        .header-row h2 {
+            color: #0e0e53;
+        }
+
+    .add-button {
+        background-color: #22577a; /* Teal Blue */
+        color: #fff;
+        text-decoration: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+        .add-button:hover {
+            background-color: #ff8800; /* Orange on hover */
+        }
+
     .users-table {
         width: 100%;
         border-collapse: collapse;
@@ -47,7 +72,10 @@
         }
 </style>
 
-<h2>Users Management</h2>
+<div class="header-row">
+    <h2>Users Management</h2>
+    <a href="@Url.Action("Create")" class="add-button">+ Add New User</a>
+</div>
 
 <table class="users-table">
     <thead>

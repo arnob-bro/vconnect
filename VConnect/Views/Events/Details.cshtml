@@ -21,6 +21,11 @@
         EventStatus.Cancelled => "bg-danger",
         _ => "bg-secondary"
     };
+
+    
+    var currentUserId = ViewBag.CurrentUserId is int uid ? uid : 0;
+    var userHours = Model.Participations?.FirstOrDefault(p => p.UserId == currentUserId)?.HoursContributed ?? 0;
+    bool isCreator = Model.CreatedById == currentUserId;
 }
 
 <!-- Hero / breadcrumb -->
@@ -67,38 +72,80 @@
                     </div>
                 </div>
 
-                <!-- Roles -->
-                @if (Model.Roles != null && Model.Roles.Any())
+                <!-- Applicants (only visible to creator) -->
+                @if (isCreator && Model.Applications != null && Model.Applications.Any())
                 {
                     <div class="card border-0 shadow-sm mb-4">
                         <div class="card-header text-white" style="background-color:#0b3d2e;">
-                            <h5 class="mb-0"><i class="fas fa-users me-2"></i>Volunteer Roles</h5>
+                            <h5 class="mb-0"><i class="fas fa-users me-2"></i>Applications</h5>
                         </div>
                         <div class="card-body">
-                            <div class="row g-3">
-                                @foreach (var r in Model.Roles)
+                            <ul class="list-group list-group-flush">
+                                @foreach (var app in Model.Applications.OrderByDescending(a => a.AppliedAt))
                                 {
-                                    var roleAccepted = Model.Applications?.Count(a => a.EventRoleId == r.EventRoleId && a.Status == ApplicationStatus.Accepted) ?? 0;
-                                    var rolePct = Math.Min(100, (int)Math.Round(roleAccepted * 100.0 / Math.Max(1, r.Capacity)));
+                                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                                        <span>@app.User.Email</span>
+                                        <div class="d-flex gap-2">
+                                            <span class="badge @(app.Status == ApplicationStatus.Accepted ? "bg-success" :
+                                                                                                        app.Status == ApplicationStatus.Pending ? "bg-warning" : "bg-danger")">
+                                        @app.Status
+                                    </span>
 
-                                    <div class="col-md-6">
-                                        <div class="border rounded p-3 h-100">
-                                            <div class="d-flex justify-content-between align-items-center mb-1">
-                                                <strong>@r.RoleName</strong>
-                                                <span class="small text-muted">@roleAccepted / @r.Capacity</span>
-                                            </div>
-                                            <div class="progress" style="height:6px;">
-                                                <div class="progress-bar" style="width:@rolePct%"></div>
-                                            </div>
+                                    @if (app.Status == ApplicationStatus.Pending)
+                                            {
+                                                <!-- Accept Button -->
+                                                <form asp-controller="Events" asp-action="ChangeApplicationStatus" method="post" class="d-inline">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="eventId" value="@Model.EventId" />
+                                                    <input type="hidden" name="applicationId" value="@app.EventApplicationId" />
+                                                    <input type="hidden" name="newStatus" value="Accepted" />
+                                                    <button type="submit" class="btn btn-sm btn-success">Accept</button>
+                                                </form>
+
+                                                <!-- Deny Button -->
+                                                <form asp-controller="Events" asp-action="ChangeApplicationStatus" method="post" class="d-inline">
+                                                    @Html.AntiForgeryToken()
+                                                    <input type="hidden" name="eventId" value="@Model.EventId" />
+                                                    <input type="hidden" name="applicationId" value="@app.EventApplicationId" />
+                                                    <input type="hidden" name="newStatus" value="Declined" />
+                                                    <button type="submit" class="btn btn-sm btn-danger">Deny</button>
+                                                </form>
+                                            }
                                         </div>
-                                    </div>
+                                    </li>
                                 }
-                            </div>
+                            </ul>
                         </div>
                     </div>
                 }
 
-                <!-- Applicants (optional simple count) -->
+                @if (isCreator)
+                {
+                    <div class="card border-0 shadow-sm mb-3">
+                        <div class="card-body">
+                            <h6 class="fw-bold mb-2" style="color:#0b3d2e;">Change Event Status</h6>
+                            <form asp-controller="Events" asp-action="ChangeStatus" method="post" class="d-flex gap-2">
+                                @Html.AntiForgeryToken()
+                                <input type="hidden" name="eventId" value="@Model.EventId" />
+
+                                <select class="form-select form-select-sm" name="newStatus">
+                                    <option value="Active" selected="@(Model.Status == EventStatus.Active ? "selected" : null)">Active</option>
+                                    <option value="Completed" selected="@(Model.Status == EventStatus.Completed ? "selected" : null)">Completed</option>
+                                    <option value="Cancelled" selected="@(Model.Status == EventStatus.Cancelled ? "selected" : null)">Cancelled</option>
+                                </select>
+
+
+                                <button type="submit" class="btn btn-sm btn-primary">Update</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+
+
+
+
+
+                <!-- Capacity -->
                 <div class="card border-0 shadow-sm">
                     <div class="card-header text-white" style="background-color:#0b3d2e;">
                         <h5 class="mb-0"><i class="fas fa-chart-line me-2"></i>Capacity</h5>
@@ -132,7 +179,7 @@
                                 <input type="hidden" name="eventId" value="@Model.EventId" />
                                 <input type="hidden" name="returnUrl" value="@returnUrl" />
                                 <button class="btn btn-primary w-100"
-                                        @(canApply && !hasApplied ? null : "disabled")>
+                                        @(canApply && !hasApplied && !isCreator ? null : "disabled")>
                                     <i class="fas fa-check-circle me-1"></i>
                                     @(hasApplied ? "Applied" : "Apply Now")
                                 </button>
@@ -158,7 +205,8 @@
                         <div class="mb-2">
                             <strong>Ends:</strong> @Model.EndDateTime.ToString("MMM d, yyyy h:mm tt")
                         </div>
-                        <div class="mb-0"><strong>Compensation:</strong> @(string.IsNullOrWhiteSpace(Model.Compensation) ? "Free" : Model.Compensation)</div>
+                        <div class="mb-2"><strong>Compensation:</strong> @(string.IsNullOrWhiteSpace(Model.Compensation) ? "Free" : Model.Compensation)</div>
+                        <div class="mb-0"><strong>Total Hours Volunteered:</strong> @userHours</div>
                     </div>
                 </div>
             </div>

@@ -82,4 +82,29 @@ namespace VConnect.Models
         [MaxLength(100)]
         public string? TransactionId { get; set; }
     }
+
+    public class DonationProvided
+    {
+        [Key]
+        public int Id { get; set; }
+
+        // Who received the money
+        [Required]
+        public string RecipientName { get; set; } = string.Empty;
+
+        // Amount provided
+        [Required]
+        public decimal Amount { get; set; }
+
+        // Optional note (reason, project, etc.)
+        public string? Note { get; set; }
+
+        // When the money was provided
+        public DateTime ProvidedAt { get; set; } = DateTime.UtcNow;
+    }
+
 }
+
+
+
+

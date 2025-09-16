@@ -5,80 +5,115 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-
-
-<section class="py-4" style="background:linear-gradient(135deg,#232a36 0%,#1d4538 100%);margin-top:-25px;">
-    <div class="container py-4">
-        
-    </div>
-</section>
-
-<div class="container py-5 mt-5">
-
-    
-
-
-
-    <div class="row justify-content-center">
-        <div class="col-lg-10">
-            <div class="card border-0 shadow-lg" style="background: rgba(27, 40, 50, 0.95);
-                                                      backdrop-filter: blur(10px);
-                                                      border-radius: 20px;">
-                <div class="card-header border-0 py-4"
-                     style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%);
-                            border-radius: 20px 20px 0 0 !important;">
-                    <h1 class="text-vol mb-0 text-center" style="font-weight: 800; color: #ffd700;">
-                        Donation Statistics
-                    </h1>
+<!-- Section Banner with Stats -->
+<section class="py-5 text-center" style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%); color: #fff;">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-4">Donation Statistics</h1>
+        <div class="row justify-content-center">
+            <div class="col-lg-3 col-md-4 col-6 mb-3">
+                <div class="p-4 rounded shadow" style="background: rgba(255, 215, 0, 0.2);">
+                    <h5 class="fw-bold text-warning">Total Received</h5>
+                    <p class="fs-4 fw-bold">@Model.TotalDonations.ToString("C")</p>
                 </div>
-
-                <div class="card-body px-5 py-4">
-                    <div class="text-center mb-4">
-                        <h3 class="text-light">
-                            Total Donations:
-                            <span class="text-warning">@Model.TotalDonations.ToString("C")</span>
-                        </h3>
-                        <p class="text-light">Total Donors: <strong>@Model.TotalDonors</strong></p>
-                    </div>
-
-                    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
-                        <table class="table table-hover table-dark table-striped align-middle mb-0">
-                            <thead>
-                                <tr class="text-warning">
-                                    <th>Transaction ID</th>
-                                    <th>Amount</th>
-                                    <th>Date</th>
-                                    <th>Payment Method</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var donation in Model.AllDonations.OrderByDescending(d => d.CreatedAt))
-                                {
-                                    <tr>
-                                        <td>@donation.TransactionId</td>
-                                        <td>@donation.Amount.ToString("C")</td>
-                                        <td>@donation.CreatedAt.ToString("f")</td>
-                                        <td>@donation.PaymentMethod</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6 mb-3">
+                <div class="p-4 rounded shadow" style="background: rgba(255, 215, 0, 0.2);">
+                    <h5 class="fw-bold text-warning">Total Provided</h5>
+                    <p class="fs-4 fw-bold">@Model.TotalDonationsProvided.ToString("C")</p>
                 </div>
-
-                <div class="card-footer border-0 text-center py-3"
-                     style="background: rgba(0,0,0,0.3);
-                            border-radius: 0 0 20px 20px !important;">
-                    <p class="text-light small mb-0" style="opacity: 0.8;">
-                        Want to contribute again?
-                        <a href="@Url.Action("Create", "Donation")" class="text-warning">Donate here</a>
-                    </p>
+            </div>
+            <div class="col-lg-3 col-md-4 col-6 mb-3">
+                <div class="p-4 rounded shadow" style="background: rgba(255, 215, 0, 0.2);">
+                    <h5 class="fw-bold text-warning">Total Donors</h5>
+                    <p class="fs-4 fw-bold">@Model.TotalDonors</p>
                 </div>
             </div>
         </div>
     </div>
+</section>
+
+<div class="container py-5">
+
+    <!-- Tables Side by Side -->
+    <div class="row g-4">
+        <!-- Donations Received -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-lg" style="background: rgba(27, 40, 50, 0.95); border-radius: 20px;">
+                <div class="card-header border-0 py-3" style="background: #0b3d2e; border-radius: 20px 20px 0 0;">
+                    <h5 class="text-warning mb-0 text-center">All Donations Received</h5>
+                </div>
+                <div class="card-body table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-hover table-dark table-striped align-middle mb-0">
+                        <thead>
+                            <tr class="text-warning">
+                                <th>Transaction ID</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Payment Method</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var donation in Model.AllDonations.OrderByDescending(d => d.CreatedAt))
+                            {
+                                <tr>
+                                    <td>@donation.TransactionId</td>
+                                    <td>@donation.Amount.ToString("C")</td>
+                                    <td>@donation.CreatedAt.ToString("f")</td>
+                                    <td>@donation.PaymentMethod</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Donations Provided -->
+        <div class="col-lg-6">
+            <div class="card border-0 shadow-lg" style="background: rgba(27, 40, 50, 0.95); border-radius: 20px;">
+                <div class="card-header border-0 py-3" style="background: #1a5e48; border-radius: 20px 20px 0 0;">
+                    <h5 class="text-warning mb-0 text-center">All Donations Provided</h5>
+                </div>
+                <div class="card-body table-responsive" style="max-height: 400px; overflow-y: auto;">
+                    <table class="table table-hover table-dark table-striped align-middle mb-0">
+                        <thead>
+                            <tr class="text-warning">
+                                <th>Recipient Name / ID</th>
+                                <th>Amount Provided</th>
+                                <th>Date</th>
+                                <th>Note / Purpose</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var provided in Model.AllDonationsProvided.OrderByDescending(d => d.ProvidedAt))
+                            {
+                                <tr>
+                                    <td>@provided.RecipientName</td>
+                                    <td>@provided.Amount.ToString("C")</td>
+                                    <td>@provided.ProvidedAt.ToString("f")</td>
+                                    <td>@provided.Note</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </div>
 
 @section Styles {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .table thead th {
+            position: sticky;
+            top: 0;
+            background-color: rgba(27, 40, 50, 0.95);
+            z-index: 1;
+        }
+
+        
+    </style>
 }

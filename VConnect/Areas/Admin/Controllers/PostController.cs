@@ -2,13 +2,14 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 using VConnect.Services;
+using VConnect.Filters;
 
 namespace VConnect.Areas.Admin.Controllers
 {
     [Area("Admin")]
-    [Authorize(Roles = "Admin")]
+    [AdminOnly]
     [Route("Admin/[controller]/[action]")]
-    [Route("Admin/Emergencies/[action]")] // allow clean /Admin/Emergencies URLs
+    [Route("Admin/Emergencies/[action]")] 
     public class PostsController : Controller
     {
         private readonly ISosService _sos;
@@ -28,7 +29,7 @@ namespace VConnect.Areas.Admin.Controllers
             var skip = (page - 1) * pageSize;
             var posts = await _sos.GetFeedAsync(skip: skip, take: pageSize, includeDeleted: true);
 
-            return View(posts); // Looks for Areas/Admin/Views/Posts/Index.cshtml
+            return View(posts); 
         }
 
         // GET: /Admin/Emergencies/Details/5
@@ -38,7 +39,7 @@ namespace VConnect.Areas.Admin.Controllers
             var post = await _sos.GetPostAsync(id);
             if (post == null) return NotFound();
 
-            return View(post); // Looks for Areas/Admin/Views/Posts/Details.cshtml
+            return View(post); 
         }
 
         // POST: /Admin/Emergencies/DeletePost/5

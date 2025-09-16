@@ -99,7 +99,11 @@ namespace VConnect.Services
 
         public async Task<DonationStats> GetDonationStatsAsync()
         {
+            // Fetch all donations received
             var donations = await _context.Donations.ToListAsync();
+
+            // Fetch all donations provided
+            var provided = await _context.DonationProvided.ToListAsync();
 
             var stats = new DonationStats
             {
@@ -107,27 +111,19 @@ namespace VConnect.Services
                 TotalDonations = donations.Sum(d => d.Amount),
                 TotalDonors = donations.Select(d => d.Email).Distinct().Count(),
 
-                // Remove monthly, just keep recent + method breakdown + all donations
-                RecentDonations = donations.OrderByDescending(d => d.CreatedAt)
-                                           .Take(5)
-                                           .Select(d => new RecentDonation
-                                           {
-                                               DonorName = d.DonorName,
-                                               DonorInitials = string.Join("", d.DonorName.Split(' ').Select(n => n[0])),
-                                               Amount = d.Amount,
-                                               Date = d.CreatedAt,
-                                               IsAnonymous = d.IsAnonymous
-                                           }).ToList(),
+                // Total provided to the needy
+                TotalDonationsProvided = provided.Sum(p => p.Amount),
 
-                DonationsByMethod = donations
-                    .GroupBy(d => d.PaymentMethod.ToString())
-                    .ToDictionary(g => g.Key, g => g.Sum(d => d.Amount)),
+                // All donations received
+                AllDonations = donations.OrderByDescending(d => d.CreatedAt).ToList(),
 
-                AllDonations = donations.OrderByDescending(d => d.CreatedAt).ToList()
+                // All donations provided
+                AllDonationsProvided = provided.OrderByDescending(p => p.ProvidedAt).ToList()
             };
 
             return stats;
         }
+
 
     }
 }

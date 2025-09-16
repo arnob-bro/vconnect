@@ -21,7 +21,6 @@ namespace VConnect.Services
         public async Task<IEnumerable<Event>> GetAllAsync()
         {
             return await _db.Events
-                .Include(e => e.Roles)
                 .Include(e => e.Applications)
                 .OrderBy(e => e.StartDateTime)
                 .ToListAsync();
@@ -36,7 +35,6 @@ namespace VConnect.Services
             int pageSize = 12)
         {
             var q = _db.Events
-                .Include(e => e.Roles)
                 .Include(e => e.Applications)
                 .AsQueryable();
 
@@ -87,17 +85,13 @@ namespace VConnect.Services
         public async Task<Event?> GetByIdAsync(int id)
         {
             return await _db.Events
-                .Include(e => e.Roles)
-                .Include(e => e.Applications)
-                    .ThenInclude(a => a.Role)
                 .Include(e => e.Applications)
                     .ThenInclude(a => a.User)
-                .Include(e => e.Participations)
-                    .ThenInclude(p => p.Role)
                 .Include(e => e.Participations)
                     .ThenInclude(p => p.User)
                 .FirstOrDefaultAsync(e => e.EventId == id);
         }
+
 
         public async Task<Event> CreateAsync(Event evt)
         {
@@ -141,47 +135,26 @@ namespace VConnect.Services
         }
 
         // Volunteer applies (role optional)
-        public async Task<EventApplication?> ApplyAsync(int eventId, int? roleId, int userId)
+        public async Task<EventApplication?> ApplyAsync(int eventId, int userId)
         {
-            // Load roles + applications to pick a role if not provided
             var evt = await _db.Events
-                .Include(e => e.Roles)
-                    .ThenInclude(r => r.Applications)
+                .Include(e => e.Applications)
                 .FirstOrDefaultAsync(e => e.EventId == eventId);
 
-            if (evt == null || evt.Roles == null || evt.Roles.Count == 0) return null;
+            if (evt == null) return null;
 
-            Role? role = null;
+            // Check if user already applied
+            var alreadyApplied = await _db.EventApplications
+                .AnyAsync(a => a.EventId == eventId && a.UserId == userId);
+            if (alreadyApplied) return null;
 
-            if (roleId.HasValue)
-            {
-                role = evt.Roles.FirstOrDefault(r => r.EventRoleId == roleId.Value);
-                if (role == null) return null;
-            }
-            else
-            {
-                // Choose the first role with available capacity (count accepted < capacity)
-                role = evt.Roles.FirstOrDefault(r =>
-                {
-                    var accepted = r.Applications?.Count(a => a.Status == ApplicationStatus.Accepted) ?? 0;
-                    return accepted < r.Capacity;
-                });
-                if (role == null) return null;
-            }
-
-            // Already applied for this role?
-            var already = await _db.EventApplications
-                .AnyAsync(a => a.EventId == eventId && a.EventRoleId == role.EventRoleId && a.UserId == userId);
-            if (already) return null;
-
-            // Capacity enforcement at apply time (based on accepted, not pending)
-            var acceptedCount = role.Applications?.Count(a => a.Status == ApplicationStatus.Accepted) ?? 0;
-            if (acceptedCount >= role.Capacity) return null;
+            // Capacity enforcement at apply time (count only accepted applications)
+            var acceptedCount = evt.Applications?.Count(a => a.Status == ApplicationStatus.Accepted) ?? 0;
+            if (acceptedCount >= evt.Capacity) return null;
 
             var application = new EventApplication
             {
                 EventId = eventId,
-                EventRoleId = role.EventRoleId,
                 UserId = userId,
                 Status = ApplicationStatus.Pending,
                 AppliedAt = DateTime.UtcNow
@@ -193,6 +166,8 @@ namespace VConnect.Services
             // TODO: enqueue notification
             return application;
         }
+
+
 
         public async Task<bool> CancelApplicationAsync(int eventApplicationId, int userId)
         {
@@ -209,28 +184,26 @@ namespace VConnect.Services
         {
             return await _db.EventApplications
                 .Include(a => a.User)
-                .Include(a => a.Role)
                 .Where(a => a.EventId == eventId)
                 .OrderByDescending(a => a.AppliedAt)
                 .ToListAsync();
         }
 
+
         public async Task<bool> UpdateApplicationStatusAsync(int appId, ApplicationStatus status)
         {
             var app = await _db.EventApplications
-                .Include(a => a.Role)
-                    .ThenInclude(r => r.Applications)
+                .Include(a => a.Event)
+                    .ThenInclude(e => e.Applications)
                 .FirstOrDefaultAsync(a => a.EventApplicationId == appId);
+
             if (app == null) return false;
 
             if (status == ApplicationStatus.Accepted)
             {
-                // Enforce role capacity at accept time
-                var role = app.Role;
-                if (role == null) return false;
-
-                var acceptedCount = role.Applications?.Count(a => a.Status == ApplicationStatus.Accepted) ?? 0;
-                if (acceptedCount >= role.Capacity) return false;
+                // Enforce event capacity at accept time
+                var acceptedCount = app.Event.Applications?.Count(a => a.Status == ApplicationStatus.Accepted) ?? 0;
+                if (acceptedCount >= app.Event.Capacity) return false;
             }
 
             app.Status = status;
@@ -240,13 +213,13 @@ namespace VConnect.Services
             return true;
         }
 
-        public async Task RecordParticipationAsync(int eventId, int userId, int roleId, int hours)
+
+        public async Task RecordParticipationAsync(int eventId, int userId,  int hours)
         {
             var participation = new Participation
             {
                 EventId = eventId,
                 UserId = userId,
-                EventRoleId = roleId,
                 HoursContributed = hours,
                 CompletedAt = DateTime.UtcNow
             };

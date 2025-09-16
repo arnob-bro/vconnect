@@ -1,0 +1,81 @@
+﻿@model VConnect.Models.DonationProvided
+
+@{
+    ViewData["Title"] = "Donation Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .details-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #f2f2f2;
+        border-radius: 8px;
+        box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    }
+
+        .details-container h2 {
+            text-align: center;
+            color: #0e0e53;
+            margin-bottom: 20px;
+        }
+
+    .detail-row {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 12px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #ddd;
+    }
+
+        .detail-row:last-child {
+            border-bottom: none;
+        }
+
+    .label {
+        font-weight: bold;
+        color: #22577a;
+    }
+
+    .value {
+        color: #0e0e53;
+    }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 20px;
+        text-decoration: none;
+        color: #ff8800;
+    }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<div class="details-container">
+    <h2>Donation Details</h2>
+
+    <div class="detail-row">
+        <span class="label">Recipient Name:</span>
+        <span class="value">@Model.RecipientName</span>
+    </div>
+
+    <div class="detail-row">
+        <span class="label">Amount:</span>
+        <span class="value">@Model.Amount</span>
+    </div>
+
+    <div class="detail-row">
+        <span class="label">Provided At:</span>
+        <span class="value">@Model.ProvidedAt.ToString("yyyy-MM-dd HH:mm")</span>
+    </div>
+
+    <div class="detail-row">
+        <span class="label">Note:</span>
+        <span class="value">@Model.Note</span>
+    </div>
+
+    <a asp-action="Index" class="back-link">&larr; Back to List</a>
+</div>

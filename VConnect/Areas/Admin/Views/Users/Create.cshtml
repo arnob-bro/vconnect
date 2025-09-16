@@ -1,0 +1,123 @@
+﻿@model VConnect.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Add New User";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .form-container {
+        max-width: 600px;
+        margin: 40px auto;
+        padding: 20px;
+        background-color: #f2f2f2;
+        border-radius: 8px;
+        box-shadow: 0px 2px 6px rgba(0,0,0,0.1);
+    }
+
+        .form-container h2 {
+            text-align: center;
+            color: #0e0e53;
+            margin-bottom: 20px;
+        }
+
+    .form-group {
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    label {
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #22577a;
+    }
+
+    input[type="text"], input[type="email"], input[type="password"], select, input[type="number"] {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 1rem;
+    }
+
+    .submit-button {
+        background-color: #0e0e53;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+
+        .submit-button:hover {
+            background-color: #22577a;
+        }
+
+    .back-link {
+        display: inline-block;
+        margin-top: 10px;
+        text-decoration: none;
+        color: #ff8800;
+    }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+</style>
+
+<div class="form-container">
+    <h2>Add New User</h2>
+
+    <form asp-action="Create" method="post">
+        <div class="form-group">
+            <label for="FirstName">First Name</label>
+            <input asp-for="FirstName" type="text" id="FirstName" required />
+            <span asp-validation-for="FirstName" style="color:red;"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="LastName">Last Name</label>
+            <input asp-for="LastName" type="text" id="LastName" required />
+            <span asp-validation-for="LastName" style="color:red;"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Email">Email</label>
+            <input asp-for="Email" type="email" id="Email" required />
+            <span asp-validation-for="Email" style="color:red;"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Password">Password</label>
+            <input asp-for="Password" type="password" id="Password" required />
+            <span asp-validation-for="Password" style="color:red;"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="Role">Role</label>
+            <select asp-for="Role" id="Role" required>
+                <option value="Volunteer">Volunteer</option>
+                <option value="Admin">Admin</option>
+            </select>
+            <span asp-validation-for="Role" style="color:red;"></span>
+        </div>
+
+        <div class="form-group">
+            <label for="HoursVolunteered">Hours Volunteered</label>
+            <input asp-for="HoursVolunteered" type="number" id="HoursVolunteered" min="0" />
+            <span asp-validation-for="HoursVolunteered" style="color:red;"></span>
+        </div>
+
+        <button type="submit" class="submit-button">Add User</button>
+    </form>
+
+    <a asp-action="Index" class="back-link">&larr; Back to Users</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

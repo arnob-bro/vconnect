@@ -33,12 +33,14 @@ namespace VConnect.Models
     // Model for donation statistics
     public class DonationStats
     {
+        
         public decimal TotalDonations { get; set; }
         public int TotalDonors { get; set; }
-        public List<RecentDonation> RecentDonations { get; set; }
-        public Dictionary<string, decimal> DonationsByMethod { get; set; }
+        public decimal TotalDonationsProvided { get; set; }
         public List<Donation> AllDonations { get; set; }
+        public List<DonationProvided> AllDonationsProvided { get; set; }
     }
+
 
 
     // Model for recent donations

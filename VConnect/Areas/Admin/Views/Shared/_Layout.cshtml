@@ -62,6 +62,22 @@
                             color: #fff;
                         }
 
+            .sidebar form button {
+                width: 100%;
+                padding: 10px;
+                background: #22577a;
+                color: #fff;
+                border: none;
+                border-radius: 8px;
+                font-size: 1rem;
+                cursor: pointer;
+                transition: 0.3s;
+            }
+
+                .sidebar form button:hover {
+                    background: #ff8800;
+                }
+
         /* Content */
         .content {
             flex: 1;
@@ -84,26 +100,7 @@
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
 
-        .sidebar form button {
-            width: 100%;
-            padding: 10px;
-            background: #22577a;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-            .sidebar form button:hover {
-                background: #ff8800;
-                color: #fff;
-            }
-
-            .sidebar form button i {
-                margin-right: 8px;
-            }
+        @RenderSection("Styles", required: false)
     </style>
 </head>
 <body>
@@ -116,7 +113,8 @@
                 <li><a asp-area="Admin" asp-controller="Users" asp-action="Index">Users</a></li>
                 <li><a asp-area="Admin" asp-controller="Events" asp-action="Index">Events</a></li>
                 <li><a asp-area="Admin" asp-controller="Posts" asp-action="Index">Emergencies</a></li>
-                @* <li><a asp-area="Admin" asp-controller="Reports" asp-action="Index">Reports</a></li> *@
+                <li><a asp-area="Admin" asp-controller="Donations" asp-action="Index">Donations</a></li>
+                <li><a asp-area="Admin" asp-controller="DonationsProvided" asp-action="Index">Donations Provided</a></li>
                 <li>
                     <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">
                         @Html.AntiForgeryToken()
@@ -126,7 +124,6 @@
                     </form>
                 </li>
             </ul>
-
         </aside>
 
         <!-- Main Content -->
@@ -139,7 +136,14 @@
             </section>
         </main>
     </div>
-    @RenderSection("Scripts", required: false)
 
+    <!-- jQuery & Validation Scripts -->
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js"></script>
+
+   
+
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

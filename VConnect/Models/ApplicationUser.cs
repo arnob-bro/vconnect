@@ -20,5 +20,9 @@ namespace VConnect.Models
         public string LastName { get; set; }
         [Required]
         public string Role { get; set; } = "Volunteer";
+
+        [Range(0, int.MaxValue)]
+        public int? HoursVolunteered { get; set; } = 0;
+
     }
 }

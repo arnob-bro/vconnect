@@ -1,0 +1,91 @@
+﻿@model VConnect.Models.Donation
+
+@{
+    ViewData["Title"] = "Donation Details";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="donation-container">
+    <a asp-area="Admin" asp-controller="Donations" asp-action="Index" class="btn-back">← Back</a>
+
+    <div class="donation-card">
+        <h2 class="title">Donation Details</h2>
+
+        <div class="details-grid">
+            <div><span>Transaction ID:</span> @Model.TransactionId</div>
+            <div><span>Amount:</span> @Model.Amount.ToString("C")</div>
+            <div><span>Payment Method:</span> @Model.PaymentMethod</div>
+            <div><span>Anonymous:</span> @(Model.IsAnonymous ? "Yes" : "No")</div>
+
+            <div><span>Donor Name:</span> @(Model.IsAnonymous ? "Hidden" : Model.DonorName)</div>
+            <div><span>Email:</span> @(Model.IsAnonymous ? "Hidden" : Model.Email)</div>
+            <div><span>Phone:</span> @(Model.IsAnonymous ? "Hidden" : Model.Phone)</div>
+
+            <div><span>Created At:</span> @Model.CreatedAt.ToString("f")</div>
+        </div>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        .donation-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+        }
+
+        .btn-back {
+            display: inline-block;
+            margin-bottom: 20px;
+            background: #ffcc00;
+            color: #000;
+            font-weight: bold;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+            .btn-back:hover {
+                background: #e6b800;
+            }
+
+        .donation-card {
+            background: linear-gradient(135deg, #0b3d2e, #1a5e48);
+            color: #fff;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
+        }
+
+        .title {
+            text-align: center;
+            font-size: 2rem;
+            font-weight: bold;
+            margin-bottom: 30px;
+            color: #ffcc00;
+        }
+
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px 30px;
+            font-size: 1.2rem;
+        }
+
+            .details-grid div {
+                background: rgba(0, 0, 0, 0.2);
+                padding: 12px 16px;
+                border-radius: 10px;
+                font-weight: bold;
+            }
+
+            .details-grid span {
+                color: #ffcc00;
+                display: block;
+                margin-bottom: 6px;
+                font-size: 0.95rem;
+                font-weight: normal;
+            }
+    </style>
+}

@@ -1,0 +1,151 @@
+﻿@model VConnect.Models.DonationStats
+
+@{
+    ViewData["Title"] = "All Donations - Admin";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+<div class="donations-page">
+
+    <!-- Stats Cards -->
+    <div class="stats-cards">
+        <div class="stat-card">
+            <h5>Total Donations Received</h5>
+            <h3>@Model.TotalDonations.ToString("C")</h3>
+        </div>
+        <div class="stat-card">
+            <h5>Total Donations Provided</h5>
+            <h3>@Model.TotalDonationsProvided.ToString("C")</h3>
+        </div>
+        <div class="stat-card">
+            <h5>Total Donors</h5>
+            <h3>@Model.TotalDonors</h3>
+        </div>
+    </div>
+
+    <!-- Donations Table -->
+    <div class="donations-table">
+        <table>
+            <thead>
+                <tr>
+                    <th>Transaction ID</th>
+                    <th>Amount</th>
+                    <th>Payment Method</th>
+                    <th>Anonymous</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var donation in Model.AllDonations.OrderByDescending(d => d.CreatedAt))
+                {
+                    <tr>
+                        <td>@donation.TransactionId</td>
+                        <td>@donation.Amount.ToString("C")</td>
+                        <td>@donation.PaymentMethod</td>
+                        <td>@(donation.IsAnonymous ? "Yes" : "No")</td>
+                        <td>
+                            <a asp-area="Admin" asp-controller="Donations" asp-action="Details" asp-route-id="@donation.Id"
+                               class="view-btn">View</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@section Styles {
+    <style>
+        /* Container */
+        .donations-page {
+            padding: 40px;
+            background: #0f1a20;
+            min-height: 100vh;
+        }
+
+        /* === Stats Cards === */
+        .stats-cards {
+            display: flex;
+            gap: 20px;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            flex: 1;
+            background: linear-gradient(135deg, #0b3d2e, #1a5e48);
+            color: #fff;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            transition: transform 0.3s ease;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+            }
+
+            .stat-card h5 {
+                font-size: 1.1rem;
+                margin-bottom: 10px;
+                font-weight: 600;
+            }
+
+            .stat-card h3 {
+                font-size: 1.6rem;
+                font-weight: bold;
+                color: #ffc107;
+                margin: 0;
+            }
+
+        /* === Donations Table === */
+        .donations-table table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 10px;
+            background: #1b2832;
+            color: #fff;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .donations-table th,
+        .donations-table td {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .donations-table thead tr {
+            background: #0b3d2e;
+            color: #ffc107;
+            font-weight: bold;
+        }
+
+        .donations-table tbody tr {
+            background: #223140;
+            transition: background 0.2s ease;
+        }
+
+            .donations-table tbody tr:hover {
+                background: #28553d;
+                cursor: pointer;
+            }
+
+        /* === Button === */
+        .view-btn {
+            display: inline-block;
+            padding: 6px 14px;
+            background: #ffc107;
+            color: #000;
+            font-weight: bold;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background 0.2s;
+        }
+
+            .view-btn:hover {
+                background: #e0a800;
+            }
+    </style>
+}

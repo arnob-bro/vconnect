@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace VConnect.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class initialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -26,6 +26,22 @@ namespace VConnect.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Categories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "DonationProvided",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    RecipientName = table.Column<string>(type: "text", nullable: false),
+                    Amount = table.Column<decimal>(type: "numeric", nullable: false),
+                    Note = table.Column<string>(type: "text", nullable: true),
+                    ProvidedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_DonationProvided", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -73,6 +89,7 @@ namespace VConnect.Migrations
                     Capacity = table.Column<int>(type: "integer", nullable: false),
                     Compensation = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Status = table.Column<int>(type: "integer", nullable: false),
+                    CreatedById = table.Column<int>(type: "integer", nullable: false),
                     CreatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     UpdatedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
                 },
@@ -161,32 +178,12 @@ namespace VConnect.Migrations
                     Password = table.Column<string>(type: "text", nullable: false),
                     FirstName = table.Column<string>(type: "text", nullable: false),
                     LastName = table.Column<string>(type: "text", nullable: false),
-                    Role = table.Column<string>(type: "text", nullable: false)
+                    Role = table.Column<string>(type: "text", nullable: false),
+                    HoursVolunteered = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "EventRoles",
-                columns: table => new
-                {
-                    EventRoleId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    EventId = table.Column<int>(type: "integer", nullable: false),
-                    RoleName = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Capacity = table.Column<int>(type: "integer", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EventRoles", x => x.EventRoleId);
-                    table.ForeignKey(
-                        name: "FK_EventRoles_Events_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Events",
-                        principalColumn: "EventId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -263,6 +260,34 @@ namespace VConnect.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "EventApplications",
+                columns: table => new
+                {
+                    EventApplicationId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    EventId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    AppliedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_EventApplications", x => x.EventApplicationId);
+                    table.ForeignKey(
+                        name: "FK_EventApplications_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "EventId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_EventApplications_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "EventNotifications",
                 columns: table => new
                 {
@@ -285,6 +310,34 @@ namespace VConnect.Migrations
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_EventNotifications_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Participations",
+                columns: table => new
+                {
+                    EventParticipationId = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    EventId = table.Column<int>(type: "integer", nullable: false),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
+                    HoursContributed = table.Column<int>(type: "integer", nullable: false),
+                    CompletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Participations", x => x.EventParticipationId);
+                    table.ForeignKey(
+                        name: "FK_Participations_Events_EventId",
+                        column: x => x.EventId,
+                        principalTable: "Events",
+                        principalColumn: "EventId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Participations_Users_UserId",
                         column: x => x.UserId,
                         principalTable: "Users",
                         principalColumn: "Id",
@@ -322,76 +375,6 @@ namespace VConnect.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "EventApplications",
-                columns: table => new
-                {
-                    EventApplicationId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    EventId = table.Column<int>(type: "integer", nullable: false),
-                    EventRoleId = table.Column<int>(type: "integer", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    Status = table.Column<int>(type: "integer", nullable: false),
-                    AppliedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_EventApplications", x => x.EventApplicationId);
-                    table.ForeignKey(
-                        name: "FK_EventApplications_EventRoles_EventRoleId",
-                        column: x => x.EventRoleId,
-                        principalTable: "EventRoles",
-                        principalColumn: "EventRoleId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EventApplications_Events_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Events",
-                        principalColumn: "EventId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_EventApplications_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Participations",
-                columns: table => new
-                {
-                    EventParticipationId = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    EventId = table.Column<int>(type: "integer", nullable: false),
-                    UserId = table.Column<int>(type: "integer", nullable: false),
-                    EventRoleId = table.Column<int>(type: "integer", nullable: false),
-                    HoursContributed = table.Column<int>(type: "integer", nullable: false),
-                    CompletedAt = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Participations", x => x.EventParticipationId);
-                    table.ForeignKey(
-                        name: "FK_Participations_EventRoles_EventRoleId",
-                        column: x => x.EventRoleId,
-                        principalTable: "EventRoles",
-                        principalColumn: "EventRoleId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Participations_Events_EventId",
-                        column: x => x.EventId,
-                        principalTable: "Events",
-                        principalColumn: "EventId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Participations_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Users",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.CreateIndex(
                 name: "IX_CaseGalleryImages_StudyId",
                 table: "CaseGalleryImages",
@@ -409,11 +392,6 @@ namespace VConnect.Migrations
                 column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EventApplications_EventRoleId",
-                table: "EventApplications",
-                column: "EventRoleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_EventApplications_UserId",
                 table: "EventApplications",
                 column: "UserId");
@@ -429,11 +407,6 @@ namespace VConnect.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_EventRoles_EventId",
-                table: "EventRoles",
-                column: "EventId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Milestones_StudyId",
                 table: "Milestones",
                 column: "StudyId");
@@ -442,11 +415,6 @@ namespace VConnect.Migrations
                 name: "IX_Participations_EventId",
                 table: "Participations",
                 column: "EventId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Participations_EventRoleId",
-                table: "Participations",
-                column: "EventRoleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Participations_UserId",
@@ -486,6 +454,9 @@ namespace VConnect.Migrations
                 name: "Categories");
 
             migrationBuilder.DropTable(
+                name: "DonationProvided");
+
+            migrationBuilder.DropTable(
                 name: "Donations");
 
             migrationBuilder.DropTable(
@@ -513,16 +484,13 @@ namespace VConnect.Migrations
                 name: "Studies");
 
             migrationBuilder.DropTable(
-                name: "EventRoles");
+                name: "Events");
 
             migrationBuilder.DropTable(
                 name: "Users");
 
             migrationBuilder.DropTable(
                 name: "SosPosts");
-
-            migrationBuilder.DropTable(
-                name: "Events");
         }
     }
 }

@@ -1,5 +1,5 @@
-﻿
-using VConnect.Models.Enums;
+﻿using VConnect.Models.Enums;
+
 namespace VConnect.Models.Events
 {
     public class Event
@@ -23,9 +23,11 @@ namespace VConnect.Models.Events
         public EventStatus Status { get; set; } = EventStatus.Active;
 
         // Relationships
-        public ICollection<Role>? Roles { get; set; }
         public ICollection<EventApplication>? Applications { get; set; }
         public ICollection<Participation>? Participations { get; set; }
+
+        // Created by
+        public int CreatedById { get; set; }                // FK → ApplicationUser
 
         // Audit
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;

@@ -12,11 +12,11 @@ namespace VConnect.Services
         Task<Event?> UpdateAsync(Event evt);
         Task<bool> DeleteAsync(int id);
 
-        Task<EventApplication?> ApplyAsync(int eventId, int? roleId, int userId);
+        Task<EventApplication?> ApplyAsync(int eventId, int userId);
         Task<bool> CancelApplicationAsync(int eventApplicationId, int userId);
         Task<IEnumerable<EventApplication>> GetApplicationsForEventAsync(int eventId);
         Task<bool> UpdateApplicationStatusAsync(int appId, ApplicationStatus status);
-        Task RecordParticipationAsync(int eventId, int userId, int roleId, int hours);
+        Task RecordParticipationAsync(int eventId, int userId,int hours);
 
     }
 }

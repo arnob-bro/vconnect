@@ -12,8 +12,8 @@ using VConnect.Database;
 namespace VConnect.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250916013114_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250916070700_initialCreate")]
+    partial class initialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -40,6 +40,9 @@ namespace VConnect.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("text");
+
+                    b.Property<int?>("HoursVolunteered")
+                        .HasColumnType("integer");
 
                     b.Property<string>("LastName")
                         .IsRequired()
@@ -346,6 +349,32 @@ namespace VConnect.Migrations
                     b.ToTable("Donations");
                 });
 
+            modelBuilder.Entity("VConnect.Models.DonationProvided", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<decimal>("Amount")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("Note")
+                        .HasColumnType("text");
+
+                    b.Property<DateTime>("ProvidedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("RecipientName")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DonationProvided");
+                });
+
             modelBuilder.Entity("VConnect.Models.Events.Event", b =>
                 {
                     b.Property<int>("EventId")
@@ -364,6 +393,9 @@ namespace VConnect.Migrations
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
+
+                    b.Property<int>("CreatedById")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -410,9 +442,6 @@ namespace VConnect.Migrations
                     b.Property<int>("EventId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("EventRoleId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("Status")
                         .HasColumnType("integer");
 
@@ -422,8 +451,6 @@ namespace VConnect.Migrations
                     b.HasKey("EventApplicationId");
 
                     b.HasIndex("EventId");
-
-                    b.HasIndex("EventRoleId");
 
                     b.HasIndex("UserId");
 
@@ -478,9 +505,6 @@ namespace VConnect.Migrations
                     b.Property<int>("EventId")
                         .HasColumnType("integer");
 
-                    b.Property<int>("EventRoleId")
-                        .HasColumnType("integer");
-
                     b.Property<int>("HoursContributed")
                         .HasColumnType("integer");
 
@@ -491,37 +515,9 @@ namespace VConnect.Migrations
 
                     b.HasIndex("EventId");
 
-                    b.HasIndex("EventRoleId");
-
                     b.HasIndex("UserId");
 
                     b.ToTable("Participations");
-                });
-
-            modelBuilder.Entity("VConnect.Models.Events.Role", b =>
-                {
-                    b.Property<int>("EventRoleId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("EventRoleId"));
-
-                    b.Property<int>("Capacity")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("EventId")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("RoleName")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
-                    b.HasKey("EventRoleId");
-
-                    b.HasIndex("EventId");
-
-                    b.ToTable("EventRoles");
                 });
 
             modelBuilder.Entity("VConnect.Models.ProfileDetails", b =>
@@ -731,12 +727,6 @@ namespace VConnect.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VConnect.Models.Events.Role", "Role")
-                        .WithMany("Applications")
-                        .HasForeignKey("EventRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("VConnect.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -744,8 +734,6 @@ namespace VConnect.Migrations
                         .IsRequired();
 
                     b.Navigation("Event");
-
-                    b.Navigation("Role");
 
                     b.Navigation("User");
                 });
@@ -777,12 +765,6 @@ namespace VConnect.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("VConnect.Models.Events.Role", "Role")
-                        .WithMany()
-                        .HasForeignKey("EventRoleId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("VConnect.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
@@ -791,20 +773,7 @@ namespace VConnect.Migrations
 
                     b.Navigation("Event");
 
-                    b.Navigation("Role");
-
                     b.Navigation("User");
-                });
-
-            modelBuilder.Entity("VConnect.Models.Events.Role", b =>
-                {
-                    b.HasOne("VConnect.Models.Events.Event", "Event")
-                        .WithMany("Roles")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("VConnect.Models.ProfileDetails", b =>
@@ -846,13 +815,6 @@ namespace VConnect.Migrations
                     b.Navigation("Applications");
 
                     b.Navigation("Participations");
-
-                    b.Navigation("Roles");
-                });
-
-            modelBuilder.Entity("VConnect.Models.Events.Role", b =>
-                {
-                    b.Navigation("Applications");
                 });
 
             modelBuilder.Entity("VConnect.Models.SOS.SosComment", b =>

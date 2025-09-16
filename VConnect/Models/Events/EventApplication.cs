@@ -6,7 +6,6 @@ namespace VConnect.Models.Events
         public int EventApplicationId { get; set; }  // PK
 
         public int EventId { get; set; }             // FK → Event
-        public int EventRoleId { get; set; }         // FK → EventRole
         public int UserId { get; set; }              // FK → ApplicationUser
 
         public ApplicationStatus Status { get; set; } = ApplicationStatus.Pending;
@@ -14,7 +13,6 @@ namespace VConnect.Models.Events
 
         // Navigation
         public Event Event { get; set; } = null!;
-        public Role Role { get; set; } = null!;
         public ApplicationUser User { get; set; } = null!;
     }
 }

@@ -27,5 +27,36 @@ namespace VConnect.Areas.Admin.Controllers
 
             return View(users);
         }
+
+        // GET: Admin/Users/Create
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        // POST: Admin/Users/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(ApplicationUser user)
+        {
+            if (ModelState.IsValid)
+            {
+                // Optional: set default role if empty
+                if (string.IsNullOrEmpty(user.Role))
+                    user.Role = "Admin";
+
+                var hashed = BCrypt.Net.BCrypt.HashPassword(user.Password);
+                user.Password = hashed;
+
+                _context.Users.Add(user);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(user);
+        }
+
+        
+
     }
 }

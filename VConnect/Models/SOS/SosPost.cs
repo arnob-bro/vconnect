@@ -16,7 +16,7 @@ namespace VConnect.Models.SOS
         [MaxLength(100)]
         public string Name { get; set; }           // Your Name (optional if logged-in)
         [MaxLength(150)]
-        public string Contact { get; set; }        // Phone or Email (optional)
+        public string Contact { get; set; }        // Email 
         [MaxLength(300)]
         public string Location { get; set; }       // Free-text location
         public double? Latitude { get; set; }

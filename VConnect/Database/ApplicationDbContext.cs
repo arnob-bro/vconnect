@@ -19,11 +19,12 @@ namespace VConnect.Database
         // Existing
         public DbSet<ApplicationUser> Users { get; set; }
         public DbSet<Donation> Donations { get; set; }
+        public DbSet<DonationProvided> DonationProvided { get; set; }
+
         public DbSet<ProfileDetails> ProfileDetails { get; set; }
 
         // Event system
         public DbSet<Event> Events { get; set; }
-        public DbSet<Role> EventRoles { get; set; }
         public DbSet<EventApplication> EventApplications { get; set; }
         public DbSet<Participation> Participations { get; set; }
         public DbSet<EventNotification> EventNotifications { get; set; }
@@ -77,17 +78,7 @@ namespace VConnect.Database
                 e.Property(ev => ev.Compensation).HasMaxLength(100);
             });
 
-            // Role
-            modelBuilder.Entity<Role>(r =>
-            {
-                r.HasKey(ro => ro.EventRoleId);
-                r.Property(ro => ro.RoleName).IsRequired().HasMaxLength(100);
-
-                r.HasOne(ro => ro.Event)
-                 .WithMany(ev => ev.Roles)
-                 .HasForeignKey(ro => ro.EventId)
-                 .OnDelete(DeleteBehavior.Cascade);
-            });
+            
 
             // EventApplication
             modelBuilder.Entity<EventApplication>(a =>
@@ -98,9 +89,7 @@ namespace VConnect.Database
                  .WithMany(ev => ev.Applications)
                  .HasForeignKey(ap => ap.EventId);
 
-                a.HasOne(ap => ap.Role)
-                 .WithMany(ro => ro.Applications)
-                 .HasForeignKey(ap => ap.EventRoleId);
+                
 
                 a.HasOne(ap => ap.User)
                  .WithMany()
@@ -116,9 +105,7 @@ namespace VConnect.Database
                  .WithMany(ev => ev.Participations)
                  .HasForeignKey(pa => pa.EventId);
 
-                p.HasOne(pa => pa.Role)
-                 .WithMany()
-                 .HasForeignKey(pa => pa.EventRoleId);
+                
 
                 p.HasOne(pa => pa.User)
                  .WithMany()
