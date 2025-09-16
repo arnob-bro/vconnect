@@ -199,7 +199,7 @@
             <a href="@Url.Action("Register", "Account")" class="btn btn-warning btn-lg px-4">
                 <i class="fas fa-user-plus me-2"></i>Join as Volunteer
             </a>
-            <a href="@Url.Action("Index", "Donation")" class="btn btn-outline-light btn-lg px-4">
+            <a href="Donation/Create" class="btn btn-outline-light btn-lg px-4">
                 <i class="fas fa-donate me-2"></i>Support Our Projects
             </a>
         </div>
@@ -415,31 +415,4 @@
           filter('all');
         });
     </script>
-}
-using System;
-using System.ComponentModel.DataAnnotations;
-using VConnect.Models; // for ApplicationUser
-
-namespace VConnect.Models.SOS
-{
-    public class VolunteerPresence
-    {
-        [Key]
-        public int Id { get; set; }
-
-        // The volunteer this presence belongs to
-        [Required]
-        public int UserId { get; set; }
-        public ApplicationUser User { get; set; }
-
-        // Toggle this from the header switch
-        public bool IsAvailable { get; set; } = false;
-
-        // Optional region preference to receive relevant toasts
-        [MaxLength(120)]
-        public string Region { get; set; }
-
-        // Updated whenever they toggle or ping the hub
-        public DateTimeOffset LastSeenAt { get; set; } = DateTimeOffset.UtcNow;
-    }
 }
