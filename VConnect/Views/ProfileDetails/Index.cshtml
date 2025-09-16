@@ -4,6 +4,119 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container text-center text-white">
+        <h1 class="hero-title">Your Profile</h1>
+        <p class="hero-subtitle">Manage your information and track your volunteer journey</p>
+    </div>
+</section>
+
+<!-- Stats Section -->
+<section class="stats-section bg-light">
+    <div class="container">
+        <div class="row text-center">
+            <div class="col-md-6 col-12 mb-4">
+                <div class="stat-card">
+                    <h2 class="stat-number" id="stat1" data-count="@(Model?.TotalVolunteerHours ?? 0)">0</h2>
+                    <p class="stat-label">Volunteer Hours</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-12 mb-4">
+                <div class="stat-card">
+                    <h2 class="stat-number" id="stat2" data-count="@(Model?.EventsParticipated ?? 0)">0</h2>
+                    <p class="stat-label">Events Participated</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Profile Details Section -->
+<section class="profile-section">
+    <div class="container">
+        <div class="text-center section-heading">
+            <span class="badge featured-badge">Profile Details</span>
+            <h2 class="section-title">Your Information</h2>
+            <p class="section-subtitle">Manage your personal details and volunteer preferences</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7">
+                <div class="case-card profile-card card border-0 shadow-sm">
+                    <div class="profile-header text-center py-5">
+                        <img class="avatar mb-4"
+                             src="@(string.IsNullOrWhiteSpace(Model?.ProfilePictureUrl) ? Url.Content("~/images/avatar.png") : Model.ProfilePictureUrl)"
+                             alt="Profile picture" />
+
+                        <h3 class="display-name mb-2">@Model?.FirstName @Model?.LastName</h3>
+                        <p class="profile-email text-muted mb-4">@Model?.Email</p>
+
+                        <div class="profile-actions d-flex justify-content-center gap-3">
+                            <a asp-action="Edit" class="btn case-button px-4">
+                                <i class="fas fa-edit me-2"></i>Edit Profile
+                            </a>
+                            <a asp-action="Delete" class="btn btn-outline-danger px-4">
+                                <i class="fas fa-trash me-2"></i>Delete Account
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="card-body p-0">
+                        <div class="section-divider">
+                            <h5 class="section-subtitle-small">Personal Information</h5>
+                        </div>
+
+                        <div class="info-grid">
+                            <div class="info-row">
+                                <div class="info-label">
+                                    <i class="fas fa-envelope me-2 text-primary"></i>Email Address
+                                </div>
+                                <div class="info-value">@Model?.Email</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">
+                                    <i class="fas fa-calendar me-2 text-primary"></i>Date of Birth
+                                </div>
+                                <div class="info-value">@(Model?.DateOfBirth?.ToString("dd MMMM yyyy") ?? "Not provided")</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">
+                                    <i class="fas fa-phone me-2 text-primary"></i>Phone Number
+                                </div>
+                                <div class="info-value">@(Model?.PhoneNumber ?? "Not provided")</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">
+                                    <i class="fas fa-map-marker-alt me-2 text-primary"></i>City
+                                </div>
+                                <div class="info-value">@(Model?.City ?? "Not provided")</div>
+                            </div>
+
+                            <div class="info-row">
+                                <div class="info-label">
+                                    <i class="fas fa-home me-2 text-primary"></i>Address
+                                </div>
+                                <div class="info-value">@(Model?.Address ?? "Not provided")</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-transparent border-0 text-center py-3">
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt me-1 text-success"></i>
+                            Your personal information is secure and protected
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 @section Styles {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <style>
@@ -23,8 +136,6 @@
             margin-top: -25px;
             position: relative;
             overflow: hidden;
-            color: white;
-            text-align: center;
         }
 
             .hero-section::before {
@@ -38,128 +149,185 @@
             }
 
         .hero-title {
-            font-size: 2.5rem;
+            font-size: 3.5rem;
             font-weight: 800;
             margin-bottom: 1rem;
             animation: fadeInDown 1s ease;
         }
 
         .hero-subtitle {
-            font-size: 1.2rem;
+            font-size: 1.35rem;
             max-width: 700px;
             margin: 0 auto;
             animation: fadeInUp 1s ease;
-            opacity: 0.9;
+        }
+
+        /* Stats Section */
+        .stats-section {
+            padding: 5rem 0;
+        }
+
+        .stat-card {
+            padding: 2rem 1rem;
+            transition: transform 0.3s ease;
+        }
+
+            .stat-card:hover {
+                transform: translateY(-5px);
+            }
+
+        .stat-number {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #6c757d;
+            font-size: 1.1rem;
+        }
+
+        /* Profile Section */
+        .profile-section {
+            padding: 5rem 0;
+        }
+
+        /* Section Headings */
+        .section-heading {
+            margin-bottom: 4rem;
+        }
+
+        .featured-badge {
+            background-color: var(--accent-color);
+            color: #000;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #6c757d;
+            max-width: 700px;
+            margin: 0 auto;
         }
 
         /* Profile Card */
         .profile-card {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 12px 28px rgba(0,0,0,.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
             overflow: hidden;
-            max-width: 760px;
-            margin: -60px auto 32px;
-            position: relative;
-            z-index: 50;
         }
 
+            .profile-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+            }
+
         .profile-header {
-            text-align: center;
-            padding: 64px 24px 16px;
-            border-bottom: 1px solid #f0f2f5;
-            position: relative;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-bottom: 1px solid #e9ecef;
         }
 
         .avatar {
-            width: 112px;
-            height: 112px;
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid #fff;
-            box-shadow: 0 8px 24px rgba(0,0,0,.2);
-            position: absolute;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            top: 0;
-            background: #fff;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
         }
 
         .display-name {
-            font-weight: 800;
+            font-weight: 700;
             color: var(--primary-color);
-            margin-top: 1.5rem;
+            font-size: 1.8rem;
         }
 
-        .subline {
-            color: #6b7280;
+        .profile-email {
+            font-size: 1.1rem;
         }
 
-        .actions .btn {
+        /* Profile Actions */
+        .profile-actions .btn {
             border-radius: 50px;
-            padding: 0.5rem 1.5rem;
+            padding: 0.6rem 1.5rem;
             font-weight: 600;
             transition: all 0.3s ease;
         }
 
-            .actions .btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            }
-
-        /* Section Title */
-        .section-title {
-            font-size: .85rem;
-            text-transform: uppercase;
-            letter-spacing: .04em;
+        /* Case Button (matching Heroes page) */
+        .case-button {
             color: var(--primary-color);
-            font-weight: 700;
-            margin: 16px 0 8px 16px;
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            padding: 0.6rem 1.5rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: transparent;
         }
 
-        /* Info Rows */
+            .case-button:hover {
+                background-color: var(--primary-color);
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(11, 61, 46, 0.25);
+            }
+
+        /* Section Divider */
+        .section-divider {
+            padding: 1.5rem 2rem;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .section-subtitle-small {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        /* Info Grid */
+        .info-grid {
+            padding: 0;
+        }
+
         .info-row {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 12px 16px;
-            border-top: 1px solid #f0f2f5;
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid #f1f3f4;
+            transition: background-color 0.2s ease;
         }
 
+            .info-row:hover {
+                background-color: #f8f9fa;
+            }
+
+            .info-row:last-child {
+                border-bottom: none;
+            }
+
         .info-label {
-            color: #6b7280;
+            color: #6c757d;
             font-weight: 600;
+            display: flex;
+            align-items: center;
         }
 
         .info-value {
-            color: #111827;
+            color: var(--dark-text);
             font-weight: 600;
-        }
-
-        /* Stat Cards */
-        .stat-card {
-            background: #fff;
-            border: 1px solid #e5e7eb;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,.05);
-            transition: all 0.3s ease;
-        }
-
-            .stat-card:hover {
-                transform: translateY(-3px);
-                box-shadow: 0 8px 15px rgba(0,0,0,.1);
-            }
-
-        .stat-label {
-            color: #6b7280;
-            font-weight: 600;
-            font-size: .9rem;
-        }
-
-        .stat-value {
-            font-weight: 800;
-            font-size: 1.5rem;
-            color: var(--primary-color);
+            text-align: right;
         }
 
         /* Animations */
@@ -168,7 +336,6 @@
                 opacity: 0;
                 transform: translateY(-30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -180,7 +347,6 @@
                 opacity: 0;
                 transform: translateY(30px);
             }
-
             to {
                 opacity: 1;
                 transform: translateY(0);
@@ -188,42 +354,88 @@
         }
 
         /* Responsive Design */
-        @@media (max-width: 768px) {
+        @@media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+            .stat-number {
+                font-size: 3rem;
+            }
+        }
+
+        @@media (max-width: 992px) {
             .hero-section {
                 padding: 6rem 0 4rem;
             }
-
             .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            .stats-section, .profile-section {
+                padding: 4rem 0;
+            }
+            .section-heading {
+                margin-bottom: 3rem;
+            }
+            .stat-number {
+                font-size: 2.5rem;
+            }
+        }
+
+        @@media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .stats-section, .profile-section {
+                padding: 3rem 0;
+            }
+            .stat-card {
+                padding: 1.5rem 0.5rem;
+            }
+            .stat-number {
                 font-size: 2rem;
             }
-
-            .hero-subtitle {
+            .stat-label {
                 font-size: 1rem;
             }
-
-            .profile-card {
-                margin: -40px 12px 24px;
+            .info-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.5rem;
+                padding: 1rem 1.5rem;
             }
-
-            .profile-header {
-                padding: 58px 16px 12px;
+            .info-value {
+                text-align: left;
+                width: 100%;
             }
-
-            .stat-value {
-                font-size: 1.25rem;
+            .section-divider {
+                padding: 1rem 1.5rem;
+            }
+            .profile-actions {
+                flex-direction: column;
+                gap: 0.75rem !important;
+            }
+            .profile-actions .btn {
+                width: 200px;
             }
         }
 
         @@media (max-width: 576px) {
             .hero-title {
+                font-size: 2rem;
+            }
+            .stat-number {
                 font-size: 1.8rem;
             }
-
             .avatar {
-                width: 96px;
-                height: 96px;
+                width: 100px;
+                height: 100px;
             }
-
             .display-name {
                 font-size: 1.5rem;
             }
@@ -231,84 +443,62 @@
     </style>
 }
 
-<!-- Hero Section -->
-<section class="hero-section">
-    <div class="container">
-        <h1 class="hero-title">Your Profile</h1>
-        <p class="hero-subtitle">Manage your info and see your activity</p>
-    </div>
-</section>
-
-<!-- Profile Card -->
-<div class="profile-card">
-    <div class="profile-header">
-        <img class="avatar"
-             src="@(string.IsNullOrWhiteSpace(Model?.ProfilePictureUrl) ? Url.Content("~/images/avatar.png") : Model.ProfilePictureUrl)"
-             alt="Profile picture" />
-
-        <h3 class="display-name mt-4 mb-1">@Model?.FirstName @Model?.LastName</h3>
-        <div class="subline">@Model?.Email</div>
-
-        <div class="actions d-flex justify-content-center gap-2 mt-3">
-            <a asp-action="Edit" class="btn btn-primary px-4">Edit</a>
-            <a asp-action="Delete" class="btn btn-outline-danger px-4">Delete</a>
-        </div>
-    </div>
-
-    <div class="p-3 p-md-4">
-        <!-- Stats -->
-        <div class="row g-3 mb-4">
-            <div class="col-md-6">
-                <div class="stat-card p-3 text-center">
-                    <div class="stat-label">Volunteer Hours</div>
-                    <div class="stat-value">@Model?.TotalVolunteerHours</div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="stat-card p-3 text-center">
-                    <div class="stat-label">Events Participated</div>
-                    <div class="stat-value">@Model?.EventsParticipated</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Private Information -->
-        <div class="section-title">Private Information</div>
-
-        <div class="info-row">
-            <div class="info-label">Email</div>
-            <div class="info-value">@Model?.Email</div>
-        </div>
-        <div class="info-row">
-            <div class="info-label">Birthdate</div>
-            <div class="info-value">@Model?.DateOfBirth?.ToString("dd-MMMM-yyyy")</div>
-        </div>
-        <div class="info-row">
-            <div class="info-label">Phone</div>
-            <div class="info-value">@Model?.PhoneNumber</div>
-        </div>
-        <div class="info-row">
-            <div class="info-label">City</div>
-            <div class="info-value">@Model?.City</div>
-        </div>
-        <div class="info-row">
-            <div class="info-label">Address</div>
-            <div class="info-value">@Model?.Address</div>
-        </div>
-    </div>
-</div>
-
 @section Scripts {
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Add subtle animations to elements
-            const statCards = document.querySelectorAll('.stat-card');
-            
-            statCards.forEach((card, index) => {
-                // Add delay based on index
-                card.style.animationDelay = `${index * 0.1}s`;
-                card.style.animation = 'fadeInUp 0.5s ease forwards';
+            // Counter animation for stats
+            function animateCounter(element, target) {
+                let current = 0;
+                let increment = Math.max(target / 50, 1);
+                let duration = 2000; // 2 seconds
+                let stepTime = Math.abs(Math.floor(duration / (target / increment)));
+
+                let timer = setInterval(function() {
+                    current += increment;
+                    if (current >= target) {
+                        clearInterval(timer);
+                        current = target;
+                    }
+                    element.textContent = Math.floor(current).toLocaleString();
+                }, stepTime);
+            }
+
+            // Start counter animation when stats are in viewport
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const stat1Target = parseInt(document.getElementById('stat1').getAttribute('data-count'));
+                        const stat2Target = parseInt(document.getElementById('stat2').getAttribute('data-count'));
+                        
+                        animateCounter(document.getElementById('stat1'), stat1Target);
+                        animateCounter(document.getElementById('stat2'), stat2Target);
+                        observer.disconnect();
+                    }
+                });
+            }, { threshold: 0.5 });
+
+            const statsSection = document.querySelector('.stats-section');
+            if (statsSection) {
+                observer.observe(statsSection);
+            }
+
+            // Add animation to profile card when it comes into view
+            const profileCard = document.querySelector('.profile-card');
+
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.5s ease forwards';
+                        cardObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
             });
+
+            if (profileCard) {
+                cardObserver.observe(profileCard);
+            }
         });
     </script>
 }

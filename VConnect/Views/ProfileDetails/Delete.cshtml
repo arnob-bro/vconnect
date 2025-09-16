@@ -4,68 +4,401 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container text-center text-white">
+        <h1 class="hero-title">Delete Account</h1>
+        <p class="hero-subtitle">This action is permanent and cannot be undone</p>
+    </div>
+</section>
+
+<!-- Delete Account Section -->
+<section class="delete-account-section bg-light">
+    <div class="container">
+        <div class="text-center section-heading">
+            <span class="badge warning-badge">⚠️ Critical Action</span>
+            <h2 class="section-title text-danger">Account Deletion</h2>
+            <p class="section-subtitle">Please read the information below carefully before proceeding</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-6">
+                <div class="case-card delete-card card border-0 shadow-sm">
+                    <div class="card-body p-5">
+                        <!-- Warning Alert -->
+                        <div class="alert alert-danger border-0" role="alert">
+                            <div class="d-flex align-items-start">
+                                <i class="fas fa-exclamation-triangle text-danger me-3 mt-1"></i>
+                                <div>
+                                    <h5 class="alert-heading mb-2">Critical Warning</h5>
+                                    <p class="mb-0">
+                                        Deleting your account will <strong>permanently remove</strong> all your profile data, 
+                                        volunteer history, and participation records. This action cannot be reversed.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Account Information -->
+                        <div class="account-info-section mb-4">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-user me-2"></i>Account to be deleted:
+                            </h5>
+                            <div class="account-details p-4 bg-light rounded-3">
+                                <div class="row">
+                                    <div class="col-sm-6 mb-2">
+                                        <strong class="text-dark">Name:</strong>
+                                        <span class="text-muted">@Model?.FirstName @Model?.LastName</span>
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <strong class="text-dark">Email:</strong>
+                                        <span class="text-muted">@Model?.Email</span>
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <strong class="text-dark">Volunteer Hours:</strong>
+                                        <span class="text-muted">@(Model?.TotalVolunteerHours ?? 0) hours</span>
+                                    </div>
+                                    <div class="col-sm-6 mb-2">
+                                        <strong class="text-dark">Events Participated:</strong>
+                                        <span class="text-muted">@(Model?.EventsParticipated ?? 0) events</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- What will be deleted -->
+                        <div class="deletion-details mb-4">
+                            <h5 class="text-danger mb-3">
+                                <i class="fas fa-trash-alt me-2"></i>What will be permanently deleted:
+                            </h5>
+                            <ul class="list-unstyled">
+                                <li class="mb-2">
+                                    <i class="fas fa-times text-danger me-2"></i>
+                                    Personal profile information and settings
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-times text-danger me-2"></i>
+                                    Volunteer history and participation records
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-times text-danger me-2"></i>
+                                    Posted content and community interactions
+                                </li>
+                                <li class="mb-2">
+                                    <i class="fas fa-times text-danger me-2"></i>
+                                    Account credentials and access permissions
+                                </li>
+                            </ul>
+                        </div>
+
+                        <!-- Confirmation Form -->
+                        <div class="confirmation-section">
+                            <h5 class="text-primary mb-3">
+                                <i class="fas fa-check-circle me-2"></i>Final Confirmation
+                            </h5>
+                            <p class="text-muted mb-4">
+                                Are you absolutely certain you want to proceed with deleting your VConnect account?
+                                This decision is final and irreversible.
+                            </p>
+
+                            <form asp-action="DeleteConfirmed" method="post" class="text-center">
+                                @Html.AntiForgeryToken()
+                                <div class="form-actions d-flex gap-3 justify-content-center flex-wrap">
+                                    <button type="submit" class="btn btn-danger px-5 py-3">
+                                        <i class="fas fa-trash-alt me-2"></i>Yes, Delete My Account
+                                    </button>
+                                    <a asp-action="Index" class="btn case-button px-5 py-3">
+                                        <i class="fas fa-arrow-left me-2"></i>Cancel & Go Back
+                                    </a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="card-footer bg-transparent border-0 text-center py-3">
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle me-1 text-info"></i>
+                            Need help? Contact our support team before deleting your account
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 @section Styles {
     <style>
-        body {
-             /* background: #0b1d33; */
-            margin-top: -25px;
+        /* Global Styles */
+        :root {
+            --primary-color: #0b3d2e;
+            --secondary-color: #1a5e48;
+            --accent-color: #ffc107;
+            --light-bg: #f8f9fa;
+            --dark-text: #232a36;
+            --danger-color: #dc3545;
         }
 
-        .hero {
-            /* background: linear-gradient(135deg, #7f1d1d, #b91c1c); */
-            background: linear-gradient(135deg, #23313c 0%, #0f3f33 100%);
-            padding: 48px 0 72px;
-            color: #fff;
-            text-align: center;
+        /* Hero Section */
+        .hero-section {
+            padding: 7rem 0 5rem;
+            background: linear-gradient(135deg, var(--danger-color) 0%, #8b1538 100%);
+            margin-top: -25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .hero-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0.5;
+            }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        /* Delete Account Section */
+        .delete-account-section {
+            padding: 5rem 0;
         }
 
         .delete-card {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 12px 28px rgba(0,0,0,.25);
-            max-width: 760px;
-            margin: -48px auto 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
         }
 
-        .danger {
-            background: #fff1f2;
-            border: 1px solid #fecdd3;
-            color: #7f1d1d;
-            border-radius: 10px;
-            padding: 12px 14px;
+            .delete-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+            }
+
+        /* Section Headings */
+        .section-heading {
+            margin-bottom: 4rem;
+        }
+
+        .warning-badge {
+            background-color: #fff3cd;
+            color: #856404;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #ffeaa7;
+        }
+
+        .section-title {
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #6c757d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Account Info Section */
+        .account-info-section h5,
+        .deletion-details h5,
+        .confirmation-section h5 {
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 0.5rem;
+        }
+
+        .account-details {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        /* Alert Styling */
+        .alert-danger {
+            background-color: #f8d7da;
+            border-radius: 12px;
+        }
+
+        /* Case Button (matching Heroes page) */
+        .case-button {
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+            .case-button:hover {
+                background-color: var(--primary-color);
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(11, 61, 46, 0.25);
+            }
+
+        /* Form Actions */
+        .form-actions .btn {
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+
+            .form-actions .btn:hover {
+                transform: translateY(-2px);
+            }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            border-color: var(--danger-color);
+        }
+
+            .btn-danger:hover {
+                background-color: #bb2d3b;
+                border-color: #bb2d3b;
+                box-shadow: 0 8px 20px rgba(220, 53, 69, 0.25);
+            }
+
+        /* Animations */
+        @@keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @@media (max-width: 992px) {
+            .hero-section {
+                padding: 6rem 0 4rem;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            .delete-account-section {
+                padding: 4rem 0;
+            }
+            .section-heading {
+                margin-bottom: 3rem;
+            }
         }
 
         @@media (max-width: 768px) {
-            .delete-card {
-                margin: -40px 12px 24px;
+            .hero-title {
+                font-size: 2.2rem;
             }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .delete-account-section {
+                padding: 3rem 0;
+            }
+            .card-body {
+                padding: 2rem !important;
+            }
+            .form-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            .form-actions .btn {
+                width: 250px;
+                margin-bottom: 0.75rem;
+            }
+            .account-details .row .col-sm-6 {
+                margin-bottom: 1rem;
+            }
+        }
+
+        @@media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .card-body {
+                padding: 1.5rem !important;
+            }
+        }
+
+        /* Ensure content spacing */
+        .delete-account-section {
+            padding-top: 6rem;
         }
     </style>
 }
 
-<section class="hero">
-    <div class="container">
-        <h1 class="h3 fw-bold mb-1">Delete Account</h1>
-        <p class="mb-0" style="opacity:.9">This action is permanent</p>
-    </div>
-</section>
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation to delete card when it comes into view
+            const deleteCard = document.querySelector('.delete-card');
 
-<div class="delete-card">
-    <div class="p-3 p-md-4">
-        <div class="danger mb-3">
-            <strong>Warning:</strong> deleting your account will permanently remove your profile and data.
-        </div>
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.5s ease forwards';
+                        cardObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
 
-        <p class="mb-4">
-            Are you sure you want to delete the account for
-            <strong>@Model?.FirstName @Model?.LastName</strong>
-            (<em>@Model?.Email</em>)?
-        </p>
+            if (deleteCard) {
+                cardObserver.observe(deleteCard);
+            }
 
-        <form asp-action="DeleteConfirmed" method="post">
-            @Html.AntiForgeryToken()
-            <button type="submit" class="btn btn-danger px-4">Yes, delete</button>
-            <a asp-action="Index" class="btn btn-outline-secondary ms-2 px-4">No, go back</a>
-        </form>
-    </div>
-</div>
+            // Add confirmation dialog for extra safety
+            const deleteForm = document.querySelector('form[asp-action="DeleteConfirmed"]');
+            if (deleteForm) {
+                deleteForm.addEventListener('submit', function(e) {
+                    const confirmed = confirm(
+                        'FINAL WARNING: This will permanently delete your account and all associated data. ' +
+                        'This action cannot be undone. Are you absolutely sure you want to proceed?'
+                    );
+                    
+                    if (!confirmed) {
+                        e.preventDefault();
+                    }
+                });
+            }
+        });
+    </script>
+}

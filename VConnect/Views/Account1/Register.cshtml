@@ -4,196 +4,323 @@
     ViewData["Title"] = "Register - VConnect";
 }
 
-<section class="py-4" style="background:linear-gradient(135deg,#232a36 0%,#1d4538 100%);margin-top:-25px;">
-    <div class="container py-4">
-        
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container text-center text-white">
+        <h1 class="hero-title">Join Our Community</h1>
+        <p class="hero-subtitle">Create your VConnect account and start making a difference</p>
     </div>
 </section>
 
+<!-- Registration Form Section -->
+<section class="registration-section bg-light">
+    <div class="container">
+        <div class="text-center section-heading">
+            <span class="badge featured-badge">Get Started</span>
+            <h2 class="section-title">Create Your Account</h2>
+            <p class="section-subtitle">Join our community of volunteers and start making a difference</p>
+        </div>
 
-<div class="container py-5 mt-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-8 col-md-10">
-            <div class="card border-0 shadow-lg" style="background: rgba(27, 40, 50, 0.95);
-                                                      backdrop-filter: blur(10px);
-                                                      border-radius: 20px;
-                                                      margin-top: 2rem;">
-                <div class="card-header border-0 text-center py-4"
-                     style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%);
-                            border-radius: 20px 20px 0 0 !important;">
-                    <img src="/images/vc_logo.png" alt="Logo" style="height: 60px;" class="mb-3">
-                    <h2 class="text-vol mb-0" style="font-weight: 800; font-size: 2.2rem;">Join Our Community</h2>
-                    <p class="text-light mb-0" style="opacity: 0.9;">Create your VConnect account</p>
-                </div>
-
-                <div class="card-body px-5 py-4">
-                    <form asp-action="Register" method="post" class="needs-validation" novalidate>
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-pill"></div>
-
-                        <div class="row">
-                            <!-- First Name -->
-                            <div class="col-md-6">
-                                <div class="form-group mb-4">
-                                    <label asp-for="FirstName" class="form-label text-light" style="font-weight: 600;">
-                                        <i class="fas fa-user me-2 text-warning"></i>First Name
-                                    </label>
-                                    <input asp-for="FirstName" class="form-control form-control-lg"
-                                           style="background: rgba(255,255,255,0.1);
-                                                  border: 2px solid rgba(255,255,255,0.2);
-                                                  color: #fff;
-                                                  border-radius: 12px;
-                                                  padding: 1rem;"
-                                           placeholder="Enter your first name">
-                                    <span asp-validation-for="FirstName" class="text-warning small d-block mt-2"></span>
-                                </div>
-                            </div>
-
-                            <!-- Last Name -->
-                            <div class="col-md-6">
-                                <div class="form-group mb-4">
-                                    <label asp-for="LastName" class="form-label text-light" style="font-weight: 600;">
-                                        <i class="fas fa-user me-2 text-warning"></i>Last Name
-                                    </label>
-                                    <input asp-for="LastName" class="form-control form-control-lg"
-                                           style="background: rgba(255,255,255,0.1);
-                                                  border: 2px solid rgba(255,255,255,0.2);
-                                                  color: #fff;
-                                                  border-radius: 12px;
-                                                  padding: 1rem;"
-                                           placeholder="Enter your last name">
-                                    <span asp-validation-for="LastName" class="text-warning small d-block mt-2"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Email Field -->
-                        <div class="form-group mb-4">
-                            <label asp-for="Email" class="form-label text-light" style="font-weight: 600;">
-                                <i class="fas fa-envelope me-2 text-warning"></i>Email Address
-                            </label>
-                            <input asp-for="Email" class="form-control form-control-lg"
-                                   style="background: rgba(255,255,255,0.1);
-                                          border: 2px solid rgba(255,255,255,0.2);
-                                          color: #fff;
-                                          border-radius: 12px;
-                                          padding: 1rem;"
-                                   placeholder="Enter your email">
-                            <span asp-validation-for="Email" class="text-warning small d-block mt-2"></span>
-                        </div>
-
-                        <div class="row">
-                            <!-- Password -->
-                            <div class="col-md-6">
-                                <div class="form-group mb-4">
-                                    <label asp-for="Password" class="form-label text-light" style="font-weight: 600;">
-                                        <i class="fas fa-lock me-2 text-warning"></i>Password
-                                    </label>
-                                    <input asp-for="Password" type="password" class="form-control form-control-lg"
-                                           style="background: rgba(255,255,255,0.1);
-                                                  border: 2px solid rgba(255,255,255,0.2);
-                                                  color: #fff;
-                                                  border-radius: 12px;
-                                                  padding: 1rem;"
-                                           placeholder="Create password">
-                                    <span asp-validation-for="Password" class="text-warning small d-block mt-2"></span>
-                                </div>
-                            </div>
-
-                            <!-- Confirm Password -->
-                            <div class="col-md-6">
-                                <div class="form-group mb-4">
-                                    <label asp-for="ConfirmPassword" class="form-label text-light" style="font-weight: 600;">
-                                        <i class="fas fa-lock me-2 text-warning"></i>Confirm Password
-                                    </label>
-                                    <input asp-for="ConfirmPassword" type="password" class="form-control form-control-lg"
-                                           style="background: rgba(255,255,255,0.1);
-                                                  border: 2px solid rgba(255,255,255,0.2);
-                                                  color: #fff;
-                                                  border-radius: 12px;
-                                                  padding: 1rem;"
-                                           placeholder="Confirm password">
-                                    <span asp-validation-for="ConfirmPassword" class="text-warning small d-block mt-2"></span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="form-group mb-4">
-                            <button type="submit" class="btn btn-success w-100 py-3"
-                                    style="font-weight: 700;
-                                           font-size: 1.2rem;
-                                           border-radius: 50px;
-                                           background: linear-gradient(45deg, #6ed15a, #4caf50);
-                                           border: none;
-                                           color: #000;
-                                           transition: all 0.3s ease;">
-                                <i class="fas fa-user-plus me-2"></i>Create Account
-                            </button>
-                        </div>
-
-                        <!-- Divider -->
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-6">
+                <div class="case-card registration-card card border-0 shadow-sm">
+                    <div class="card-body p-5">
                         <div class="text-center mb-4">
-                            <span class="text-light" style="opacity: 0.7;">ALREADY HAVE AN ACCOUNT?</span>
+                            <img src="/images/vc_logo_2.png" alt="VConnect Logo" style="height: 60px;" class="mb-3">
                         </div>
 
-                        <!-- Login Link -->
-                        <div class="text-center">
-                            <p class="text-light mb-0">
-                                Already registered?
-                                <a asp-action="Login" class="text-warning text-decoration-none"
-                                   style="font-weight: 600;">Sign in here</a>
-                            </p>
-                        </div>
-                    </form>
-                </div>
+                        <form asp-action="Register" method="post" class="needs-validation" novalidate>
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
-                <div class="card-footer border-0 text-center py-3"
-                     style="background: rgba(0,0,0,0.3);
-                            border-radius: 0 0 20px 20px !important;">
-                    <p class="text-light small mb-0" style="opacity: 0.8;">
-                        <i class="fas fa-shield-alt me-1 text-warning"></i>
-                        We protect your personal information
-                    </p>
+                            <div class="row g-4">
+                                <!-- First Name -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="FirstName" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-user me-2 text-primary"></i>First Name
+                                        </label>
+                                        <input asp-for="FirstName" class="form-control form-input"
+                                               placeholder="Enter your first name">
+                                        <span asp-validation-for="FirstName" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Last Name -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="LastName" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-user me-2 text-primary"></i>Last Name
+                                        </label>
+                                        <input asp-for="LastName" class="form-control form-input"
+                                               placeholder="Enter your last name">
+                                        <span asp-validation-for="LastName" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Email Field -->
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-envelope me-2 text-primary"></i>Email Address
+                                        </label>
+                                        <input asp-for="Email" class="form-control form-input"
+                                               placeholder="Enter your email address">
+                                        <span asp-validation-for="Email" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Password -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Password" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-lock me-2 text-primary"></i>Password
+                                        </label>
+                                        <input asp-for="Password" type="password" class="form-control form-input"
+                                               placeholder="Create a strong password">
+                                        <span asp-validation-for="Password" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Confirm Password -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="ConfirmPassword" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-check-circle me-2 text-primary"></i>Confirm Password
+                                        </label>
+                                        <input asp-for="ConfirmPassword" type="password" class="form-control form-input"
+                                               placeholder="Confirm your password">
+                                        <span asp-validation-for="ConfirmPassword" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn case-button w-100 py-3">
+                                        <i class="fas fa-user-plus me-2"></i>Create Account
+                                    </button>
+                                </div>
+
+                                <!-- Login Link -->
+                                <div class="col-12 text-center mt-3">
+                                    <p class="text-muted mb-0">
+                                        Already have an account?
+                                        <a asp-action="Login" class="text-primary text-decoration-none fw-bold">
+                                            Sign in here
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card-footer bg-transparent border-0 text-center py-3">
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt me-1 text-success"></i>
+                            Your information is secure and protected
+                        </small>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 @section Styles {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
-        .form-control:focus {
-            background: rgba(255,255,255,0.15) !important;
-            border-color: #ffd700 !important;
-            box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25) !important;
-            color: #fff !important;
+        /* Global Styles */
+        :root {
+            --primary-color: #0b3d2e;
+            --secondary-color: #1a5e48;
+            --accent-color: #ffc107;
+            --light-bg: #f8f9fa;
+            --dark-text: #232a36;
         }
 
-        .btn-success:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(110, 209, 90, 0.4) !important;
+        /* Hero Section */
+        .hero-section {
+            padding: 7rem 0 5rem;
+            background: linear-gradient(135deg, var(--dark-text) 0%, var(--secondary-color) 100%);
+            margin-top: -25px;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Responsive adjustments */
+            .hero-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0.5;
+            }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        /* Animations */
+        @@keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Registration Section */
+        .registration-section {
+            padding: 5rem 0;
+        }
+
+        .registration-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+            .registration-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+            }
+
+        /* Section Headings */
+        .section-heading {
+            margin-bottom: 4rem;
+        }
+
+        .featured-badge {
+            background-color: var(--accent-color);
+            color: #000;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #6c757d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Form Styles */
+        .form-input {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+            .form-input:focus {
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 0.2rem rgba(11, 61, 46, 0.25);
+                outline: none;
+            }
+
+        .form-label {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Case Button (matching Heroes page) */
+        .case-button {
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+            .case-button:hover {
+                background-color: var(--primary-color);
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(11, 61, 46, 0.25);
+            }
+
+        /* Responsive Design */
+        @@media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @@media (max-width: 992px) {
+            .hero-section {
+                padding: 6rem 0 4rem;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+        }
+
         @@media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
             .card-body {
                 padding: 1.5rem !important;
             }
-
             .row > [class*="col-"] {
                 margin-bottom: 1rem;
             }
-
             .container {
                 padding: 0 1rem;
             }
         }
 
+        @@media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+        }
+
         /* Ensure content is below navbar */
-        .container.py-5 {
-            padding-top: 6rem !important;
+        .registration-section {
+            padding-top: 6rem;
         }
     </style>
 }

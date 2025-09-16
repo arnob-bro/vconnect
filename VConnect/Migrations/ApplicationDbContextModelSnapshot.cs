@@ -587,15 +587,12 @@ namespace VConnect.Migrations
                 });
 
             modelBuilder.Entity("VConnect.Models.SOS.SosComment", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("integer");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-            modelBuilder.Entity("VConnect.Models.SOS.HelpRequest", b =>
 
                     b.Property<string>("AuthorName")
                         .IsRequired()
@@ -632,7 +629,6 @@ namespace VConnect.Migrations
                 });
 
             modelBuilder.Entity("VConnect.Models.SOS.SosPost", b =>
-
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -649,13 +645,10 @@ namespace VConnect.Migrations
                         .HasColumnType("character varying(150)");
 
                     b.Property<DateTime>("CreatedAt")
-
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Description")
                         .IsRequired()
-
-
                         .HasMaxLength(2000)
                         .HasColumnType("character varying(2000)");
 
@@ -663,7 +656,6 @@ namespace VConnect.Migrations
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
-
 
                     b.Property<bool>("IsAcceptingHelp")
                         .HasColumnType("boolean");
@@ -837,7 +829,6 @@ namespace VConnect.Migrations
                     b.Navigation("ParentComment");
 
                     b.Navigation("SosPost");
-
                 });
 
             modelBuilder.Entity("VConnect.Models.Cases.Study", b =>
@@ -861,14 +852,12 @@ namespace VConnect.Migrations
                     b.Navigation("Applications");
                 });
 
-
             modelBuilder.Entity("VConnect.Models.SOS.SosComment", b =>
                 {
                     b.Navigation("Replies");
                 });
 
             modelBuilder.Entity("VConnect.Models.SOS.SosPost", b =>
-
                 {
                     b.Navigation("Comments");
                 });

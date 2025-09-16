@@ -4,151 +4,319 @@
     ViewData["Title"] = "Login - VConnect";
 }
 
-
-<section class="py-4" style="background:linear-gradient(135deg,#232a36 0%,#1d4538 100%);margin-top:-25px;">
-    <div class="container py-4">
-        
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container text-center text-white">
+        <h1 class="hero-title">Welcome Back</h1>
+        <p class="hero-subtitle">Sign in to continue your volunteer journey with VConnect</p>
     </div>
 </section>
 
-<!-- Remove the background section since layout already handles it -->
-<div class="container py-5 mt-5">
-    <div class="row justify-content-center">
-        <div class="col-lg-6 col-md-8">
-            <div class="card border-0 shadow-lg" style="background: rgba(27, 40, 50, 0.95);
-                                                      backdrop-filter: blur(10px);
-                                                      border-radius: 20px;
-                                                      margin-top: 2rem;">
-                <div class="card-header border-0 text-center py-4"
-                     style="background: linear-gradient(135deg, #0b3d2e 0%, #1a5e48 100%);
-                            border-radius: 20px 20px 0 0 !important;">
-                    <img src="/images/vc_logo.png" alt="Logo" style="height: 60px;" class="mb-3">
-                    <h2 class="text-vol mb-0" style="font-weight: 800; font-size: 2.2rem;">Welcome Back</h2>
-                    <p class="text-light mb-0" style="opacity: 0.9;">Sign in to your VConnect account</p>
-                </div>
+<!-- Login Form Section -->
+<section class="login-section bg-light">
+    <div class="container">
+        <div class="text-center section-heading">
+            <span class="badge featured-badge">Sign In</span>
+            <h2 class="section-title">Access Your Account</h2>
+            <p class="section-subtitle">Welcome back! Please enter your credentials to continue</p>
+        </div>
 
-                <div class="card-body px-5 py-4">
-                    <form asp-action="Login" method="post" class="needs-validation" novalidate>
-                        <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-pill"></div>
-
-                        <!-- Email Field -->
-                        <div class="form-group mb-4">
-                            <label asp-for="Email" class="form-label text-light" style="font-weight: 600;">
-                                <i class="fas fa-envelope me-2 text-warning"></i>Email Address
-                            </label>
-                            <input asp-for="Email" class="form-control form-control-lg"
-                                   style="background: rgba(255,255,255,0.1);
-                                          border: 2px solid rgba(255,255,255,0.2);
-                                          color: #fff;
-                                          border-radius: 12px;
-                                          padding: 1rem;"
-                                   placeholder="Enter your email">
-                            <span asp-validation-for="Email" class="text-warning small d-block mt-2"></span>
-                        </div>
-
-                        <!-- Password Field -->
-                        <div class="form-group mb-4">
-                            <label asp-for="Password" class="form-label text-light" style="font-weight: 600;">
-                                <i class="fas fa-lock me-2 text-warning"></i>Password
-                            </label>
-                            <input asp-for="Password" type="password" class="form-control form-control-lg"
-                                   style="background: rgba(255,255,255,0.1);
-                                          border: 2px solid rgba(255,255,255,0.2);
-                                          color: #fff;
-                                          border-radius: 12px;
-                                          padding: 1rem;"
-                                   placeholder="Enter your password">
-                            <span asp-validation-for="Password" class="text-warning small d-block mt-2"></span>
-                        </div>
-
-                        <!-- Remember Me -->
-                        <div class="form-group form-check mb-4">
-                            <input asp-for="RememberMe" class="form-check-input"
-                                   style="background: rgba(255,255,255,0.2);
-                                          border-color: #ffd700;">
-                            <label asp-for="RememberMe" class="form-check-label text-light">
-                                Remember me
-                            </label>
-                        </div>
-
-                        <!-- Submit Button -->
-                        <div class="form-group mb-4">
-                            <button type="submit" class="btn btn-warning w-100 py-3"
-                                    style="font-weight: 700;
-                                           font-size: 1.2rem;
-                                           border-radius: 50px;
-                                           background: linear-gradient(45deg, #ffd700, #ffaa00);
-                                           border: none;
-                                           color: #000;
-                                           transition: all 0.3s ease;">
-                                <i class="fas fa-sign-in-alt me-2"></i>Login
-                            </button>
-                        </div>
-
-                        <!-- Divider -->
+        <div class="row justify-content-center">
+            <div class="col-lg-6 col-xl-5">
+                <div class="case-card login-card card border-0 shadow-sm">
+                    <div class="card-body p-5">
                         <div class="text-center mb-4">
-                            <span class="text-light" style="opacity: 0.7;">OR</span>
+                            <img src="/images/vc_logo_2.png" alt="VConnect Logo" style="height: 60px;" class="mb-3">
                         </div>
 
-                        <!-- Registration Link -->
-                        <div class="text-center">
-                            <p class="text-light mb-0">
-                                Don't have an account?
-                                <a asp-action="Register" class="text-warning text-decoration-none"
-                                   style="font-weight: 600;">Create one here</a>
-                            </p>
-                        </div>
-                    </form>
-                </div>
+                        <form asp-action="Login" method="post" class="needs-validation" novalidate>
+                            <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
 
-                <div class="card-footer border-0 text-center py-3"
-                     style="background: rgba(0,0,0,0.3);
-                            border-radius: 0 0 20px 20px !important;">
-                    <p class="text-light small mb-0" style="opacity: 0.8;">
-                        <i class="fas fa-shield-alt me-1 text-warning"></i>
-                        Your data is securely encrypted
-                    </p>
+                            <div class="row g-4">
+                                <!-- Email Field -->
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-envelope me-2 text-primary"></i>Email Address
+                                        </label>
+                                        <input asp-for="Email" class="form-control form-input"
+                                               placeholder="Enter your email address">
+                                        <span asp-validation-for="Email" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Password Field -->
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label asp-for="Password" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-lock me-2 text-primary"></i>Password
+                                        </label>
+                                        <input asp-for="Password" type="password" class="form-control form-input"
+                                               placeholder="Enter your password">
+                                        <span asp-validation-for="Password" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Remember Me -->
+                                <div class="col-12">
+                                    <div class="form-check">
+                                        <input asp-for="RememberMe" class="form-check-input custom-checkbox">
+                                        <label asp-for="RememberMe" class="form-check-label text-muted">
+                                            Remember me on this device
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <!-- Submit Button -->
+                                <div class="col-12 mt-4">
+                                    <button type="submit" class="btn case-button w-100 py-3">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Sign In
+                                    </button>
+                                </div>
+
+                                <!-- Registration Link -->
+                                <div class="col-12 text-center mt-3">
+                                    <p class="text-muted mb-0">
+                                        Don't have an account?
+                                        <a asp-action="Register" class="text-primary text-decoration-none fw-bold">
+                                            Create one here
+                                        </a>
+                                    </p>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card-footer bg-transparent border-0 text-center py-3">
+                        <small class="text-muted">
+                            <i class="fas fa-shield-alt me-1 text-success"></i>
+                            Your data is securely encrypted and protected
+                        </small>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
 
 @section Styles {
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 
     <style>
-        .form-control:focus {
-            background: rgba(255,255,255,0.15) !important;
-            border-color: #ffd700 !important;
-            box-shadow: 0 0 0 0.2rem rgba(255, 215, 0, 0.25) !important;
-            color: #fff !important;
+        /* Global Styles */
+        :root {
+            --primary-color: #0b3d2e;
+            --secondary-color: #1a5e48;
+            --accent-color: #ffc107;
+            --light-bg: #f8f9fa;
+            --dark-text: #232a36;
         }
 
-        .form-check-input:checked {
-            background-color: #ffd700 !important;
-            border-color: #ffd700 !important;
+        /* Hero Section */
+        .hero-section {
+            padding: 7rem 0 5rem;
+            background: linear-gradient(135deg, var(--dark-text) 0%, var(--secondary-color) 100%);
+            margin-top: -25px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .btn-warning:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4) !important;
+            .hero-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0.5;
+            }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
         }
 
-        /* Responsive adjustments */
+        .hero-subtitle {
+            font-size: 1.35rem;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        /* Login Section */
+        .login-section {
+            padding: 5rem 0;
+        }
+
+        .login-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+            .login-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+            }
+
+        /* Section Headings */
+        .section-heading {
+            margin-bottom: 4rem;
+        }
+
+        .featured-badge {
+            background-color: var(--accent-color);
+            color: #000;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #6c757d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Form Styles */
+        .form-input {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+            .form-input:focus {
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 0.2rem rgba(11, 61, 46, 0.25);
+                outline: none;
+            }
+
+        .form-label {
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+
+        /* Custom Checkbox */
+        .custom-checkbox {
+            border: 2px solid #e9ecef;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+            .custom-checkbox:checked {
+                background-color: var(--primary-color);
+                border-color: var(--primary-color);
+            }
+
+            .custom-checkbox:focus {
+                box-shadow: 0 0 0 0.2rem rgba(11, 61, 46, 0.25);
+            }
+
+        /* Case Button (matching Heroes page) */
+        .case-button {
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+            .case-button:hover {
+                background-color: var(--primary-color);
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(11, 61, 46, 0.25);
+            }
+
+        /* Animations */
+        @@keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @@media (max-width: 992px) {
+            .hero-section {
+                padding: 6rem 0 4rem;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            .login-section {
+                padding: 4rem 0;
+            }
+            .section-heading {
+                margin-bottom: 3rem;
+            }
+        }
+
         @@media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .login-section {
+                padding: 3rem 0;
+            }
             .card-body {
                 padding: 2rem !important;
             }
-
             .container {
                 padding: 0 1rem;
             }
         }
 
+        @@media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+        }
+
         /* Ensure content is below navbar */
-        .container.py-5 {
-            padding-top: 6rem !important;
+        .login-section {
+            padding-top: 6rem;
         }
     </style>
 }

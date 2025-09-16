@@ -4,119 +4,457 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container text-center text-white">
+        <h1 class="hero-title">Edit Profile</h1>
+        <p class="hero-subtitle">Update your information and manage your volunteer profile</p>
+    </div>
+</section>
+
+<!-- Edit Profile Section -->
+<section class="edit-profile-section bg-light">
+    <div class="container">
+        <div class="text-center section-heading">
+            <span class="badge featured-badge">Profile Settings</span>
+            <h2 class="section-title">Update Your Information</h2>
+            <p class="section-subtitle">Keep your profile current to better connect with volunteer opportunities</p>
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-8 col-xl-7">
+                <div class="case-card edit-card card border-0 shadow-sm">
+                    <div class="card-body p-5">
+                        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+                            @Html.AntiForgeryToken()
+                            @Html.HiddenFor(m => m.ProfileDetailsId)
+                            @Html.HiddenFor(m => m.UserId)
+                            @Html.HiddenFor(m => m.ProfilePictureUrl)
+
+                            <div class="row g-4">
+                                <!-- Profile Picture -->
+                                <div class="col-12">
+                                    <div class="profile-picture-section text-center mb-4">
+                                        <label class="form-label fw-bold text-dark mb-3 d-block">
+                                            <i class="fas fa-camera me-2 text-primary"></i>Profile Picture
+                                        </label>
+                                        <div class="profile-picture-container mb-3">
+                                            <img src="@(string.IsNullOrWhiteSpace(Model?.ProfilePictureUrl) ? Url.Content("~/images/avatar.png") : Model.ProfilePictureUrl)"
+                                                 class="profile-preview-image" 
+                                                 alt="Profile Picture" />
+                                        </div>
+                                        <input name="ProfilePictureFile" type="file" class="form-control form-input" accept="image/*" />
+                                        <small class="text-muted mt-1 d-block">PNG, JPG files allowed (Max 5MB)</small>
+                                    </div>
+                                </div>
+
+                                <!-- First Name -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="FirstName" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-user me-2 text-primary"></i>First Name
+                                        </label>
+                                        <input asp-for="FirstName" class="form-control form-input" 
+                                               placeholder="Enter your first name">
+                                        <span asp-validation-for="FirstName" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Last Name -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="LastName" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-user me-2 text-primary"></i>Last Name
+                                        </label>
+                                        <input asp-for="LastName" class="form-control form-input" 
+                                               placeholder="Enter your last name">
+                                        <span asp-validation-for="LastName" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="Email" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-envelope me-2 text-primary"></i>Email Address
+                                        </label>
+                                        <input asp-for="Email" class="form-control form-input" 
+                                               placeholder="Enter your email address">
+                                        <span asp-validation-for="Email" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Date of Birth -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="DateOfBirth" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-calendar me-2 text-primary"></i>Date of Birth
+                                        </label>
+                                        <input asp-for="DateOfBirth" type="date" class="form-control form-input">
+                                        <span asp-validation-for="DateOfBirth" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Phone Number -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="PhoneNumber" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-phone me-2 text-primary"></i>Phone Number
+                                        </label>
+                                        <input asp-for="PhoneNumber" class="form-control form-input" 
+                                               placeholder="Enter your phone number">
+                                        <span asp-validation-for="PhoneNumber" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- City -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label asp-for="City" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-map-marker-alt me-2 text-primary"></i>City
+                                        </label>
+                                        <input asp-for="City" class="form-control form-input" 
+                                               placeholder="Enter your city">
+                                        <span asp-validation-for="City" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Address -->
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label asp-for="Address" class="form-label fw-bold text-dark mb-2">
+                                            <i class="fas fa-home me-2 text-primary"></i>Address
+                                        </label>
+                                        <textarea asp-for="Address" class="form-control form-input" rows="3" 
+                                                  placeholder="Enter your full address"></textarea>
+                                        <span asp-validation-for="Address" class="text-danger small d-block mt-1"></span>
+                                    </div>
+                                </div>
+
+                                <!-- Action Buttons -->
+                                <div class="col-12 mt-4">
+                                    <div class="form-actions d-flex gap-3 justify-content-center">
+                                        <button type="submit" class="btn case-button px-5 py-3">
+                                            <i class="fas fa-save me-2"></i>Save Changes
+                                        </button>
+                                        <a asp-action="Index" class="btn btn-outline-secondary px-5 py-3">
+                                            <i class="fas fa-times me-2"></i>Cancel
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="card-footer bg-transparent border-0 text-center py-3">
+                        <small class="text-muted">
+                            <i class="fas fa-info-circle me-1 text-info"></i>
+                            All changes are saved securely and will be reflected immediately
+                        </small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 @section Styles {
     <style>
-        body {
-            /* background: #0b1d33; */
-            margin-top: -25px;
+        /* Global Styles */
+        :root {
+            --primary-color: #0b3d2e;
+            --secondary-color: #1a5e48;
+            --accent-color: #ffc107;
+            --light-bg: #f8f9fa;
+            --dark-text: #232a36;
         }
 
-        .hero {
-            background: linear-gradient(135deg, #23313c 0%, #0f3f33 100%);
-            padding: 48px 0 72px;
-            color: #fff;
-            text-align: center;
+        /* Hero Section */
+        .hero-section {
+            padding: 7rem 0 5rem;
+            background: linear-gradient(135deg, var(--dark-text) 0%, var(--secondary-color) 100%);
+            margin-top: -25px;
+            position: relative;
+            overflow: hidden;
+        }
+
+            .hero-section::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                opacity: 0.5;
+            }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            animation: fadeInDown 1s ease;
+        }
+
+        .hero-subtitle {
+            font-size: 1.35rem;
+            max-width: 700px;
+            margin: 0 auto;
+            animation: fadeInUp 1s ease;
+        }
+
+        /* Edit Profile Section */
+        .edit-profile-section {
+            padding: 5rem 0;
         }
 
         .edit-card {
-            background: #fff;
-            border-radius: 16px;
-            box-shadow: 0 12px 28px rgba(0,0,0,.25);
-            max-width: 760px;
-            margin: -48px auto 32px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 15px;
+            overflow: hidden;
         }
+
+            .edit-card:hover {
+                transform: translateY(-8px);
+                box-shadow: 0 15px 35px rgba(0,0,0,0.1) !important;
+            }
+
+        /* Section Headings */
+        .section-heading {
+            margin-bottom: 4rem;
+        }
+
+        .featured-badge {
+            background-color: var(--accent-color);
+            color: #000;
+            font-size: 0.9rem;
+            padding: 0.5rem 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-title {
+            color: var(--primary-color);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-size: 1.25rem;
+            color: #6c757d;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        /* Profile Picture Section */
+        .profile-picture-section {
+            border: 2px dashed #e9ecef;
+            border-radius: 15px;
+            padding: 2rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+            .profile-picture-section:hover {
+                border-color: var(--primary-color);
+                background: #f0f8f5;
+            }
+
+        .profile-picture-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .profile-preview-image {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #fff;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+        }
+
+        /* Form Styles */
+        .form-input {
+            border: 2px solid #e9ecef;
+            border-radius: 12px;
+            padding: 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+            .form-input:focus {
+                border-color: var(--primary-color);
+                box-shadow: 0 0 0 0.2rem rgba(11, 61, 46, 0.25);
+                outline: none;
+            }
 
         .form-label {
-            font-weight: 600;
-            color: #374151;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
         }
 
-        .form-control, .form-select {
-            border-radius: 12px;
+        /* Case Button (matching Heroes page) */
+        .case-button {
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50px;
+            padding: 0.8rem 2rem;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: transparent;
+        }
+
+            .case-button:hover {
+                background-color: var(--primary-color);
+                color: white;
+                transform: translateY(-2px);
+                box-shadow: 0 8px 20px rgba(11, 61, 46, 0.25);
+            }
+
+        /* Form Actions */
+        .form-actions .btn {
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+            .form-actions .btn:hover {
+                transform: translateY(-2px);
+            }
+
+        /* Animations */
+        @@keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @@keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @@media (max-width: 1200px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @@media (max-width: 992px) {
+            .hero-section {
+                padding: 6rem 0 4rem;
+            }
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+            .edit-profile-section {
+                padding: 4rem 0;
+            }
+            .section-heading {
+                margin-bottom: 3rem;
+            }
         }
 
         @@media (max-width: 768px) {
-            .edit-card
-
-        {
-            margin: -40px 12px 24px;
+            .hero-title {
+                font-size: 2.2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .edit-profile-section {
+                padding: 3rem 0;
+            }
+            .card-body {
+                padding: 2rem !important;
+            }
+            .profile-picture-section {
+                padding: 1.5rem;
+            }
+            .profile-preview-image {
+                width: 100px;
+                height: 100px;
+            }
+            .form-actions {
+                flex-direction: column;
+                align-items: center;
+            }
+            .form-actions .btn {
+                width: 200px;
+                margin-bottom: 0.75rem;
+            }
         }
 
+        @@media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .card-body {
+                padding: 1.5rem !important;
+            }
+        }
+
+        /* Ensure content spacing */
+        .edit-profile-section {
+            padding-top: 6rem;
         }
     </style>
 }
 
-<section class="hero">
-    <div class="container">
-        <h1 class="h3 fw-bold mb-1">Edit Profile</h1>
-        <p class="mb-0" style="opacity:.9">Update your information</p>
-    </div>
-</section>
-
-<div class="edit-card">
-    <div class="p-3 p-md-4">
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
-            @Html.AntiForgeryToken()
-            @Html.HiddenFor(m => m.ProfileDetailsId)
-            @Html.HiddenFor(m => m.UserId)
-            @Html.HiddenFor(m => m.ProfilePictureUrl)
-
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <label asp-for="FirstName" class="form-label">First Name</label>
-                    <input asp-for="FirstName" class="form-control" />
-                    <span asp-validation-for="FirstName" class="text-danger small"></span>
-                </div>
-                <div class="col-md-6">
-                    <label asp-for="LastName" class="form-label">Last Name</label>
-                    <input asp-for="LastName" class="form-control" />
-                    <span asp-validation-for="LastName" class="text-danger small"></span>
-                </div>
-                <div class="col-md-6">
-                    <label asp-for="Email" class="form-label">Email</label>
-                    <input asp-for="Email" class="form-control" />
-                    <span asp-validation-for="Email" class="text-danger small"></span>
-                </div>
-                <div class="col-md-6">
-                    <label asp-for="DateOfBirth" class="form-label">Date of Birth</label>
-                    <input asp-for="DateOfBirth" type="date" class="form-control" />
-                    <span asp-validation-for="DateOfBirth" class="text-danger small"></span>
-                </div>
-                <div class="col-md-6">
-                    <label asp-for="PhoneNumber" class="form-label">Phone</label>
-                    <input asp-for="PhoneNumber" class="form-control" />
-                    <span asp-validation-for="PhoneNumber" class="text-danger small"></span>
-                </div>
-                <div class="col-md-6">
-                    <label asp-for="City" class="form-label">City</label>
-                    <input asp-for="City" class="form-control" />
-                    <span asp-validation-for="City" class="text-danger small"></span>
-                </div>
-                <div class="col-12">
-                    <label asp-for="Address" class="form-label">Address</label>
-                    <textarea asp-for="Address" class="form-control" rows="2"></textarea>
-                    <span asp-validation-for="Address" class="text-danger small"></span>
-                </div>
-                <div class="col-12">
-                    <label class="form-label d-block">Profile Picture</label>
-                    <div class="d-flex align-items-center gap-3">
-                        <img src="@(string.IsNullOrWhiteSpace(Model?.ProfilePictureUrl) ? Url.Content("~/images/avatar.png") : Model.ProfilePictureUrl)"
-                             style="width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #eee;" />
-                        <!-- FIXED: Use name="ProfilePictureFile" instead of asp-for="ProfilePictureUrl" -->
-                        <input name="ProfilePictureFile" type="file" class="form-control" accept="image/*" />
-                    </div>
-                    <small class="text-muted">PNG/JPG allowed</small>
-                </div>
-            </div>
-
-            <div class="d-flex gap-2 mt-4">
-                <button type="submit" class="btn btn-primary px-4">Save</button>
-                <a asp-action="Index" class="btn btn-outline-secondary px-4">Cancel</a>
-            </div>
-        </form>
-    </div>
-</div>
-
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add animation to edit card when it comes into view
+            const editCard = document.querySelector('.edit-card');
+
+            const cardObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.animation = 'fadeInUp 0.5s ease forwards';
+                        cardObserver.unobserve(entry.target);
+                    }
+                });
+            }, {
+                threshold: 0.1
+            });
+
+            if (editCard) {
+                cardObserver.observe(editCard);
+            }
+
+            // Preview uploaded image
+            const fileInput = document.querySelector('input[name="ProfilePictureFile"]');
+            const previewImage = document.querySelector('.profile-preview-image');
+
+            if (fileInput && previewImage) {
+                fileInput.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            previewImage.src = e.target.result;
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            }
+        });
+    </script>
 }
