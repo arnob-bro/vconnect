@@ -1,37 +1,234 @@
-﻿<section class="joinus-wrap py-5 text-center">
-    <div class="container-xxl">
-        <h1 class="fw-bold display-3 mb-3">Become <span class="text-vol">a volunteer</span> with VConnect</h1>
-        <p class="lead mb-4">
-            At VConnect, our volunteers come from all walks of life, bringing unique perspectives and skills to our mission.
-            We value diversity, passion, and commitment. If you’re ready to make an impact and contribute your talents to build a better nation,
-            we’d love to have you on board.
-        </p>
-        <a href="@Url.Action("Apply", "Account")" class="btn btn-success btn-lg rounded-pill px-4 py-2 fw-bold">Join Us</a>
-    </div>
-</section>
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VConnect - Join Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-bg: #1d1f2e;
+            --accent: #ffd700;
+            --text-dark: #111;
+            --text-light: #fff;
+            --text-gray: #6b7280;
+            --shadow: 0 8px 20px rgba(0,0,0,0.06);
+            --shadow-hover: 0 10px 28px rgba(0,0,0,0.12);
+            --radius: 18px;
+            --transition: all 0.3s ease;
+        }
 
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f8f9fa;
+        }
 
+        .joinus-wrap {
+            background: var(--primary-bg);
+            padding: 6rem 0;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            text-align: center;
+            color: var(--text-light);
+            position: relative;
+            overflow: hidden;
+        }
 
-<style>
-    .joinus-wrap {
-        padding-top: 6rem;
-        padding-bottom: 6rem;
-        min-height: 500px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        text-align: center;
-    }
+        .joinus-wrap::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 320'%3E%3Cpath fill='%23ffd700' fill-opacity='0.03' d='M0,128L48,117.3C96,107,192,85,288,112C384,139,480,213,576,218.7C672,224,768,160,864,138.7C960,117,1056,139,1152,149.3C1248,160,1344,160,1392,160L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            background-position: center;
+            opacity: 0.7;
+        }
+
+        .joinus-wrap .container-xxl {
+            position: relative;
+            z-index: 1;
+        }
 
         .joinus-wrap h1 {
-            font-size: clamp(4.5rem, 6vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+        }
+
+        .text-vol {
+            color: var(--accent);
+            position: relative;
+            display: inline-block;
+        }
+
+        .text-vol::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--accent);
+            transform: scaleX(0.8);
+            transition: transform 0.3s ease;
+        }
+
+        .joinus-wrap:hover .text-vol::after {
+            transform: scaleX(1);
+        }
+
+        .joinus-wrap .lead {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto 2.5rem;
+            color: rgba(255, 255, 255, 0.85);
+            line-height: 1.6;
         }
 
         .joinus-wrap .btn {
-            background-color: #6ed15a;
-            color: #000;
-            font-weight: bold;
+            background-color: var(--accent);
+            color: var(--text-dark);
+            font-weight: 700;
             border: none;
-            margin-top: 10px;
+            padding: 0.9rem 2.5rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: var(--transition);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.25);
+            position: relative;
+            overflow: hidden;
         }
-</style>
+
+        .joinus-wrap .btn:hover {
+            background-color: #e6c300;
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 215, 0, 0.35);
+        }
+
+        .joinus-wrap .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.7s ease;
+        }
+
+        .joinus-wrap .btn:hover::before {
+            left: 100%;
+        }
+
+        /* Keyframes for animations */
+        @@keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        .joinus-wrap h1 {
+            animation: fadeInUp 0.8s ease-out;
+        }
+
+        .joinus-wrap .lead {
+            animation: fadeInUp 0.8s ease-out 0.2s both;
+        }
+
+        .joinus-wrap .btn {
+            animation: fadeInUp 0.8s ease-out 0.4s both;
+        }
+
+        /* Media Queries */
+        @@media (max-width: 1199.98px) {
+            .joinus-wrap {
+                padding: 5rem 0;
+            }
+            
+            .joinus-wrap .lead {
+                font-size: 1.2rem;
+            }
+        }
+
+        @@media (max-width: 991.98px) {
+            .joinus-wrap {
+                padding: 4rem 0;
+            }
+            
+            .joinus-wrap h1 {
+                font-size: clamp(2.2rem, 5vw, 3.5rem);
+            }
+            
+            .joinus-wrap .lead {
+                font-size: 1.1rem;
+                padding: 0 1rem;
+            }
+        }
+
+        @@media (max-width: 767.98px) {
+            .joinus-wrap {
+                padding: 3.5rem 0;
+            }
+            
+            .joinus-wrap h1 {
+                font-size: clamp(2rem, 5vw, 3rem);
+            }
+            
+            .joinus-wrap .lead {
+                font-size: 1rem;
+                margin-bottom: 2rem;
+            }
+            
+            .joinus-wrap .btn {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+        }
+
+        @@media (max-width: 575.98px) {
+            .joinus-wrap {
+                padding: 3rem 0;
+            }
+            
+            .joinus-wrap h1 {
+                font-size: clamp(1.8rem, 5vw, 2.5rem);
+            }
+            
+            .joinus-wrap .lead {
+                font-size: 0.95rem;
+            }
+            
+            .joinus-wrap .btn {
+                padding: 0.7rem 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="joinus-wrap py-5 text-center">
+        <div class="container-xxl">
+            <h1 class="fw-bold mb-3">Become <span class="text-vol">a volunteer</span> with VConnect</h1>
+            <p class="lead mb-4">
+                At VConnect, our volunteers come from all walks of life, bringing unique perspectives and skills to our mission.
+                We value diversity, passion, and commitment. If you're ready to make an impact and contribute your talents to build a better nation,
+                we'd love to have you on board.
+            </p>
+            <a href="#" class="btn btn-warning rounded-pill fw-bold">Join Us</a>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -79,8 +79,11 @@
     <!-- Footer -->
     @Html.Partial("_Footer") 
 
-    <!-- SOS Button -->
-    <partial name="_SOSButton" />
+     <!-- SOS Button - Only show when user is logged in -->
+    @if (User?.Identity?.IsAuthenticated == true)
+    {
+        <partial name="~/Views/Shared/_SosModal.cshtml" />
+    }
 
     <!-- jQuery -->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
