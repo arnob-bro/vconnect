@@ -1,0 +1,273 @@
+﻿@model VConnect.Models.SOS.SosPost
+@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Post Details";
+}
+
+<style>
+    .header-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        margin-bottom: 18px;
+    }
+
+    .btn {
+        padding: 6px 12px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        font-size: 0.95rem;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    .btn-back {
+        background: #22577a;
+        color: #fff;
+    }
+
+    .btn-danger {
+        background: #dc3545;
+        color: #fff;
+    }
+
+    .btn-outline-danger {
+        background: #fff;
+        color: #dc3545;
+        border: 1px solid #dc3545;
+    }
+
+    /* Summary panel (match your palette) */
+    .post-summary {
+        background: linear-gradient(135deg, #0e0e53, #22577a);
+        color: #fff;
+        border-radius: 14px;
+        padding: 18px;
+        box-shadow: 0 6px 18px rgba(0,0,0,0.2);
+        margin-bottom: 22px;
+    }
+
+        .post-summary h3 {
+            margin: 0 0 10px 0;
+            color: #ff8800;
+        }
+
+    .summary-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 10px 18px;
+    }
+
+    .summary-item small {
+        opacity: 0.9;
+        display: block;
+    }
+
+    .badge {
+        display: inline-block;
+        padding: 4px 10px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 0.85rem;
+    }
+
+    .badge-status {
+        background: #0e0e53;
+        color: #ffd28a;
+        border: 1px solid rgba(255,255,255,0.2);
+    }
+
+    .badge-accepting {
+        background: #1b6f3a;
+        color: #fff;
+    }
+
+    .badge-paused {
+        background: #6c757d;
+        color: #fff;
+    }
+
+    /* Comments block */
+    .dashboard-section h3 {
+        color: #ff8800;
+        margin-bottom: 12px;
+    }
+
+    .comment {
+        background: #fff;
+        border: 1px solid #f0f0f0;
+        border-radius: 10px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .comment-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+    }
+
+    .comment-author {
+        font-weight: 600;
+    }
+
+    .comment-time {
+        color: #777;
+        font-size: 0.9rem;
+    }
+
+    .comment-body {
+        margin-top: 6px;
+        white-space: pre-wrap;
+    }
+
+    .comment-actions {
+        margin-top: 8px;
+    }
+
+    .reply {
+        margin-left: 28px;
+        border-left: 3px solid #e9ecef;
+        padding-left: 12px;
+        margin-top: 8px;
+    }
+</style>
+
+<div class="header-bar">
+    <a asp-area="Admin" asp-controller="Posts" asp-action="Index" class="btn btn-back">
+        ← Back to Posts
+    </a>
+
+    <form asp-area="Admin" asp-controller="Posts" asp-action="DeletePost" asp-route-id="@Model.Id" method="post" onsubmit="return confirm('Delete this post and its comments?');">
+        @Html.AntiForgeryToken()
+        <button type="submit" class="btn btn-danger">Delete Post</button>
+    </form>
+</div>
+
+<div class="post-summary">
+    <h3>Post #@Model.Id</h3>
+    <div class="summary-grid">
+        <div class="summary-item">
+            <small>Created</small>
+            <div>@Model.CreatedAt.ToLocalTime().ToString("g")</div>
+        </div>
+        <div class="summary-item">
+            <small>User</small>
+            <div>@(string.IsNullOrWhiteSpace(Model.Name) ? "Guest" : Model.Name)</div>
+        </div>
+        <div class="summary-item">
+            <small>Emergency Type</small>
+            <div>@Model.EmergencyType</div>
+        </div>
+        <div class="summary-item">
+            <small>Location</small>
+            <div>@Model.Location</div>
+        </div>
+        <div class="summary-item">
+            <small>Status</small>
+            <div><span class="badge badge-status">@Model.Status</span></div>
+        </div>
+        <div class="summary-item">
+            <small>Accepting Help</small>
+            <div>
+                @if (Model.IsAcceptingHelp)
+                {
+                    <span class="badge badge-accepting">Yes</span>
+                }
+                else
+                {
+
+                    <span class="badge badge-paused">No</span>
+                }
+            </div>
+        </div>
+        @if (!string.IsNullOrWhiteSpace(Model.Contact))
+        {
+            <div class="summary-item">
+                <small>Contact</small>
+                <div>@Model.Contact</div>
+            </div>
+        }
+        @if (!string.IsNullOrWhiteSpace(Model.Description))
+        {
+            <div class="summary-item" style="grid-column:1/-1;">
+                <small>Description</small>
+                <div>@Model.Description</div>
+            </div>
+        }
+    </div>
+</div>
+
+<div class="dashboard-section">
+    <h3>Comments & Replies (@(Model.Comments?.Count(c => !c.IsDeleted) ?? 0))</h3>
+
+    @if (Model.Comments != null && Model.Comments.Any(c => !c.IsDeleted))
+    {
+        var topLevel = Model.Comments
+        .Where(c => !c.IsDeleted && c.ParentCommentId == null)
+        .OrderBy(c => c.CreatedAt)
+        .ToList();
+
+        if (!topLevel.Any())
+        {
+            <div class="comment">No comments yet.</div>
+        }
+        else
+        {
+            foreach (var c in topLevel)
+            {
+                <div class="comment">
+                    <div class="comment-head">
+                        <div class="comment-author">@(!string.IsNullOrWhiteSpace(c.AuthorName) ? c.AuthorName : "Guest")</div>
+                        <div class="comment-time">@c.CreatedAt.ToLocalTime().ToString("g")</div>
+                    </div>
+                    <div class="comment-body">@c.Message</div>
+                    <div class="comment-actions">
+                        <form asp-area="Admin" asp-controller="Posts" asp-action="DeleteComment"
+                              method="post" style="display:inline"
+                              onsubmit="return confirm('Delete this comment (and its replies)?');">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" name="commentId" value="@c.Id" />
+                            <input type="hidden" name="postId" value="@Model.Id" />
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        </form>
+                    </div>
+
+                    @* one-level replies (service loads one level) *@
+                    @if (c.Replies != null && c.Replies.Any(r => !r.IsDeleted))
+                    {
+                        var replies = c.Replies.Where(r => !r.IsDeleted).OrderBy(r => r.CreatedAt);
+                        foreach (var r in replies)
+                        {
+                            <div class="reply">
+                                <div class="comment-head">
+                                    <div class="comment-author">@(!string.IsNullOrWhiteSpace(r.AuthorName) ? r.AuthorName : "Guest")</div>
+                                    <div class="comment-time">@r.CreatedAt.ToLocalTime().ToString("g")</div>
+                                </div>
+                                <div class="comment-body">@r.Message</div>
+                                <div class="comment-actions">
+                                    <form asp-area="Admin" asp-controller="Posts" asp-action="DeleteComment"
+                                          method="post" style="display:inline"
+                                          onsubmit="return confirm('Delete this reply?');">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="commentId" value="@r.Id" />
+                                        <input type="hidden" name="postId" value="@Model.Id" />
+                                        <button type="submit" class="btn btn-outline-danger">Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            }
+        }
+    }
+    else
+    {
+        <div class="comment">No comments yet.</div>
+    }
+</div>
